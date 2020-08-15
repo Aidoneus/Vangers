@@ -810,7 +810,7 @@ void uniVangPrepare(void){
 		if (uvsRandomWorld)
 			CurrentWorld = RND(3);
 	} else
-		CurrentWorld = 0;
+		CurrentWorld = 10;
 
 	WorldTable[ CurrentWorld ] -> GamerVisit++;
 

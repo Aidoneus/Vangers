@@ -4,8 +4,8 @@
 #define EXIT_Y1 		380
 
 //426
-#define EXIT_X2 		426
-#define EXIT_Y2 		380
+#define EXIT_X2 		280
+#define EXIT_Y2 		350
 
 // Graphics options...
 #define KEEP_STR_X1		90

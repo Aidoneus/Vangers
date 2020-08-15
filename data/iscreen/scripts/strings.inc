@@ -17,7 +17,7 @@
 #define iSTR_MULTIPLAYER2		"‘…’…‚€Ÿ ˆƒ€"
 
 #define iSTR_NEW_GAME1			"NEW GAME"
-#define iSTR_NEW_GAME2			"‚€Ÿ ˆƒ€"
+#define iSTR_NEW_GAME2			"€†Œˆ Œ…Ÿ"
 
 #define iSTR_OPTIONS1			"OPTIONS"
 #define iSTR_OPTIONS2			"€‘’‰Šˆ"
