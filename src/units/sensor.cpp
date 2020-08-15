@@ -1909,7 +1909,7 @@ void DangerDataType::Quant(void)
 						activity = pow(round(activityStart * 36),2);
 						FireWork(activity,PI/8);
 					} else {
-						FireWork(1000,PI/8);
+						FireWork(1000,PI*2);
 					}
 					break;
 			};
