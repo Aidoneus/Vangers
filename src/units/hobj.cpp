@@ -674,10 +674,10 @@ void GeneralSystemOpen(void)
 					if (NetworkON && (ai() != PLAYER))
 						AddTarget2Compas(CMP_TARGET_SENSOR,(void*)("MovableSensor"),rCmpBotCheck);
 					break;
-			    case WORLD_SATADI:
-                    AddTarget2Compas(CMP_TARGET_ESCAVE,(void*)("Rostrum"),rCmpRostrum);
-                    AddTarget2Compas(CMP_TARGET_SENSOR,(void*)("FireUpdate1"),rCmpGhOrb);
-                    break;
+//			    case WORLD_SATADI:
+//                    AddTarget2Compas(CMP_TARGET_ESCAVE,(void*)("Rostrum"),rCmpRostrum);
+//                    AddTarget2Compas(CMP_TARGET_SENSOR,(void*)("FireUpdate1"),rCmpGhOrb);
+//                    break;
 			};
 		}else{
 			switch(CurrentWorld){
@@ -760,10 +760,10 @@ void GeneralSystemOpen(void)
 					if (NetworkON && (ai() != PLAYER))
 						AddTarget2Compas(CMP_TARGET_SENSOR,(void*)("MovableSensor"),eCmpBotCheck);
 					break;
-			    case WORLD_SATADI:
-                    AddTarget2Compas(CMP_TARGET_ESCAVE,(void*)("Rostrum"),eCmpRostrum);
-                    AddTarget2Compas(CMP_TARGET_SENSOR,(void*)("FireUpdate1"),eCmpGhOrb);
-                    break;
+//			    case WORLD_SATADI:
+//                    AddTarget2Compas(CMP_TARGET_ESCAVE,(void*)("Rostrum"),eCmpRostrum);
+//                    AddTarget2Compas(CMP_TARGET_SENSOR,(void*)("FireUpdate1"),eCmpGhOrb);
+//                    break;
 			};
 /*			switch(CurrentWorld){
 				case WORLD_FOSTRAL:
