@@ -3409,24 +3409,47 @@ const int INSECT_RADIUS2 = INSECT_RADIUS * 2;
 
 void InsectUnit::CreateInsect(void)
 {
-	MaxSpeed = 5;
-	MaxHideSpeed = 3;
-	Target = R_curr + Vector(INSECT_RADIUS - RND(INSECT_RADIUS2),INSECT_RADIUS - RND(INSECT_RADIUS2),0);
 	if(!RND(InsectD.NumInsect[2]*INSECT_PRICE_DATA[2])) BeebType = 2;
 	else{
 		if(!RND(InsectD.NumInsect[1]*INSECT_PRICE_DATA[1])) BeebType = 1;
 		else BeebType = 0;
 	};
+	if (CurrentWorld == WORLD_SATADI) {
+		BeebType = 3;
+		Health = 100;
+	}
+
+	if (BeebType == 3) {
+		if (ActD.Active) {
+			Target = ActD.Active->R_curr;
+		} else {
+			Target = R_curr + Vector(INSECT_RADIUS - RND(INSECT_RADIUS2),INSECT_RADIUS - RND(INSECT_RADIUS2),0);
+		}
+	} else {
+		Target = R_curr + Vector(INSECT_RADIUS - RND(INSECT_RADIUS2),INSECT_RADIUS - RND(INSECT_RADIUS2),0);
+	}
+
 	InsectD.NumInsect[BeebType]++;
 	switch(BeebType){
 		case 0:
 			set_body_color(COLORS_IDS::MATERIAL_1);
+			MaxSpeed = 5;
+			MaxHideSpeed = 3;
 			break;			
 		case 1:
 			set_body_color(COLORS_IDS::MATERIAL_2);
+			MaxSpeed = 5;
+			MaxHideSpeed = 3;
 			break;			
 		case 2:
 			set_body_color(COLORS_IDS::MATERIAL_4);
+			MaxSpeed = 5;
+			MaxHideSpeed = 3;
+			break;
+		case 3:
+			set_body_color(COLORS_IDS::MATERIAL_4);
+			MaxSpeed = 50;
+			MaxHideSpeed = 30;
 			break;
 	};
 };
@@ -3491,6 +3514,7 @@ void InsectUnit::InitEnvironment(void)
 	NumCalcUnit = 0;
 
 //	if(Visibility != VISIBLE) return;
+	if (BeebType == 3) return;
 
 	if(vInsectTarget.y == -1){
 		p = (ActionUnit*)(ActD.Tail);
@@ -3543,29 +3567,41 @@ void InsectUnit::Touch(GeneralObject* p)
 {
 	switch(p->ID){
 		case ID_VANGER:
-			if(p->Status & SOBJ_ACTIVE){
-				SOUND_BEEB_DEATH(getDistX(ActD.Active->R_curr.x,R_curr.x));
+			if (BeebType == 3 && Health > 0) {
+				if (ActD.Active) {
+					ActD.Active->BulletCollision((ActD.Active->MaxArmor + ActD.Active->MaxSpeed) / 40,NULL);
+					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Damaging player"<<Health<<std::endl;
+				}
+			} else {
+				if(p->Status & SOBJ_ACTIVE){
+					SOUND_BEEB_DEATH(getDistX(ActD.Active->R_curr.x,R_curr.x));
 //				ActD.HotBug += INSECT_PRICE_DATA[BeebType];
-				aiPutHotBug(aiGetHotBug() + INSECT_PRICE_DATA[BeebType]);
-				if(BeebType == 2) uvsCheckKronIventTabuTask(UVS_KRON_EVENT::GOLD_BEEB,1);
-				else uvsCheckKronIventTabuTask(UVS_KRON_EVENT::BEEB,1);
-				if(NetworkON){
-					my_player_body.beebos = aiGetHotBug();
-					send_player_body(my_player_body);
+					aiPutHotBug(aiGetHotBug() + INSECT_PRICE_DATA[BeebType]);
+					if(BeebType == 2) uvsCheckKronIventTabuTask(UVS_KRON_EVENT::GOLD_BEEB,1);
+					else uvsCheckKronIventTabuTask(UVS_KRON_EVENT::BEEB,1);
+					if(NetworkON){
+						my_player_body.beebos = aiGetHotBug();
+						send_player_body(my_player_body);
+					};
 				};
-			};
-			MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
-			R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
-			R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
-			cycleTor(R_curr.x,R_curr.y);
-			set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
+				MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
+				R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
+				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
+				cycleTor(R_curr.x,R_curr.y);
+				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
+			}
 		case ID_BULLET:
 		case ID_JUMPBALL:
-			MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
-			R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
-			R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
-			cycleTor(R_curr.x,R_curr.y);
-			set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
+			if (BeebType == 3 && Health > 0) {
+				Health = Health - 1;
+				std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Health"<<Health<<std::endl;
+			} else {
+				MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
+				R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
+				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
+				cycleTor(R_curr.x,R_curr.y);
+				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
+			}
 			break;
 	};
 };
@@ -9692,20 +9728,35 @@ void uvsDolly::ActiveQuant(void)
 
 void InsectList::Init(void)
 {
-	int i;
+	int i, realMaxInsectUnit;
 	for(i = 0;i < MAX_INSECT_TYPE;i++)
 		NumInsect[i] = 0;
 
+	if (CurrentWorld == WORLD_SATADI) {
+		realMaxInsectUnit = 1;
+	} else {
+		realMaxInsectUnit = MAX_INSECT_UNIT;
+	}
+
 	if(CurrentWorld != WORLD_KHOX && CurrentWorld != WORLD_HMOK && CurrentWorld != WORLD_WEEXOW &&  !uvsCurrentWorldUnable){
 		Data = new InsectUnit[MAX_INSECT_UNIT];
-		for(i = 0;i < MAX_INSECT_UNIT;i++) {
+		for(i = 0;i < realMaxInsectUnit;i++) {
 			Data[i].Init();
-			Data[i].CreateActionUnit(
-				ModelD.FindModel("Bug"),
-				SOBJ_AUTOMAT, Vector(RND(clip_mask_x), RND(clip_mask_y), -1),
-				0,
-				SET_3D_CHOOSE_LEVEL
-			);
+			if (CurrentWorld == WORLD_SATADI) {
+				Data[i].CreateActionUnit(
+						ModelD.FindModel("KingBug"),
+						SOBJ_AUTOMAT, Vector(RND(clip_mask_x), RND(clip_mask_y), -1),
+						0,
+						SET_3D_CHOOSE_LEVEL
+				);
+			} else {
+				Data[i].CreateActionUnit(
+						ModelD.FindModel("Bug"),
+						SOBJ_AUTOMAT, Vector(RND(clip_mask_x), RND(clip_mask_y), -1),
+						0,
+						SET_3D_CHOOSE_LEVEL
+				);
+			}
 			Data[i].CreateInsect();
 			ConnectTypeList(&Data[i]);
 		}

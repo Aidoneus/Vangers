@@ -887,6 +887,7 @@ struct InsectUnit : ActionUnit
 {
 	Vector Target;
 	int BeebType;
+	int Health;
 
 	void Init(void);
 
@@ -1101,8 +1102,8 @@ struct ActionDispatcher : UnitList
 
 //zNfo beeb price
 
-const int MAX_INSECT_TYPE = 3;
-const int INSECT_PRICE_DATA[MAX_INSECT_TYPE] = {1,10,100};
+const int MAX_INSECT_TYPE = 4;
+const int INSECT_PRICE_DATA[MAX_INSECT_TYPE] = {1,10,100,0};
 
 struct InsectList : UnitBaseListType
 {
