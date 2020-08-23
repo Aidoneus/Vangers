@@ -2814,7 +2814,7 @@ void Object::import_controls()
 /*******************************************************************************
 			Main dynamic analysis
 *******************************************************************************/
-void Object::analysis()
+void Object::analysis(int beebType)
 {
 	//dt0 = XTCORE_FRAME_DELTA/0.1286;
 	if(analysis_off){
@@ -2856,7 +2856,7 @@ void Object::analysis()
 
 	if(old_appearance_storage){
 		helicopter = 0;
-		insect_analysis();
+		insect_analysis(beebType);
 		update_coord();
 		return;
 		}
@@ -2873,7 +2873,7 @@ void Object::analysis()
 			debris_analysis(dt_debris);
 			break;
 		case ID_INSECT:
-			insect_analysis();
+			insect_analysis(beebType);
 			break;
 		case ID_SKYFARMER:
 			skyfarmer_analysis(1);
@@ -3951,9 +3951,12 @@ void Object::fish_analysis(double dt)
 	W *= W_drag;
 	speed = round(V.vabs());
 }
-void Object::insect_analysis()
+void Object::insect_analysis(int beebType)
 {
-	double f_traction = k_traction_insect*double(traction)/256.;
+	int tractionModifier = 1;
+	if (beebType == 3)
+		tractionModifier = 2;
+	double f_traction = tractionModifier * k_traction_insect*double(traction)/256.;
 
 	dynamic_state = 0;
 	in_water = 0;

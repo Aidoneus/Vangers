@@ -658,7 +658,7 @@ void ActionUnit::Quant(void)
 
 	if(Visibility == VISIBLE){
 		if(PrevVisibility == UNVISIBLE) Hide2Show();
-		analysis();
+		analysis(0);
 
 		RotMat = A_l2g*DBM(PI/2,Z_AXIS);
 		Angle = rPI((int)RTOG(atan2(RotMat.a[1],RotMat.a[0])));
@@ -3409,17 +3409,16 @@ const int INSECT_RADIUS2 = INSECT_RADIUS * 2;
 
 void InsectUnit::CreateInsect(void)
 {
-	if(!RND(InsectD.NumInsect[2]*INSECT_PRICE_DATA[2])) BeebType = 2;
-	else{
-		if(!RND(InsectD.NumInsect[1]*INSECT_PRICE_DATA[1])) BeebType = 1;
-		else BeebType = 0;
-	};
-	if (CurrentWorld == WORLD_SATADI) {
-		BeebType = 3;
-		Health = 100;
+	if (BeebType != 3) {
+		if(!RND(InsectD.NumInsect[2]*INSECT_PRICE_DATA[2])) BeebType = 2;
+		else{
+			if(!RND(InsectD.NumInsect[1]*INSECT_PRICE_DATA[1])) BeebType = 1;
+			else BeebType = 0;
+		};
 	}
 
 	if (BeebType == 3) {
+		Health = 100;
 		if (ActD.Active) {
 			Target = ActD.Active->R_curr;
 		} else {
@@ -3430,21 +3429,18 @@ void InsectUnit::CreateInsect(void)
 	}
 
 	InsectD.NumInsect[BeebType]++;
+	MaxSpeed = 5;
+	MaxHideSpeed = 3;
+
 	switch(BeebType){
 		case 0:
 			set_body_color(COLORS_IDS::MATERIAL_1);
-			MaxSpeed = 5;
-			MaxHideSpeed = 3;
-			break;			
+			break;
 		case 1:
 			set_body_color(COLORS_IDS::MATERIAL_2);
-			MaxSpeed = 5;
-			MaxHideSpeed = 3;
-			break;			
+			break;
 		case 2:
 			set_body_color(COLORS_IDS::MATERIAL_4);
-			MaxSpeed = 5;
-			MaxHideSpeed = 3;
 			break;
 		case 3:
 			set_body_color(COLORS_IDS::MATERIAL_4);
@@ -3462,7 +3458,30 @@ void InsectUnit::Init(void)
 
 void InsectUnit::Quant(void)
 {
-	ActionUnit::Quant();
+//	ActionUnit::Quant();
+
+	MoveAngle = 0;
+	DeltaSpeed = 0;
+
+	if(Visibility == VISIBLE){
+		if(PrevVisibility == UNVISIBLE) Hide2Show();
+		analysis(BeebType);
+
+		RotMat = A_l2g*DBM(PI/2,Z_AXIS);
+		Angle = rPI((int)RTOG(atan2(RotMat.a[1],RotMat.a[0])));
+		MovMat = DBM(Angle,Z_AXIS);
+		Speed = (int)V.y;
+
+		cycleTor(R_curr.x,R_curr.y);
+		MapLevel = GetMapLevel(R_curr);
+	}else{
+		MovMat = RotMat = DBM(Angle,Z_AXIS);
+		Speed = CurrSpeed;
+		MapLevel = 0;
+	};
+	vUp = Vector(ymax_real,0,0)*MovMat;
+	vDown = -vUp;
+
 	int dx,dy;
 	int d;
 
@@ -3589,6 +3608,10 @@ void InsectUnit::Touch(GeneralObject* p)
 				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
 				cycleTor(R_curr.x,R_curr.y);
 				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
+				if (BeebType == 3) {
+					Health = 100;
+					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Died, Health reset to 100"<<std::endl;
+				}
 			}
 		case ID_BULLET:
 		case ID_JUMPBALL:
@@ -3601,6 +3624,10 @@ void InsectUnit::Touch(GeneralObject* p)
 				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
 				cycleTor(R_curr.x,R_curr.y);
 				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
+				if (BeebType == 3) {
+					Health = 100;
+					std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Died, Health reset to 100"<<std::endl;
+				}
 			}
 			break;
 	};
@@ -9728,27 +9755,22 @@ void uvsDolly::ActiveQuant(void)
 
 void InsectList::Init(void)
 {
-	int i, realMaxInsectUnit;
+	int i;
 	for(i = 0;i < MAX_INSECT_TYPE;i++)
 		NumInsect[i] = 0;
 
-	if (CurrentWorld == WORLD_SATADI) {
-		realMaxInsectUnit = 1;
-	} else {
-		realMaxInsectUnit = MAX_INSECT_UNIT;
-	}
-
 	if(CurrentWorld != WORLD_KHOX && CurrentWorld != WORLD_HMOK && CurrentWorld != WORLD_WEEXOW &&  !uvsCurrentWorldUnable){
 		Data = new InsectUnit[MAX_INSECT_UNIT];
-		for(i = 0;i < realMaxInsectUnit;i++) {
+		for(i = 0;i < MAX_INSECT_UNIT;i++) {
 			Data[i].Init();
-			if (CurrentWorld == WORLD_SATADI) {
+			if (CurrentWorld == WORLD_SATADI && i == 0) {
 				Data[i].CreateActionUnit(
 						ModelD.FindModel("KingBug"),
 						SOBJ_AUTOMAT, Vector(RND(clip_mask_x), RND(clip_mask_y), -1),
 						0,
-						SET_3D_CHOOSE_LEVEL
+						SET_3D_TO_THE_LOWER_LEVEL
 				);
+				Data[i].BeebType = 3;
 			} else {
 				Data[i].CreateActionUnit(
 						ModelD.FindModel("Bug"),

@@ -388,13 +388,13 @@ struct Object : BaseObject {
 	void direct_keyboard_control();
 	void direct_joystick_control();
 	void import_controls();
-	void analysis();
+	void analysis(int beebType);
 	void switch_analysis(int off);
 	void mechous_analysis(double dt);
 	void basic_mechous_analysis(double dt,int last);
 	void debris_analysis(double dt);
 	void basic_debris_analysis(double dt);
-	void insect_analysis();
+	void insect_analysis(int beebType);
 	void skyfarmer_analysis(double dt);
 	void fish_analysis(double dt);
 	void update_coord(int camera_correction = 0);

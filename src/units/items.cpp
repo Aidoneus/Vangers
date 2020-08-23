@@ -503,7 +503,7 @@ void DebrisObject::Quant(void)
 	Time++;
 	if(Visibility == VISIBLE){
 		R_prev = R_curr;
-		analysis();
+		analysis(0);
 		cycleTor(R_curr.x,R_curr.y);
 	}else{
 		if(Time > DEBRIS_LIFE_TIME)
@@ -630,7 +630,7 @@ void StuffObject::Quant(void)
 			};
 		};
 
-		analysis();
+		analysis(0);
 		cycleTor(R_curr.x,R_curr.y);
 	}else{
 		switch(ActIntBuffer.type){
@@ -1898,7 +1898,7 @@ void JumpBallObject::Quant(void)
 			g = g->Next;
 		};
 
-		analysis();
+		analysis(0);
 		cycleTor(R_curr.x,R_curr.y);
 		if(dynamic_state & GROUND_COLLISION){
 			y0 = R_curr.y - EXPLOSION_BARELL_RADIUS;
@@ -2156,7 +2156,7 @@ void SkyFarmerObject::Quant(void)
 		else scale_size = 2 * original_scale_size / 5 + 2*DropCount*original_scale_size / (5 * MAX_DROP_POINT) + DropCount * SeedCount*original_scale_size / (MAX_DROP_SEED * 5 * MAX_DROP_POINT);
 		if(DropCount == 0) skyfarmer_end();
 	};
-	analysis();
+	analysis(0);
 	if(R_curr.z < -radius) Status |= SOBJ_DISCONNECT;
 };
 
@@ -2389,7 +2389,7 @@ void ClefObject::Quant(void)
 		if(lv == UNVISIBLE) 
 			set_3D(SET_3D_TO_THE_LOWER_LEVEL,R_curr.x,R_curr.y,0,0,0,0);
 		R_prev = R_curr;
-		analysis();
+		analysis(0);
 		cycleTor(R_curr.x,R_curr.y);
 	};
 };
@@ -2513,7 +2513,7 @@ void FishWarrior::Quant(void)
 			g = g->Next;
 		};
 
-		analysis();
+		analysis(0);
 
 		RotMat = A_l2g*DBM(PI/2,Z_AXIS);
 		angle = rPI((int)RTOG(atan2(RotMat.a[1],RotMat.a[0])));
@@ -2626,7 +2626,7 @@ void HordeSource::Quant(void)
 {
 	if(Status & SOBJ_DISCONNECT) return;
 	GetVisible();
-	if(Visibility == VISIBLE) analysis();
+	if(Visibility == VISIBLE) analysis(0);
 	Time = rPI(Time + PI / 8);
 };
 
