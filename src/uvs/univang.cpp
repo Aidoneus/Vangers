@@ -829,7 +829,7 @@ void uniVangPrepare(void){
 
 	//zNfo  DEFAULT MECHOS 
 	// 16 = моток
-	int MechosID = 0;
+	int MechosID = 8;
 	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
 	if (NetworkON) {
 		switch (z_my_server_data.mod_id) {

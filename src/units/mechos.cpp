@@ -3409,7 +3409,7 @@ const int INSECT_RADIUS2 = INSECT_RADIUS * 2;
 
 void InsectUnit::CreateInsect(void)
 {
-	if (BeebType != 3) {
+	if (BeebType < 3) {
 		if(!RND(InsectD.NumInsect[2]*INSECT_PRICE_DATA[2])) BeebType = 2;
 		else{
 			if(!RND(InsectD.NumInsect[1]*INSECT_PRICE_DATA[1])) BeebType = 1;
@@ -3417,7 +3417,7 @@ void InsectUnit::CreateInsect(void)
 		};
 	}
 
-	if (BeebType == 3) {
+	if (BeebType > 2) {
 		Health = 100;
 		if (ActD.Active) {
 			Target = ActD.Active->R_curr;
@@ -3443,6 +3443,8 @@ void InsectUnit::CreateInsect(void)
 			set_body_color(COLORS_IDS::MATERIAL_4);
 			break;
 		case 3:
+		case 4:
+		case 5:
 			set_body_color(COLORS_IDS::MATERIAL_4);
 			MaxSpeed = 50;
 			MaxHideSpeed = 30;
@@ -3456,10 +3458,32 @@ void InsectUnit::Init(void)
 	ActionUnit::Init(NULL);
 };
 
+void InsectUnit::Evolution(void)
+{
+	if (Health <= 0) {
+		std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has died"<<std::endl;
+		if (BeebType == 4) {
+			BeebType = 5;
+			Object::operator = (ModelD.ActiveModel(ModelD.FindModel("KingBug")));
+			InsectD.NumInsect[4]--;
+			InsectD.NumInsect[5]++;
+			std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has been promoted to King"<<std::endl;
+		}
+
+		if (BeebType == 3) {
+			BeebType = 4;
+			Object::operator = (ModelD.ActiveModel(ModelD.FindModel("PrinceBug")));
+			InsectD.NumInsect[3]--;
+			InsectD.NumInsect[4]++;
+			std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has been promoted to Prince"<<std::endl;
+		}
+		Health = 100;
+		std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb's Health has been reset to 100"<<std::endl;
+	}
+};
+
 void InsectUnit::Quant(void)
 {
-//	ActionUnit::Quant();
-
 	MoveAngle = 0;
 	DeltaSpeed = 0;
 
@@ -3533,7 +3557,7 @@ void InsectUnit::InitEnvironment(void)
 	NumCalcUnit = 0;
 
 //	if(Visibility != VISIBLE) return;
-	if (BeebType == 3) return;
+	if (BeebType > 2) return;
 
 	if(vInsectTarget.y == -1){
 		p = (ActionUnit*)(ActD.Tail);
@@ -3589,7 +3613,7 @@ void InsectUnit::Touch(GeneralObject* p)
 			if (BeebType == 3 && Health > 0) {
 				if (ActD.Active) {
 					ActD.Active->BulletCollision((ActD.Active->MaxArmor + ActD.Active->MaxSpeed) / 40,NULL);
-					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Damaging player"<<Health<<std::endl;
+					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Damaging player"<<std::endl;
 				}
 			} else {
 				if(p->Status & SOBJ_ACTIVE){
@@ -3608,26 +3632,20 @@ void InsectUnit::Touch(GeneralObject* p)
 				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
 				cycleTor(R_curr.x,R_curr.y);
 				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
-				if (BeebType == 3) {
-					Health = 100;
-					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Died, Health reset to 100"<<std::endl;
-				}
+				if (BeebType > 2) Evolution();
 			}
 		case ID_BULLET:
 		case ID_JUMPBALL:
 			if (BeebType == 3 && Health > 0) {
 				Health = Health - 1;
-				std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Health"<<Health<<std::endl;
+				std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Health:"<<Health<<std::endl;
 			} else {
 				MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
 				R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
 				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
 				cycleTor(R_curr.x,R_curr.y);
 				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
-				if (BeebType == 3) {
-					Health = 100;
-					std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Died, Health reset to 100"<<std::endl;
-				}
+				if (BeebType > 2) Evolution();
 			}
 			break;
 	};
@@ -9765,7 +9783,7 @@ void InsectList::Init(void)
 			Data[i].Init();
 			if (CurrentWorld == WORLD_SATADI && i == 0) {
 				Data[i].CreateActionUnit(
-						ModelD.FindModel("KingBug"),
+						ModelD.FindModel("PageBug"),
 						SOBJ_AUTOMAT, Vector(RND(clip_mask_x), RND(clip_mask_y), -1),
 						0,
 						SET_3D_TO_THE_LOWER_LEVEL

@@ -898,6 +898,7 @@ struct InsectUnit : ActionUnit
 	void Touch(GeneralObject* p);
 	int test_objects_collision();
 	void HideAction(void);
+	void Evolution(void);
 };
 
 struct ModelDispatcher
@@ -1102,8 +1103,8 @@ struct ActionDispatcher : UnitList
 
 //zNfo beeb price
 
-const int MAX_INSECT_TYPE = 4;
-const int INSECT_PRICE_DATA[MAX_INSECT_TYPE] = {1,10,100,0};
+const int MAX_INSECT_TYPE = 6;
+const int INSECT_PRICE_DATA[MAX_INSECT_TYPE] = {1,10,100,0,0,0};
 
 struct InsectList : UnitBaseListType
 {

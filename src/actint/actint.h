@@ -37,7 +37,7 @@
 #endif
 #endif
 
-const int 	ACI_STARTUP_CREDITS	= 500;
+const int 	ACI_STARTUP_CREDITS	= 15000;
 
 const int 	AS_NUM_FONTS		= 8;
 const int 	AS_NUM_FONTS_32 	= 4;

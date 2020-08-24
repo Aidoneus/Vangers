@@ -3953,9 +3953,18 @@ void Object::fish_analysis(double dt)
 }
 void Object::insect_analysis(int beebType)
 {
-	int tractionModifier = 1;
-	if (beebType == 3)
-		tractionModifier = 2;
+	double tractionModifier = 1;
+	switch (beebType) {
+		case 3:
+			tractionModifier = 1;
+			break;
+		case 4:
+			tractionModifier = 1.5;
+			break;
+		case 5:
+			tractionModifier = 2;
+			break;
+	}
 	double f_traction = tractionModifier * k_traction_insect*double(traction)/256.;
 
 	dynamic_state = 0;
