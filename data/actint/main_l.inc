@@ -999,7 +999,7 @@ world_map {
 //		  link	  $K_ID
 
 		x	500
-		y	500
+		y	-500
 
 		name	"Glorx"
 	}
@@ -1013,7 +1013,7 @@ world_map {
 //		  link	  $W_ID
 
 		x	500
-		y	700
+		y	-700
 
 		name	"Fostral"
 	}
@@ -1026,7 +1026,7 @@ world_map {
 //		  link	  $T_ID
 
 		x	350
-		y	500
+		y	-500
 
 		name	"Xplo"
 	}
@@ -1040,7 +1040,7 @@ world_map {
 //		  link	  $B_ID
 
 		x	500
-		y	300
+		y	-300
 
 		name	"Necross"
 	}
@@ -1052,7 +1052,7 @@ world_map {
 		flag	$AS_VISIBLE_WORLD
 
 		x	650
-		y	300
+		y	-300
 
 		name	"Boozeena"
 	}
@@ -1064,7 +1064,7 @@ world_map {
 		flag	$AS_VISIBLE_WORLD
 
 		x	200
-		y	500
+		y	-500
 
 		name "Threall"
 	}
@@ -1076,7 +1076,7 @@ world_map {
 		flag	$AS_VISIBLE_WORLD
 
 		x	650
-		y	500
+		y	-500
 
 		name	"Khox"
 	}
@@ -1110,7 +1110,7 @@ world_map {
 		flag	$AS_VISIBLE_WORLD
 
 		x	650
-		y	700
+		y	-700
 
 		name	"Weexow"
 	}
@@ -1124,7 +1124,7 @@ world_map {
 //		  link	  $H_ID
 
 		x	800
-		y	500
+		y	-500
 
 		name	"hMok"
 	}
@@ -1135,7 +1135,7 @@ world_map {
 		flag	$AS_VISIBLE_WORLD
 
 		x	350
-		y	300
+		y	-300
 
 		name	"Ark-a-Znoy"
 	}
@@ -1146,7 +1146,7 @@ world_map {
 		flag	$AS_VISIBLE_WORLD
 
 		x	230
-		y	820
+		y	-820
 
 		name	"Satadi"
 	}

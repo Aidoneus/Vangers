@@ -642,13 +642,6 @@ mode_key	$VK_F1
 				space		1			\
 			}						\
 			fncMenuItem {					\
-				string		$STR_WMAP		\
-				function	$FMENU_WMAP		\
-									\
-				font		0			\
-				space		1			\
-			}						\
-			fncMenuItem {					\
 				string		$STR_TARGETS		\
 				function	$FMENU_TARGETS		\
 				submenu_id	$FMENU_TARGETS_MENU	\

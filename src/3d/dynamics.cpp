@@ -44,7 +44,7 @@ struct ParticleProcess;
 #define MSG_OUT
 #endif
 
-#define SPHERICAL_TEST (ID_INSECT | ID_JUMPBALL | ID_BULLET | ID_STATIC | ID_FIELD_SOURCE | ID_HORDE)
+#define SPHERICAL_TEST (ID_JUMPBALL | ID_BULLET | ID_STATIC | ID_FIELD_SOURCE | ID_HORDE)
 #define BOX_TEST (ID_VANGER | ID_DEBRIS | ID_HORDE_SOURCE  | ID_STUFF)
 
 #define PRM_VERSION	2
@@ -4427,13 +4427,13 @@ int Object::test_object_to_baseobject(BaseObject* bobj)
 	if(sqr(getDistX(bobj -> R_curr.x,R_curr.x)) + sqr(getDistY(bobj -> R_curr.y,R_curr.y)) + sqr(bobj -> R_curr.z - R_curr.z) < sqr(radius + bobj -> radius)){
 		Object* obj = (Object*)bobj;
 		if((ID | obj -> ID) & SPHERICAL_TEST){
-			if((ID == ID_INSECT || (ID == ID_VANGER && old_appearance_storage)) && obj -> ID == ID_VANGER){
+			if(((ID == ID_VANGER && old_appearance_storage)) && obj -> ID == ID_VANGER){
 				if(obj -> test_wheels_to_sphere(this)){
 					Touch(obj);
 					}
 				return 0;
 				}
-			if((obj -> ID == ID_INSECT || (obj -> ID == ID_VANGER && obj -> old_appearance_storage)) && ID == ID_VANGER){
+			if(((obj -> ID == ID_VANGER && obj -> old_appearance_storage)) && ID == ID_VANGER){
 				if(test_wheels_to_sphere(obj)){
 					obj -> Touch(this);
 					}

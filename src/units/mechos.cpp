@@ -3409,7 +3409,7 @@ const int INSECT_RADIUS2 = INSECT_RADIUS * 2;
 
 void InsectUnit::CreateInsect(void)
 {
-	if (BeebType < 3) {
+	if (BeebType != 3) {
 		if(!RND(InsectD.NumInsect[2]*INSECT_PRICE_DATA[2])) BeebType = 2;
 		else{
 			if(!RND(InsectD.NumInsect[1]*INSECT_PRICE_DATA[1])) BeebType = 1;
@@ -3462,9 +3462,20 @@ void InsectUnit::Evolution(void)
 {
 	if (Health <= 0) {
 		std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has died"<<std::endl;
+		if (BeebType == 5) {
+			BeebType = 2;
+			Object::operator = (ModelD.ActiveModel(ModelD.FindModel("Bug")));
+			set_body_color(COLORS_IDS::MATERIAL_4);
+			InsectD.NumInsect[5]--;
+			InsectD.NumInsect[2]++;
+			std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has replaced by normal golden beeb"<<std::endl;
+			return;
+		}
+
 		if (BeebType == 4) {
 			BeebType = 5;
 			Object::operator = (ModelD.ActiveModel(ModelD.FindModel("KingBug")));
+			set_body_color(COLORS_IDS::MATERIAL_4);
 			InsectD.NumInsect[4]--;
 			InsectD.NumInsect[5]++;
 			std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has been promoted to King"<<std::endl;
@@ -3473,6 +3484,7 @@ void InsectUnit::Evolution(void)
 		if (BeebType == 3) {
 			BeebType = 4;
 			Object::operator = (ModelD.ActiveModel(ModelD.FindModel("PrinceBug")));
+			set_body_color(COLORS_IDS::MATERIAL_4);
 			InsectD.NumInsect[3]--;
 			InsectD.NumInsect[4]++;
 			std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has been promoted to Prince"<<std::endl;
@@ -3610,10 +3622,11 @@ void InsectUnit::Touch(GeneralObject* p)
 {
 	switch(p->ID){
 		case ID_VANGER:
-			if (BeebType == 3 && Health > 0) {
+			if (BeebType > 2 && Health > 0) {
 				if (ActD.Active) {
+					Health = Health - 1;
 					ActD.Active->BulletCollision((ActD.Active->MaxArmor + ActD.Active->MaxSpeed) / 40,NULL);
-					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Damaging player"<<std::endl;
+					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Damaging player and himself a little, health:"<<Health<<std::endl;
 				}
 			} else {
 				if(p->Status & SOBJ_ACTIVE){
@@ -3634,10 +3647,11 @@ void InsectUnit::Touch(GeneralObject* p)
 				set_3D(SET_3D_CHOOSE_LEVEL,R_curr.x,R_curr.y,R_curr.z,0,-Angle,0);
 				if (BeebType > 2) Evolution();
 			}
+			break;
 		case ID_BULLET:
 		case ID_JUMPBALL:
-			if (BeebType == 3 && Health > 0) {
-				Health = Health - 1;
+			if (BeebType > 2 && Health > 0) {
+				Health = Health - 10;
 				std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Health:"<<Health<<std::endl;
 			} else {
 				MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
