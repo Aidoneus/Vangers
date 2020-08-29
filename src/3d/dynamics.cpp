@@ -227,6 +227,13 @@ double k_traction_insect;
 double V_drag_insect;
 double W_drag_insect;
 double K_insect;
+double elastic_beeb_factor;
+double elastic_page_factor;
+double elastic_prince_factor;
+double elastic_king_factor;
+double traction_modifier_page;
+double traction_modifier_prince;
+double traction_modifier_king;
 
 // Debris' params
 double dt_debris;
@@ -837,6 +844,13 @@ void Object::load_parameters(const char* name)
 	COMMON_ENTRY(V_drag_insect);
 	COMMON_ENTRY(W_drag_insect);
 	COMMON_ENTRY(K_insect);
+	COMMON_ENTRY(elastic_beeb_factor);
+	COMMON_ENTRY(elastic_page_factor);
+	COMMON_ENTRY(elastic_prince_factor);
+	COMMON_ENTRY(elastic_king_factor);
+	COMMON_ENTRY(traction_modifier_page);
+	COMMON_ENTRY(traction_modifier_prince);
+	COMMON_ENTRY(traction_modifier_king);
 
 	// Debris' params
 	COMMON_ENTRY(dt_debris);
@@ -3953,19 +3967,23 @@ void Object::fish_analysis(double dt)
 }
 void Object::insect_analysis(int beebType)
 {
-	double tractionModifier = 1;
+	double traction_modifier = 1;
+	double bug_factor = elastic_beeb_factor;
 	switch (beebType) {
 		case 3:
-			tractionModifier = 1;
+			traction_modifier = traction_modifier_page;
+			bug_factor = elastic_page_factor;
 			break;
 		case 4:
-			tractionModifier = 1.5;
+			traction_modifier = traction_modifier_prince;
+			bug_factor = elastic_prince_factor;
 			break;
 		case 5:
-			tractionModifier = 2;
+			traction_modifier = traction_modifier_king;
+			bug_factor = elastic_king_factor;
 			break;
 	}
-	double f_traction = tractionModifier * k_traction_insect*double(traction)/256.;
+	double f_traction = traction_modifier * k_traction_insect*double(traction)/256.;
 
 	dynamic_state = 0;
 	in_water = 0;
@@ -3988,7 +4006,7 @@ void Object::insect_analysis(int beebType)
 
 	n.norm(1);
 
-	DBV F = A_g2l*DBV(0,0,dZ*k_elastic_insect - g);
+	DBV F = A_g2l*DBV(0,0,dZ*k_elastic_insect*(bug_factor) - g);
 	F.y += f_traction;
 
 	n *= A_g2l;
