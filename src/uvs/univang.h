@@ -67,6 +67,7 @@ struct uvsTradeItem;
 struct uvsCrypt;
 struct uvsElement;
 struct uvsMechosList;
+struct uvsInsectType;
 
 
 struct EscaveEngine;
@@ -79,6 +80,7 @@ extern uvsWorld* WorldTable[WORLD_MAX];
 extern uvsContimer ConTimer;
 
 extern uvsMechosType** uvsMechosTable;
+extern uvsInsectType** uvsInsectTable;
 extern uvsItemType** uvsItemTable;
 
 extern int MAX_ITEM_TYPE;	//  число инвентори
@@ -1327,6 +1329,21 @@ struct uvsGamerResult{
 // объекты-раффа
 struct uvsRaffa : uvsElement, uvsTarget {
 	};
+
+struct uvsInsectType : listElem {
+	int BeebType;
+	char *ModelName;
+	int MaxHealth;
+	int RamDamage;
+	int DamageFromRam;
+	int DamageFromBullet;
+	int InsectPrice;
+	int MaxSpeed;
+	int MaxHideSpeed;
+	int BodyMaterial;
+
+	uvsInsectType(PrmFile* pfile);
+};
 
 
 /* --- Global Functions Prototypes --- */

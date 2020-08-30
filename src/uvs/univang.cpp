@@ -234,7 +234,8 @@ static const char* PrmFileName[] = {
 	"car.prm",             //7
 	"price.prm",          //8
 	"crypt.prm",         //9
-	"tabutask.prm"   //10
+	"tabutask.prm",   //10
+	"insects.prm"    //11
 	};
 
 //zmod2005
@@ -262,6 +263,7 @@ listElem* DollyTail = NULL;
 
 uvsMechosType** uvsMechosTable;
 uvsItemType** uvsItemTable;
+uvsInsectType** uvsInsectTable;
 const char *uvsTownName = NULL;
 
 uvsActInt* GMechos;
@@ -523,6 +525,15 @@ void uniVangPrepare(void){
 	for( i = 0; i < MAX_MECHOS_TYPE; i++){
 		uvsMechosTable[i] = new uvsMechosType(&pfile);
 	}//  end for i
+	pfile.finit();
+
+	// Insects Initing
+	pfile.init(PrmFileName[11]);
+	if(strcmp(PrmSignature,pfile.getAtom())) ErrH.Abort(PrmWrongMsg,XERR_USER,-1,PrmFileName[11]);
+	uvsInsectTable = new uvsInsectType*[MAX_INSECT_TYPE];
+	for (i = 0; i < MAX_INSECT_TYPE; i++) {
+		uvsInsectTable[i] = new uvsInsectType(&pfile);
+	}
 	pfile.finit();
 
 	// TabuTask Initing
@@ -8735,6 +8746,15 @@ void uniVangLoad(XStream &pfile){
 	for(i = 0; i < count; i++) (pb = new uvsBunch(pfile, &pf, pf.getAtom())) -> link(BunchTail);
 	pf.finit();
 
+	// Insects Initing
+	pf.init(PrmFileName[11]);
+	if(strcmp(PrmSignature,pf.getAtom())) ErrH.Abort(PrmWrongMsg,XERR_USER,-1,PrmFileName[11]);
+	uvsInsectTable = new uvsInsectType*[MAX_INSECT_TYPE];
+	for (i = 0; i < MAX_INSECT_TYPE; i++) {
+		uvsInsectTable[i] = new uvsInsectType(&pf);
+	}
+	pf.finit();
+
 	// TabuTask Initing
 	MAX_TABUTASK = 0;
 	char* atom;
@@ -8965,6 +8985,12 @@ void uniVangDelete(void){
 			delete uvsMechosTable[i];
 		delete[] uvsMechosTable;
 	}
+
+//	 if ( MAX_INSECT_TYPE ){
+//		for( i = 0; i < MAX_INSECT_TYPE; i++)
+//			delete uvsInsectTable[i];
+//		delete[] uvsInsectTable;
+//	}
 
 	while (WorldTail){
 		le = WorldTail;
@@ -10854,6 +10880,22 @@ int uvsTagetWorkID( char* s ){
 
 	ErrH.Abort("uvsTabuTask:: Bad Work");
 	return -1;
+}
+
+uvsInsectType::uvsInsectType(PrmFile* pfile){
+	char *s;
+	BeebType = atoi(pfile -> getAtom());
+	s = pfile -> getAtom();
+	ModelName = new char[strlen(s)+1];
+	strcpy(ModelName, s);
+	MaxHealth = atoi(pfile -> getAtom());
+	RamDamage = atoi(pfile -> getAtom());
+	DamageFromRam = atoi(pfile -> getAtom());
+	DamageFromBullet = atoi(pfile -> getAtom());
+	InsectPrice = atoi(pfile -> getAtom());
+	MaxSpeed = atoi(pfile -> getAtom());
+	MaxHideSpeed = atoi(pfile -> getAtom());
+	BodyMaterial = atoi(pfile -> getAtom());
 }
 
 uvsTabuTaskType::~uvsTabuTaskType(void){

@@ -1104,7 +1104,6 @@ struct ActionDispatcher : UnitList
 //zNfo beeb price
 
 const int MAX_INSECT_TYPE = 6;
-const int INSECT_PRICE_DATA[MAX_INSECT_TYPE] = {1,10,100,0,0,0};
 
 struct InsectList : UnitBaseListType
 {
