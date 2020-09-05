@@ -399,13 +399,8 @@
 #define ACI_L6_GETOUT_SOUND	42
 
 // Rostrum...
-#define ACI_L8_STEP_SOUND	43
-#define ACI_L8_OUTIN_SOUND	44
-
-#define ACI_L8_BUTTON0_SOUND	45
-#define ACI_L8_BUTTON1_SOUND	46
-
-#define ACI_L8_GETOUT_SOUND	47
+#define ACI_L8_STEP_SOUND	26
+#define ACI_L8_GETOUT_SOUND	27
 
 /* ------------------------------- PARAMETERS ------------------------------- */
 

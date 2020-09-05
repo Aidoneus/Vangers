@@ -7,8 +7,8 @@
 #define LBORDER_ID		"resource/iscreen/ldata/l8/border"
 #define MATRIX_TERRAIN		7
 
-#define AVI_OBJ_X		58
-#define AVI_OBJ_Y		143
+#define AVI_OBJ_X		57
+#define AVI_OBJ_Y		144
 
 #define BT00_BMP		"resource/iscreen/ldata/l8/buttons/bt00.bmp"
 #define BT01_BMP		"resource/iscreen/ldata/l8/buttons/bt01.bmp"
@@ -17,7 +17,6 @@
 #define BT04_BMP		"resource/iscreen/ldata/l8/buttons/bt04.bmp"
 #define BT05_BMP		"resource/iscreen/ldata/l8/buttons/bt05.bmp"
 #define BT06_BMP		"resource/iscreen/ldata/l8/buttons/bt06.bmp"
-#define BT07_BMP		"resource/iscreen/ldata/l8/buttons/bt07.bmp"
 #define BT08_BMP		"resource/iscreen/ldata/l8/buttons/bt08.bmp"
 #define BT09_BMP		"resource/iscreen/ldata/l8/buttons/bt09.bmp"
 #define BT10_BMP		"resource/iscreen/ldata/l8/buttons/bt10.bmp"
@@ -40,9 +39,8 @@
 #define BT12_BMP_NULL	0
 #define BT12_NULL	128
 
-#include "iscreen/scripts/btn08.inc"
-#include "iscreen/scripts/pnl00.inc"
-#include "iscreen/scripts/pnl08.inc"
+#include "iscreen/scripts/btn03.inc"
+#include "iscreen/scripts/pnl02.inc"
 
 #include "iscreen/scripts/escave/escave00.inc"
 #include "iscreen/scripts/escave/bt00.inc"
@@ -55,7 +53,6 @@
 
 #include "iscreen/scripts/escave/escave02.inc"
 #include "iscreen/scripts/escave/bt06.inc"
-#include "iscreen/scripts/escave/bt07.inc"
 #include "iscreen/scripts/escave/bt08.inc"
 #include "iscreen/scripts/escave/bt09.inc"
 #include "iscreen/scripts/escave/bt10.inc"
