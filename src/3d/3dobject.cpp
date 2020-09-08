@@ -479,6 +479,8 @@ void Object::load(char* name,int size_for_m3d)
 
 void Object::lay_to_slot(int slot,Object* weapon)
 {
+	if (!weapon) return;
+
 	if(!((1 << slot) & slots_existence))
 		return;
 	data_in_slots[slot] = weapon;

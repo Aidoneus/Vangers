@@ -3455,6 +3455,19 @@ void InsectUnit::Evolution(void)
 			InsectD.NumInsect[5]--;
 			InsectD.NumInsect[2]++;
 			std::cout<<"    CxDebug: InsectUnit::Evolution: Unique beeb has replaced by normal golden beeb"<<std::endl;
+
+			StuffObject* p;
+			p = GetStuffObject(ActD.Active,ACI_CRUSTEST_CANNON);
+			if(p){
+				ObjectDestroy(p);
+				(ActD.Active)->CheckOutDevice(p);
+				ActD.CheckDevice(p);
+				p->Storage->Deactive(p);
+				(ActD.Active)->DelDevice(p);
+				aciSendEvent2actint(ACI_DROP_ITEM,&(p->ActIntBuffer));
+			};
+
+			XpeditionOFF(GAME_OVER_LUCKY);
 			return;
 		}
 
