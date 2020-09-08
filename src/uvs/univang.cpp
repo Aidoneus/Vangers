@@ -10896,6 +10896,7 @@ uvsInsectType::uvsInsectType(PrmFile* pfile){
 	MaxSpeed = atoi(pfile -> getAtom());
 	MaxHideSpeed = atoi(pfile -> getAtom());
 	BodyMaterial = atoi(pfile -> getAtom());
+	CraterType = atoi(pfile -> getAtom());
 }
 
 uvsTabuTaskType::~uvsTabuTaskType(void){

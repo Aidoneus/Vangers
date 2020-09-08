@@ -1341,6 +1341,7 @@ struct uvsInsectType : listElem {
 	int MaxSpeed;
 	int MaxHideSpeed;
 	int BodyMaterial;
+	int CraterType;
 
 	uvsInsectType(PrmFile* pfile);
 };

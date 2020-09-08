@@ -3629,7 +3629,20 @@ void InsectUnit::Touch(GeneralObject* p)
 				}
 			} else {
 				if(p->Status & SOBJ_ACTIVE){
-					SOUND_BEEB_DEATH(getDistX(ActD.Active->R_curr.x,R_curr.x));
+					switch(BeebType) {
+						case 0:
+						case 1:
+						case 2:
+							SOUND_BEEB_DEATH(getDistX(ActD.Active->R_curr.x,R_curr.x));
+							MapD.CreateCrater(R_curr,uvsInsectTable[BeebType]->CraterType,Angle);
+							break;
+						case 3:
+						case 4:
+						case 5:
+							SOUND_END_LARVA();
+							MapD.CreateCrater(R_curr,uvsInsectTable[BeebType]->CraterType,Angle);
+							break;
+					}
 //				ActD.HotBug += INSECT_PRICE_DATA[BeebType];
 					aiPutHotBug(aiGetHotBug() + uvsInsectTable[BeebType]->InsectPrice);
 					if(BeebType == 2) uvsCheckKronIventTabuTask(UVS_KRON_EVENT::GOLD_BEEB,1);
@@ -3639,7 +3652,6 @@ void InsectUnit::Touch(GeneralObject* p)
 						send_player_body(my_player_body);
 					};
 				};
-				MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
 				R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
 				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
 				cycleTor(R_curr.x,R_curr.y);
@@ -3653,7 +3665,19 @@ void InsectUnit::Touch(GeneralObject* p)
 				Health = Health - uvsInsectTable[BeebType]->DamageFromBullet;
 				std::cout<<"    CxDebug: InsectUnit::Touch (ID_BULLET || ID_JUMPBALL): Health:"<<Health<<std::endl;
 			} else {
-				MapD.CreateCrater(R_curr,MAP_POINT_CRATER03,Angle);
+				switch(BeebType) {
+					case 0:
+					case 1:
+					case 2:
+						MapD.CreateCrater(R_curr,uvsInsectTable[BeebType]->CraterType,Angle);
+						break;
+					case 3:
+					case 4:
+					case 5:
+						SOUND_END_LARVA();
+						MapD.CreateCrater(R_curr,uvsInsectTable[BeebType]->CraterType,Angle);
+						break;
+				}
 				R_curr.x = clip_mask_x/2 - RND(clip_mask_x);
 				R_curr.y = clip_mask_y/2 - RND(clip_mask_y);
 				cycleTor(R_curr.x,R_curr.y);
