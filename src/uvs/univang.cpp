@@ -3997,7 +3997,7 @@ void uvsBunch::begin_harvest( void ){
 	if (!NetworkON){ //znfo farmer adding
 		for( i = 0; i < pg -> GoodsTypeBegCount/* + RND(3)*/; i++){
 			if ( (pw -> gIndex == CurrentWorld) && uvsKronActive )
-				addFarmer(RND(pw->x_size), RND(pw->y_size), V_SPEED_DOLLY - RND(V_SPEED_DOLLY*2+1),
+				addFarmer(0, 0, V_SPEED_DOLLY - RND(V_SPEED_DOLLY*2+1),
 							V_SPEED_DOLLY - RND(V_SPEED_DOLLY*2+1),pg -> GoodsTypeBeg,
 							FLY_FARMER_CORN, 0);
 			else

@@ -3624,7 +3624,7 @@ void InsectUnit::Touch(GeneralObject* p)
 			if (BeebType > 2 && Health > 0) {
 				if (ActD.Active) {
 					Health = Health - uvsInsectTable[BeebType]->DamageFromRam;
-					ActD.Active->BulletCollision(uvsInsectTable[BeebType]->RamDamage,NULL);
+					ActD.Active->BulletCollision((ActD.Active->MaxEnergy + ActD.Active->MaxArmor) / uvsInsectTable[BeebType]->RamDamage,NULL);
 					std::cout<<"    CxDebug: InsectUnit::Touch (ID_VANGER): Damaging player and himself a little, health:"<<Health<<std::endl;
 				}
 			} else {

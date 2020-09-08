@@ -2167,7 +2167,7 @@ void SkyFarmerObject::DrawQuant(void)
 
 void addFarmer(int x_pos,int y_pos,int x_speed,int y_speed,int corn_type,int corn,int time)
 {
-	(FarmerD.CreateSkyFarmer())->CreateSkyFarmer(x_pos,y_pos,x_speed,y_speed,corn_type,corn,time);
+	(FarmerD.CreateSkyFarmer())->CreateSkyFarmer(0,0,x_speed,y_speed,corn_type,corn,time);
 };
 
 //ind2 == -1 
