@@ -1064,7 +1064,7 @@ Object "Multiplayer Option"
 
 			font		3
 			null_level	$DEFAULT_NULL
-			string		"0.61"
+			string		"0.62"
 		}
 	}
 }
@@ -6803,9 +6803,27 @@ Screen "Select Game"
 	#define GAME_OBJ_PREV	"GameObj5"
 	#define GAME_OBJ_ID	$iSTR_UNIVANG
 	#define GAME_SCR	"Game Params 6"
-	#define GAME_STRING_ID	"GameStr6
+	#define GAME_STRING_ID	"GameStr6"
 
 	#include "iscreen/scripts/gameobj.inc"
+
+	/*
+	Object "Cx version"
+	{
+		x	690
+		y	555
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		3
+			null_level	$DEFAULT_NULL
+			string		"0.62"
+		}
+	}
+	 */
 }
 
 Screen "Game Params 0"  // VAN-WAR
@@ -11999,6 +12017,24 @@ Screen "Select Game2"
 	#define GAME_STRING_ID	"GameStr6"
 
 	#include "iscreen/scripts/gameobj.inc"
+
+	/*
+	Object "Cx version"
+	{
+		x	690
+		y	555
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		3
+			null_level	$DEFAULT_NULL
+			string		"0.62"
+		}
+	}
+	 */
 }
 
 Screen "HallOfFame screen"
