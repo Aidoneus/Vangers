@@ -2945,7 +2945,7 @@ void Object::mechous_analysis(double dt)
 		if(jump_power && ++jump_power > max_jump_power && !isMod(ID_TRUCK_TRIAL))
 			jump();
 	} else {
-		if(jump_power && !isMod(ID_TRUCK_TRIAL)) && CheckStartJump(this)){
+		if(jump_power && !isMod(ID_TRUCK_TRIAL) && CheckStartJump(this)){
 			jump();
 			if(active)
 				SOUND_KIDPUSH();
