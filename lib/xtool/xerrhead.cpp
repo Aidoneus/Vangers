@@ -60,7 +60,7 @@ void XErrorHandler::Abort(const char* message, int code, int val, const char* su
 	" - this message," << std::endl <<
 	" - logfile from " << SDL_GetBasePath() << log_name.c_str() << "," << std::endl <<
 	" - your savegame" << std::endl <<
-	"to https://t.me/vangers or https://github.com/KranX/Vangers";
+	"to https://t.me/vangers or https://github.com/Aidoneus/Vangers";
 	std::string str =  stream.str();
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
 		"Vangers error",
