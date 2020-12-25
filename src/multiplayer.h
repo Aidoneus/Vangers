@@ -123,10 +123,12 @@ enum {
 	VAN_WAR,
 	MECHOSOMA,
 	PASSEMBLOSS,
-	NUMBER_MP_GAMES,
+	HUNTAGE,
+	MUSTODONT,
+	MIR_RAGE,
+	UNIVANG,
 
-	HUNTAGE,  // Some people're still using it.
-	MUSTODONT
+	NUMBER_MP_GAMES
 };
 
 // Unique Mechouses
@@ -192,15 +194,31 @@ struct MUSTODONT_PRM {
 	int TeamMode;
 };
 
+struct MIR_RAGE_PRM {
+	int InitialCash;
+	int ArtefactsUsing;
+	int InEscaveTime;
+	int Color;
+};
+
+struct UNIVANG_PRM {
+	int InitialCash;
+	int ArtefactsUsing;
+	int InEscaveTime;
+	int Color;
+};
+
 struct ServerData {
 	int InitialRND;
 	int GameType;
 	union {
-		VAN_WAR_PRM	       Van_War;
-		MECHOSOMA_PRM	   Mechosoma;
-		PASSEMBLOSS_PRM    Passembloss;
-		HUNTAGE_PRM		Huntage;
-		MUSTODONT_PRM	    Mustodont;
+		VAN_WAR_PRM			Van_War;
+		MECHOSOMA_PRM		Mechosoma;
+		PASSEMBLOSS_PRM		Passembloss;
+		HUNTAGE_PRM			Huntage;
+		MUSTODONT_PRM		Mustodont;
+		MIR_RAGE_PRM		Mir_Rage;
+		UNIVANG_PRM			UniVang;
 		};
 
 	ServerData();
@@ -255,12 +273,27 @@ struct PassemblossStatistic
 	int MaxTime;//None
 };
 
+struct HuntageStatistic
+{
+	//int TotalTime;//hh:mm:ss
+};
+
 struct MustodontStatistic
 {
 	int PartTime1;
 	int PartTime2;
 	int BodyTime;
 	int MakeTime;
+};
+
+struct MirRageStatistic
+{
+	//int TotalTime;//hh:mm:ss
+};
+
+struct UniVangStatistic
+{
+	//int TotalTime;//hh:mm:ss
 };
 
 struct PlayerBody {
@@ -280,7 +313,10 @@ struct PlayerBody {
 		VanVarStatistic VanVarStat;
 		MechosomaStatistic MechosomaStat;
 		PassemblossStatistic PassemblossStat;
+		HuntageStatistic HuntageStat;
 		MustodontStatistic MustodontStat;
+		MirRageStatistic MirRageStat;
+		UniVangStatistic UniVangStat;
 	};
 
 	void clear(){ memset(this,0,sizeof(PlayerBody));CarIndex = 255; }

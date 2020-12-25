@@ -54,6 +54,8 @@ enum iMultiGameIDs
 	iMP_PASSEMBLOSS,
 	iMP_HUNTAGE,
 	iMP_MUSTODONT,
+	iMP_MIR_RAGE,
+	iMP_UNIVANG,
 
 	iMP_MAX_ID
 };
@@ -1588,6 +1590,48 @@ void iInitMultiGames(void)
 	iMP_Games[iMP_MUSTODONT] -> pData[iMP_MECHOS_NAME] -> alloc_mem(1);
 	iMP_Games[iMP_MUSTODONT] -> pData[iMP_MECHOS_NAME] -> add_obj(el);
 
+	scr = (iScreen*)iScrDisp -> get_object("Game Params 5");
+	if(!scr) ErrH.Abort("iMP_Screen not found...");
+	iMP_Games[iMP_MIR_RAGE] -> alloc_mem(3);
+
+	el = scr -> get_object("BeebosNumberID");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_INITIAL_CASH] -> alloc_mem(1);
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_INITIAL_CASH] -> add_obj(el);
+
+	el = scr -> get_object("ArtefactsTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_ARTEFACTS_USING] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_ARTEFACTS_USING] -> alloc_mem(1);
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_ARTEFACTS_USING] -> add_obj(el);
+
+	el = scr -> get_object("TimeTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_IN_ESCAVE_TIME] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_IN_ESCAVE_TIME] -> alloc_mem(1);
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_IN_ESCAVE_TIME] -> add_obj(el);
+
+	scr = (iScreen*)iScrDisp -> get_object("Game Params 6");
+	if(!scr) ErrH.Abort("iMP_Screen not found...");
+	iMP_Games[iMP_UNIVANG] -> alloc_mem(3);
+
+	el = scr -> get_object("BeebosNumberID");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_INITIAL_CASH] -> alloc_mem(1);
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_INITIAL_CASH] -> add_obj(el);
+
+	el = scr -> get_object("ArtefactsTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_ARTEFACTS_USING] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_ARTEFACTS_USING] -> alloc_mem(1);
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_ARTEFACTS_USING] -> add_obj(el);
+
+	el = scr -> get_object("TimeTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_IN_ESCAVE_TIME] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_IN_ESCAVE_TIME] -> alloc_mem(1);
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_IN_ESCAVE_TIME] -> add_obj(el);
+
 	iPlaces = new iMultiResultString*[iMP_MAX_PLACE];
 	iResults = new iMultiResultString*[iMP_MAX_RESULT];
 	iHallPlaces = new iMultiResultString*[iMP_MAX_HALL_RESULT];
@@ -1647,8 +1691,8 @@ void iGetMultiGameParameters(void)
 	switch(iCurMultiGame){
 		case iMP_VAN_WAR:
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_INITIAL_CASH);
-            if(strcmp(game_name,"arena")==0) value = 3000;
-            if(strcmp(game_name,"neptune")==0) value = 999999;
+			if(strcmp(game_name,"arena")==0) value = 3000;
+			if(strcmp(game_name,"neptune")==0) value = 999999;
 			if(strcmp(game_name,"mechokvach")==0) value = 999999;
 			my_server_data.Van_War.InitialCash = value;
 
@@ -1656,15 +1700,15 @@ void iGetMultiGameParameters(void)
 			my_server_data.Van_War.ArtefactsUsing = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_IN_ESCAVE_TIME);
-            if(strcmp(game_name,"arena")==0 && value < 1) value = 1;
+			if(strcmp(game_name,"arena")==0 && value < 1) value = 1;
 			my_server_data.Van_War.InEscaveTime = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_TEAM_MODE);
 			my_server_data.Van_War.TeamMode = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY);
-            if(strcmp(game_name,"arena")==0) value = 4;
-            if(strcmp(game_name,"neptune")==0) value = 1;
+			if(strcmp(game_name,"arena")==0) value = 4;
+			if(strcmp(game_name,"neptune")==0) value = 1;
 			if(strcmp(game_name,"wiring")==0) value = 1;
 			if(strcmp(game_name,"mechosumo")==0) value = 2;
 			if((strcmp(game_name,"mammoth hunt")==0 || strcmp(game_name,"mamont")==0) && (value < 1 || value > 3)) value = 1;
@@ -1672,12 +1716,12 @@ void iGetMultiGameParameters(void)
 			my_server_data.Van_War.Nascency = value - 1;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_ACCESS);
-            if(strcmp(game_name,"neptune")==0) value = 0;
+			if(strcmp(game_name,"neptune")==0) value = 0;
 			if(strcmp(game_name,"mechokvach")==0) value = 1;
 			my_server_data.Van_War.WorldAccess = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_KILLS);
-            if(strcmp(game_name,"neptune")==0) value = 10;
+			if(strcmp(game_name,"neptune")==0) value = 10;
 			my_server_data.Van_War.MaxKills = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_TIME);
@@ -1722,11 +1766,11 @@ void iGetMultiGameParameters(void)
 			break;
 		case iMP_PASSEMBLOSS:
 			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_INITIAL_CASH);
-            if(strcmp(game_name,"warm-up")==0) value = 999999;
-            if(strcmp(game_name,"formula")==0) value = 999999;
-            if(strcmp(game_name,"truck-trial")==0) value = 999999;
-            if(strcmp(game_name,"raffa run")==0) value = 4000;
-            if(strcmp(game_name,"khox run")==0) value = 999999;
+			if(strcmp(game_name,"warm-up")==0) value = 999999;
+			if(strcmp(game_name,"formula")==0) value = 999999;
+			if(strcmp(game_name,"truck-trial")==0) value = 999999;
+			if(strcmp(game_name,"raffa run")==0) value = 4000;
+			if(strcmp(game_name,"khox run")==0) value = 999999;
 			my_server_data.Passembloss.InitialCash = value;
 
 			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ARTEFACTS_USING);
@@ -1738,21 +1782,21 @@ void iGetMultiGameParameters(void)
 			time(&tm);
 
 			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM);
-            if(strcmp(game_name,"khox run")==0) value = 12;
-            if(strcmp(game_name,"warm-up")==0) value = 6;
-            if(strcmp(game_name,"formula")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM)*4;
-            if(strcmp(game_name,"truck-trial")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM)*2;
+			if(strcmp(game_name,"khox run")==0) value = 12;
+			if(strcmp(game_name,"warm-up")==0) value = 6;
+			if(strcmp(game_name,"formula")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM)*4;
+			if(strcmp(game_name,"truck-trial")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM)*2;
 			my_server_data.Passembloss.CheckpointsNumber = value;
 
 			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ESCAVE);
-            if(strcmp(game_name,"warm-up")==0) value = 2;
-            if(strcmp(game_name,"formula")==0) value = 2;
-            if(strcmp(game_name,"truck-trial")==0) value = 3;
-            if(strcmp(game_name,"raffa run")==0) value = 2;
-            if(strcmp(game_name,"khox run")==0) value = 2;
-            if(strcmp(game_name,"zeefick")==0) value = 3;
-            if(strcmp(game_name,"roulette")==0) value = 2;
-            if(strcmp(game_name,"aveslom")==0) value = 2;
+			if(strcmp(game_name,"warm-up")==0) value = 2;
+			if(strcmp(game_name,"formula")==0) value = 2;
+			if(strcmp(game_name,"truck-trial")==0) value = 3;
+			if(strcmp(game_name,"raffa run")==0) value = 2;
+			if(strcmp(game_name,"khox run")==0) value = 2;
+			if(strcmp(game_name,"zeefick")==0) value = 3;
+			if(strcmp(game_name,"roulette")==0) value = 2;
+			if(strcmp(game_name,"aveslom")==0) value = 2;
 			my_server_data.Passembloss.RandomEscave = value - 1;
 //			my_server_data.Passembloss.RandomEscave = tm % 3;
 			break;
@@ -1779,6 +1823,26 @@ void iGetMultiGameParameters(void)
 			value = iGetMultiGameParameter(iMP_MUSTODONT,iMP_TEAM_MODE);
 			my_server_data.Mustodont.TeamMode = value;
 			break;
+		case iMP_MIR_RAGE:
+			value = iGetMultiGameParameter(iMP_MIR_RAGE,iMP_INITIAL_CASH);
+			my_server_data.Mir_Rage.InitialCash = value;
+
+			value = iGetMultiGameParameter(iMP_MIR_RAGE,iMP_ARTEFACTS_USING);
+			my_server_data.Mir_Rage.ArtefactsUsing = value;
+
+			value = iGetMultiGameParameter(iMP_MIR_RAGE,iMP_IN_ESCAVE_TIME);
+			my_server_data.Mir_Rage.InEscaveTime = value;
+			break;
+		case iMP_UNIVANG:
+			value = iGetMultiGameParameter(iMP_UNIVANG,iMP_INITIAL_CASH);
+			my_server_data.UniVang.InitialCash = value;
+
+			value = iGetMultiGameParameter(iMP_UNIVANG,iMP_ARTEFACTS_USING);
+			my_server_data.UniVang.ArtefactsUsing = value;
+
+			value = iGetMultiGameParameter(iMP_UNIVANG,iMP_IN_ESCAVE_TIME);
+			my_server_data.UniVang.InEscaveTime = value;
+			break;
 	}
 }
 
@@ -1792,15 +1856,15 @@ void iSetMultiGameParameters(void)
 	switch(iCurMultiGame){
 		case iMP_VAN_WAR:
 			value = my_server_data.Van_War.InitialCash;
-            if(strcmp(game_name,"arena")==0) value = 3000;
-            if(strcmp(game_name,"neptune")==0) value = 999999;
+			if(strcmp(game_name,"arena")==0) value = 3000;
+			if(strcmp(game_name,"neptune")==0) value = 999999;
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_INITIAL_CASH,value);
 
 			value = my_server_data.Van_War.ArtefactsUsing;
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_ARTEFACTS_USING,value);
 
 			value = my_server_data.Van_War.InEscaveTime;
-            if(strcmp(game_name,"arena")==0 && value < 1) value = 1;
+			if(strcmp(game_name,"arena")==0 && value < 1) value = 1;
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_IN_ESCAVE_TIME,value);
 
 			value = my_server_data.Van_War.TeamMode;
@@ -1809,15 +1873,15 @@ void iSetMultiGameParameters(void)
 			value = my_server_data.Van_War.Nascency + 1;
 			if(value > 4) value = 0;
 			if(strcmp(game_name,"arena")==0) value = 4;
-            if(strcmp(game_name,"neptune")==0) value = 2;
+			if(strcmp(game_name,"neptune")==0) value = 2;
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY,value);
 
 			value = my_server_data.Van_War.WorldAccess;
-            if(strcmp(game_name,"neptune")==0) value = 0;
+			if(strcmp(game_name,"neptune")==0) value = 0;
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_ACCESS,value);
 
 			value = my_server_data.Van_War.MaxKills;
-            if(strcmp(game_name,"neptune")==0) value = 10;
+			if(strcmp(game_name,"neptune")==0) value = 10;
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_KILLS,value);
 
 			value = my_server_data.Van_War.MaxTime;
@@ -1847,11 +1911,11 @@ void iSetMultiGameParameters(void)
 			break;
 		case iMP_PASSEMBLOSS:
 			value = my_server_data.Passembloss.InitialCash;
-            if(strcmp(game_name,"warm-up")==0) value = 999999;
-            if(strcmp(game_name,"formula")==0) value = 999999;
-            if(strcmp(game_name,"truck-trial")==0) value = 999999;
-            if(strcmp(game_name,"raffa run")==0) value = 4000;
-            if(strcmp(game_name,"khox run")==0) value = 999999;
+			if(strcmp(game_name,"warm-up")==0) value = 999999;
+			if(strcmp(game_name,"formula")==0) value = 999999;
+			if(strcmp(game_name,"truck-trial")==0) value = 999999;
+			if(strcmp(game_name,"raffa run")==0) value = 4000;
+			if(strcmp(game_name,"khox run")==0) value = 999999;
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_INITIAL_CASH,value);
 
 			value = my_server_data.Passembloss.ArtefactsUsing;
@@ -1861,22 +1925,22 @@ void iSetMultiGameParameters(void)
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_IN_ESCAVE_TIME,value);
 
 			value = my_server_data.Passembloss.CheckpointsNumber;
-            if(strcmp(game_name,"khox run")==0) value = 12;
-            if(strcmp(game_name,"warm-up")==0) value = 6;
-            if(strcmp(game_name,"formula")==0) value = my_server_data.Passembloss.CheckpointsNumber * 4;
-            if(strcmp(game_name,"truck-trial")==0) value = my_server_data.Passembloss.CheckpointsNumber * 2;
+			if(strcmp(game_name,"khox run")==0) value = 12;
+			if(strcmp(game_name,"warm-up")==0) value = 6;
+			if(strcmp(game_name,"formula")==0) value = my_server_data.Passembloss.CheckpointsNumber * 4;
+			if(strcmp(game_name,"truck-trial")==0) value = my_server_data.Passembloss.CheckpointsNumber * 2;
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM,value);
 
 			value = my_server_data.Passembloss.RandomEscave + 1;
 			if(value > 3) value = 0;
-            if(strcmp(game_name,"warm-up")==0) value = 1;
-            if(strcmp(game_name,"formula")==0) value = 1;
-            if(strcmp(game_name,"truck-trial")==0) value = 2;
-            if(strcmp(game_name,"raffa run")==0) value = 1;
-            if(strcmp(game_name,"khox run")==0) value = 1;
-            if(strcmp(game_name,"zeefick")==0) value = 2;
-            if(strcmp(game_name,"roulette")==0) value = 1;
-            if(strcmp(game_name,"aveslom")==0) value = 1;
+			if(strcmp(game_name,"warm-up")==0) value = 1;
+			if(strcmp(game_name,"formula")==0) value = 1;
+			if(strcmp(game_name,"truck-trial")==0) value = 2;
+			if(strcmp(game_name,"raffa run")==0) value = 1;
+			if(strcmp(game_name,"khox run")==0) value = 1;
+			if(strcmp(game_name,"zeefick")==0) value = 2;
+			if(strcmp(game_name,"roulette")==0) value = 1;
+			if(strcmp(game_name,"aveslom")==0) value = 1;
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ESCAVE,value);
 			break;
 		case iMP_HUNTAGE:
@@ -1901,6 +1965,26 @@ void iSetMultiGameParameters(void)
 
 			value = my_server_data.Mustodont.TeamMode;
 			iSetMultiGameParameter(iMP_MUSTODONT,iMP_TEAM_MODE,value);
+			break;
+		case iMP_MIR_RAGE:
+			value = my_server_data.Mir_Rage.InitialCash;
+			iSetMultiGameParameter(iMP_MIR_RAGE,iMP_INITIAL_CASH,value);
+
+			value = my_server_data.Mir_Rage.ArtefactsUsing;
+			iSetMultiGameParameter(iMP_MIR_RAGE,iMP_ARTEFACTS_USING,value);
+
+			value = my_server_data.Mir_Rage.InEscaveTime;
+			iSetMultiGameParameter(iMP_MIR_RAGE,iMP_IN_ESCAVE_TIME,value);
+			break;
+		case iMP_UNIVANG:
+			value = my_server_data.UniVang.InitialCash;
+			iSetMultiGameParameter(iMP_UNIVANG,iMP_INITIAL_CASH,value);
+
+			value = my_server_data.UniVang.ArtefactsUsing;
+			iSetMultiGameParameter(iMP_UNIVANG,iMP_ARTEFACTS_USING,value);
+
+			value = my_server_data.UniVang.InEscaveTime;
+			iSetMultiGameParameter(iMP_UNIVANG,iMP_IN_ESCAVE_TIME,value);
 			break;
 	}
 }
@@ -2063,7 +2147,7 @@ void iSortPlayers(int mode)
 		while(flag){
 			flag = 0;
 			for(i = 0; i < iNumPlayers - 1; i ++){
-				if(iCurMultiGame == iMP_VAN_WAR || iCurMultiGame == iMP_HUNTAGE){
+				if(iCurMultiGame == iMP_VAN_WAR){
 					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
 						p = iPlayers[i];
 						iPlayers[i] = iPlayers[i + 1];
@@ -2087,6 +2171,14 @@ void iSortPlayers(int mode)
 						flag = 1;
 					}
 				}
+				if(iCurMultiGame == iMP_HUNTAGE){
+					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
+						p = iPlayers[i];
+						iPlayers[i] = iPlayers[i + 1];
+						iPlayers[i + 1] = p;
+						flag = 1;
+					}
+				}
 				if(iCurMultiGame == iMP_MUSTODONT){
 					if(!iPlayers[i] -> body.MustodontStat.MakeTime && iPlayers[i + 1] -> body.MustodontStat.MakeTime){
 						p = iPlayers[i];
@@ -2095,6 +2187,22 @@ void iSortPlayers(int mode)
 						flag = 1;
 					}
 					if(iPlayers[i] -> body.MustodontStat.MakeTime && iPlayers[i + 1] -> body.MustodontStat.MakeTime && iPlayers[i] -> body.MustodontStat.MakeTime > iPlayers[i + 1] -> body.MustodontStat.MakeTime){
+						p = iPlayers[i];
+						iPlayers[i] = iPlayers[i + 1];
+						iPlayers[i + 1] = p;
+						flag = 1;
+					}
+				}
+				if(iCurMultiGame == iMP_MIR_RAGE){
+					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
+						p = iPlayers[i];
+						iPlayers[i] = iPlayers[i + 1];
+						iPlayers[i + 1] = p;
+						flag = 1;
+					}
+				}
+				if(iCurMultiGame == iMP_UNIVANG){
+					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
 						p = iPlayers[i];
 						iPlayers[i] = iPlayers[i + 1];
 						iPlayers[i + 1] = p;
@@ -2429,6 +2537,40 @@ void iPreparePlayerResults(int id)
 			iResults[i] -> redraw();
 
 		for(i = 6; i < iMP_MAX_RESULT; i ++){
+			iResults[i] -> set_data("","","");
+			iResults[i] -> redraw();
+		}
+	}
+	if(iCurMultiGame == iMP_MIR_RAGE){
+		XBuf.init();
+		XBuf <= p -> body.kills;
+		iResults[0] -> set_data("",iSTR_MP_Kills,XBuf.address());
+
+		XBuf.init();
+		XBuf <= p -> body.deaths;
+		iResults[1] -> set_data("",iSTR_MP_Deaths,XBuf.address());
+
+		for(i = 0; i < 2; i ++)
+			iResults[i] -> redraw();
+
+		for(i = 2; i < iMP_MAX_RESULT; i ++){
+			iResults[i] -> set_data("","","");
+			iResults[i] -> redraw();
+		}
+	}
+	if(iCurMultiGame == iMP_UNIVANG){
+		XBuf.init();
+		XBuf <= p -> body.kills;
+		iResults[0] -> set_data("",iSTR_MP_Kills,XBuf.address());
+
+		XBuf.init();
+		XBuf <= p -> body.deaths;
+		iResults[1] -> set_data("",iSTR_MP_Deaths,XBuf.address());
+
+		for(i = 0; i < 2; i ++)
+			iResults[i] -> redraw();
+
+		for(i = 2; i < iMP_MAX_RESULT; i ++){
 			iResults[i] -> set_data("","","");
 			iResults[i] -> redraw();
 		}
