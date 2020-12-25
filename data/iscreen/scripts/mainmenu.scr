@@ -1064,7 +1064,7 @@ Object "Multiplayer Option"
 
 			font		3
 			null_level	$DEFAULT_NULL
-			string		"0.61"
+			string		"0.62"
 		}
 	}
 }
@@ -6760,7 +6760,6 @@ Screen "Select Game"
 	#define GAME_Y		2
 	#define GAME_OBJ_NAME	"GameObj2"
 	#define GAME_OBJ_NEXT   "GameObj3"
-//	#define GAME_OBJ_NEXT	"GameObj0"
 	#define GAME_OBJ_PREV	"GameObj1"
 	#define GAME_OBJ_ID	$iSTR_PASSEMBLOSS
 	#define GAME_SCR	"Game Params 2"
@@ -6770,8 +6769,7 @@ Screen "Select Game"
 
 	#define GAME_Y		3
 	#define GAME_OBJ_NAME	"GameObj3"
-//	#define GAME_OBJ_NEXT	"GameObj4"
-	#define GAME_OBJ_NEXT	"GameObj0"
+	#define GAME_OBJ_NEXT	"GameObj4"
 	#define GAME_OBJ_PREV	"GameObj2"
 	#define GAME_OBJ_ID	$iSTR_HUNTAGE
 	#define GAME_SCR	"Game Params 3"
@@ -6779,15 +6777,53 @@ Screen "Select Game"
 
 	#include "iscreen/scripts/gameobj.inc"
 
-/*
 	#define GAME_Y		4
 	#define GAME_OBJ_NAME	"GameObj4"
-	#define GAME_OBJ_NEXT	"GameObj0"
+	#define GAME_OBJ_NEXT	"GameObj5"
 	#define GAME_OBJ_PREV	"GameObj3"
 	#define GAME_OBJ_ID	$iSTR_MUSTODONT
 	#define GAME_SCR	"Game Params 4"
 	#define GAME_STRING_ID	"GameStr4"
-*/
+
+	#include "iscreen/scripts/gameobj.inc"
+
+	#define GAME_Y		5
+	#define GAME_OBJ_NAME	"GameObj5"
+	#define GAME_OBJ_NEXT	"GameObj6"
+	#define GAME_OBJ_PREV	"GameObj4"
+	#define GAME_OBJ_ID	$iSTR_MIR_RAGE
+	#define GAME_SCR	"Game Params 5"
+	#define GAME_STRING_ID	"GameStr5"
+
+	#include "iscreen/scripts/gameobj.inc"
+
+	#define GAME_Y		6
+	#define GAME_OBJ_NAME	"GameObj6"
+	#define GAME_OBJ_NEXT	"GameObj5"
+	#define GAME_OBJ_PREV	"GameObj5"
+	#define GAME_OBJ_ID	$iSTR_UNIVANG
+	#define GAME_SCR	"Game Params 6"
+	#define GAME_STRING_ID	"GameStr6"
+
+	#include "iscreen/scripts/gameobj.inc"
+
+	/*
+	Object "Inactive game mode string template"
+	{
+		x	690
+		y	555
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		3
+			null_level	$DEFAULT_NULL
+			string		"Hello world"
+		}
+	}
+	 */
 }
 
 Screen "Game Params 0"  // VAN-WAR
@@ -7768,6 +7804,16 @@ Screen "Game Params 4"  // MUSTODONT
 			}
 		}
 	}
+}
+
+Screen "Game Params 5"  // MIR-RAGE
+{
+	#include "iscreen/scripts/gamescr.inc"
+}
+
+Screen "Game Params 6"  // UNIVANG
+{
+	#include "iscreen/scripts/gamescr.inc"
 }
 
 Screen "Identification screen"
@@ -11925,7 +11971,6 @@ Screen "Select Game2"
 	#define GAME_Y		2
 	#define GAME_OBJ_NAME	"GameObj2"
 	#define GAME_OBJ_NEXT   "GameObj3"
-//	#define GAME_OBJ_NEXT	"GameObj0"
 	#define GAME_OBJ_PREV	"GameObj1"
 	#define GAME_OBJ_ID	$iSTR_PASSEMBLOSS
 	#define GAME_SCR	"HallOfFame screen"
@@ -11935,8 +11980,7 @@ Screen "Select Game2"
 
 	#define GAME_Y		3
 	#define GAME_OBJ_NAME	"GameObj3"
-//	#define GAME_OBJ_NEXT	"GameObj4"
-	#define GAME_OBJ_NEXT	"GameObj0"
+	#define GAME_OBJ_NEXT	"GameObj4"
 	#define GAME_OBJ_PREV	"GameObj2"
 	#define GAME_OBJ_ID	$iSTR_HUNTAGE
 	#define GAME_SCR	"HallOfFame screen"
@@ -11944,15 +11988,53 @@ Screen "Select Game2"
 
 	#include "iscreen/scripts/gameobj.inc"
 
-/*
 	#define GAME_Y		4
 	#define GAME_OBJ_NAME	"GameObj4"
-	#define GAME_OBJ_NEXT	"GameObj0"
+	#define GAME_OBJ_NEXT	"GameObj5"
 	#define GAME_OBJ_PREV	"GameObj3"
 	#define GAME_OBJ_ID	$iSTR_MUSTODONT
 	#define GAME_SCR	"HallOfFame screen"
 	#define GAME_STRING_ID	"GameStr4"
-*/
+
+	#include "iscreen/scripts/gameobj.inc"
+
+	#define GAME_Y		5
+	#define GAME_OBJ_NAME	"GameObj5"
+	#define GAME_OBJ_NEXT	"GameObj6"
+	#define GAME_OBJ_PREV	"GameObj4"
+	#define GAME_OBJ_ID	$iSTR_MIR_RAGE
+	#define GAME_SCR	"HallOfFame screen"
+	#define GAME_STRING_ID	"GameStr5"
+
+	#include "iscreen/scripts/gameobj.inc"
+
+	#define GAME_Y		6
+	#define GAME_OBJ_NAME	"GameObj6"
+	#define GAME_OBJ_NEXT	"GameObj5"
+	#define GAME_OBJ_PREV	"GameObj5"
+	#define GAME_OBJ_ID	$iSTR_UNIVANG
+	#define GAME_SCR	"HallOfFame screen"
+	#define GAME_STRING_ID	"GameStr6"
+
+	#include "iscreen/scripts/gameobj.inc"
+
+	/*
+	Object "Inactive game mode string template"
+	{
+		x	690
+		y	555
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		3
+			null_level	$DEFAULT_NULL
+			string		"Hello world"
+		}
+	}
+	 */
 }
 
 Screen "HallOfFame screen"

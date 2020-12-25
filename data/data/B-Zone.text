@@ -186,6 +186,14 @@
 "МАСТОДОНТ стартовал!"
 "MUSTODONT started!"
 
+[MP5 Start]
+"МИР-РАЖ стартовал!"
+"MIR-RAGE started!"
+
+[MP6 Start]
+"УНИВАНГ стартовал!"
+"UNIVANG started!"
+
 [MP0 Comment]
 "ВАН-ВАР продолжается, а ты здесь сидишь, трусишка. Видишь, осыпается глина со стен эскейва от воплей и выстрелов? Давай, торопись наверх, поддай жару. И прихвати пушку потяжелей. А если тебя, ненароком, прихлопнут, твоя добрая советница всегда поможет расквитаться с обидчиком!"
 "The VAN-WAR is in full swing while you're sitting here, yellow belly. See how clay is crumbling from the shots and yells? Come on, go up there quickly and give it to them hot. And take a bigger gun. Should they by any chance take you down, your faithful wife will seek revenge for you upon the scoundrels."
@@ -205,6 +213,14 @@
 [MP4 Comment]
 "МАСТОДОНТ продолжается..."
 "MUSTODONT in progress..."
+
+[MP5 Comment]
+"МИР-РАЖ продолжается..."
+"MIR-RAGE in progress..."
+
+[MP6 Comment]
+"УНИВАНГ продолжается..."
+"UNIVANG in progress..."
 
 [Cirt in Inventory]
 "Хи-хи, нам нюху на пробу привезли. Где ж ты ее добыл, храбрец? Наверное, запугал бедную раффу своей пушкой до полусмерти? Ладно, шучу. Но нюху взять мы не можем - не уполномочены. У нас редкостная болезнь. А заразил нас ею ты, убийца цикс. Наверное, мы все скоро умрем..."

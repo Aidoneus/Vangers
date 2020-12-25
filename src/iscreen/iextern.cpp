@@ -54,6 +54,8 @@ enum iMultiGameIDs
 	iMP_PASSEMBLOSS,
 	iMP_HUNTAGE,
 	iMP_MUSTODONT,
+	iMP_MIR_RAGE,
+	iMP_UNIVANG,
 
 	iMP_MAX_ID
 };
@@ -716,12 +718,16 @@ void iPrepareOptions(void)
 	iScrOpt[iMPGAME2_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr2");
 	iScrOpt[iMPGAME3_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr3");
 	iScrOpt[iMPGAME4_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr4");
+	iScrOpt[iMPGAME5_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr5");
+	iScrOpt[iMPGAME6_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr6");
 
 	iScrOpt[iMPGAME0_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME1_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME2_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME3_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME4_ID] -> flags |= iOPTION_NO_SAVE;
+	iScrOpt[iMPGAME5_ID] -> flags |= iOPTION_NO_SAVE;
+	iScrOpt[iMPGAME6_ID] -> flags |= iOPTION_NO_SAVE;
 
 	iScrOpt[iCUR_MPGAME_ID] = new iScreenOption(iSTRING,0,"Server Config screen","GameNameStr");
 	iScrOpt[iCUR_MPGAME_ID] -> flags |= iOPTION_NO_SAVE;
@@ -1588,6 +1594,48 @@ void iInitMultiGames(void)
 	iMP_Games[iMP_MUSTODONT] -> pData[iMP_MECHOS_NAME] -> alloc_mem(1);
 	iMP_Games[iMP_MUSTODONT] -> pData[iMP_MECHOS_NAME] -> add_obj(el);
 
+	scr = (iScreen*)iScrDisp -> get_object("Game Params 5");
+	if(!scr) ErrH.Abort("iMP_Screen not found...");
+	iMP_Games[iMP_MIR_RAGE] -> alloc_mem(3);
+
+	el = scr -> get_object("BeebosNumberID");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_INITIAL_CASH] -> alloc_mem(1);
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_INITIAL_CASH] -> add_obj(el);
+
+	el = scr -> get_object("ArtefactsTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_ARTEFACTS_USING] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_ARTEFACTS_USING] -> alloc_mem(1);
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_ARTEFACTS_USING] -> add_obj(el);
+
+	el = scr -> get_object("TimeTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_IN_ESCAVE_TIME] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_IN_ESCAVE_TIME] -> alloc_mem(1);
+	iMP_Games[iMP_MIR_RAGE] -> pData[iMP_IN_ESCAVE_TIME] -> add_obj(el);
+
+	scr = (iScreen*)iScrDisp -> get_object("Game Params 6");
+	if(!scr) ErrH.Abort("iMP_Screen not found...");
+	iMP_Games[iMP_UNIVANG] -> alloc_mem(3);
+
+	el = scr -> get_object("BeebosNumberID");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_INITIAL_CASH] -> alloc_mem(1);
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_INITIAL_CASH] -> add_obj(el);
+
+	el = scr -> get_object("ArtefactsTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_ARTEFACTS_USING] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_ARTEFACTS_USING] -> alloc_mem(1);
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_ARTEFACTS_USING] -> add_obj(el);
+
+	el = scr -> get_object("TimeTrig");
+	if(!el) ErrH.Abort("iObject not found...");
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_IN_ESCAVE_TIME] -> type = iMP_TRIGGER_STATE;
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_IN_ESCAVE_TIME] -> alloc_mem(1);
+	iMP_Games[iMP_UNIVANG] -> pData[iMP_IN_ESCAVE_TIME] -> add_obj(el);
+
 	iPlaces = new iMultiResultString*[iMP_MAX_PLACE];
 	iResults = new iMultiResultString*[iMP_MAX_RESULT];
 	iHallPlaces = new iMultiResultString*[iMP_MAX_HALL_RESULT];
@@ -1894,6 +1942,26 @@ void iGetMultiGameParameters(void)
 			}
 			my_server_data.Mustodont.TeamMode = value;
 			break;
+		case iMP_MIR_RAGE:
+			value = iGetMultiGameParameter(iMP_MIR_RAGE,iMP_INITIAL_CASH);
+			my_server_data.Mir_Rage.InitialCash = value;
+
+			value = iGetMultiGameParameter(iMP_MIR_RAGE,iMP_ARTEFACTS_USING);
+			my_server_data.Mir_Rage.ArtefactsUsing = value;
+
+			value = iGetMultiGameParameter(iMP_MIR_RAGE,iMP_IN_ESCAVE_TIME);
+			my_server_data.Mir_Rage.InEscaveTime = value;
+			break;
+		case iMP_UNIVANG:
+			value = iGetMultiGameParameter(iMP_UNIVANG,iMP_INITIAL_CASH);
+			my_server_data.UniVang.InitialCash = value;
+
+			value = iGetMultiGameParameter(iMP_UNIVANG,iMP_ARTEFACTS_USING);
+			my_server_data.UniVang.ArtefactsUsing = value;
+
+			value = iGetMultiGameParameter(iMP_UNIVANG,iMP_IN_ESCAVE_TIME);
+			my_server_data.UniVang.InEscaveTime = value;
+			break;
 	}
 }
 
@@ -2151,6 +2219,26 @@ void iSetMultiGameParameters(void)
 			}
 			iSetMultiGameParameter(iMP_MUSTODONT,iMP_TEAM_MODE,value);
 			break;
+		case iMP_MIR_RAGE:
+			value = my_server_data.Mir_Rage.InitialCash;
+			iSetMultiGameParameter(iMP_MIR_RAGE,iMP_INITIAL_CASH,value);
+
+			value = my_server_data.Mir_Rage.ArtefactsUsing;
+			iSetMultiGameParameter(iMP_MIR_RAGE,iMP_ARTEFACTS_USING,value);
+
+			value = my_server_data.Mir_Rage.InEscaveTime;
+			iSetMultiGameParameter(iMP_MIR_RAGE,iMP_IN_ESCAVE_TIME,value);
+			break;
+		case iMP_UNIVANG:
+			value = my_server_data.UniVang.InitialCash;
+			iSetMultiGameParameter(iMP_UNIVANG,iMP_INITIAL_CASH,value);
+
+			value = my_server_data.UniVang.ArtefactsUsing;
+			iSetMultiGameParameter(iMP_UNIVANG,iMP_ARTEFACTS_USING,value);
+
+			value = my_server_data.UniVang.InEscaveTime;
+			iSetMultiGameParameter(iMP_UNIVANG,iMP_IN_ESCAVE_TIME,value);
+			break;
 	}
 }
 
@@ -2172,6 +2260,12 @@ void iUpdateMultiGameName(void)
 			break;
 		case 4:
 			name = iGetOptionValueCHR(iMPGAME4_ID);
+			break;
+		case 5:
+			name = iGetOptionValueCHR(iMPGAME5_ID);
+			break;
+		case 6:
+			name = iGetOptionValueCHR(iMPGAME6_ID);
 			break;
 	}
 	if(!name) return;
@@ -2312,7 +2406,7 @@ void iSortPlayers(int mode)
 		while(flag){
 			flag = 0;
 			for(i = 0; i < iNumPlayers - 1; i ++){
-				if(iCurMultiGame == iMP_VAN_WAR || iCurMultiGame == iMP_HUNTAGE){
+				if(iCurMultiGame == iMP_VAN_WAR){
 					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
 						p = iPlayers[i];
 						iPlayers[i] = iPlayers[i + 1];
@@ -2336,6 +2430,14 @@ void iSortPlayers(int mode)
 						flag = 1;
 					}
 				}
+				if(iCurMultiGame == iMP_HUNTAGE){
+					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
+						p = iPlayers[i];
+						iPlayers[i] = iPlayers[i + 1];
+						iPlayers[i + 1] = p;
+						flag = 1;
+					}
+				}
 				if(iCurMultiGame == iMP_MUSTODONT){
 					if(!iPlayers[i] -> body.MustodontStat.MakeTime && iPlayers[i + 1] -> body.MustodontStat.MakeTime){
 						p = iPlayers[i];
@@ -2344,6 +2446,22 @@ void iSortPlayers(int mode)
 						flag = 1;
 					}
 					if(iPlayers[i] -> body.MustodontStat.MakeTime && iPlayers[i + 1] -> body.MustodontStat.MakeTime && iPlayers[i] -> body.MustodontStat.MakeTime > iPlayers[i + 1] -> body.MustodontStat.MakeTime){
+						p = iPlayers[i];
+						iPlayers[i] = iPlayers[i + 1];
+						iPlayers[i + 1] = p;
+						flag = 1;
+					}
+				}
+				if(iCurMultiGame == iMP_MIR_RAGE){
+					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
+						p = iPlayers[i];
+						iPlayers[i] = iPlayers[i + 1];
+						iPlayers[i + 1] = p;
+						flag = 1;
+					}
+				}
+				if(iCurMultiGame == iMP_UNIVANG){
+					if(iPlayers[i] -> body.kills - iPlayers[i] -> body.deaths < iPlayers[i + 1] -> body.kills - iPlayers[i + 1] -> body.deaths){
 						p = iPlayers[i];
 						iPlayers[i] = iPlayers[i + 1];
 						iPlayers[i + 1] = p;
@@ -2678,6 +2796,40 @@ void iPreparePlayerResults(int id)
 			iResults[i] -> redraw();
 
 		for(i = 6; i < iMP_MAX_RESULT; i ++){
+			iResults[i] -> set_data("","","");
+			iResults[i] -> redraw();
+		}
+	}
+	if(iCurMultiGame == iMP_MIR_RAGE){
+		XBuf.init();
+		XBuf <= p -> body.kills;
+		iResults[0] -> set_data("",iSTR_MP_Kills,XBuf.address());
+
+		XBuf.init();
+		XBuf <= p -> body.deaths;
+		iResults[1] -> set_data("",iSTR_MP_Deaths,XBuf.address());
+
+		for(i = 0; i < 2; i ++)
+			iResults[i] -> redraw();
+
+		for(i = 2; i < iMP_MAX_RESULT; i ++){
+			iResults[i] -> set_data("","","");
+			iResults[i] -> redraw();
+		}
+	}
+	if(iCurMultiGame == iMP_UNIVANG){
+		XBuf.init();
+		XBuf <= p -> body.kills;
+		iResults[0] -> set_data("",iSTR_MP_Kills,XBuf.address());
+
+		XBuf.init();
+		XBuf <= p -> body.deaths;
+		iResults[1] -> set_data("",iSTR_MP_Deaths,XBuf.address());
+
+		for(i = 0; i < 2; i ++)
+			iResults[i] -> redraw();
+
+		for(i = 2; i < iMP_MAX_RESULT; i ++){
 			iResults[i] -> set_data("","","");
 			iResults[i] -> redraw();
 		}

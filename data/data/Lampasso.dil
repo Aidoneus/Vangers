@@ -1,6 +1,6 @@
 15
 15
-83
+87
 7
 11 0 "Fake Kernoboo found" "3" "0" "1" "data INV_NOBOOL > 0 fiasco > 0" "abort" "block" 
 6 6 "Zyklope warning" "5" "0" "0" "BSTATUS == 2 data DOMINANCE > 70 data LUCK > 70" " " " " 
@@ -43,12 +43,16 @@
 2 10 "MP2 Start" "1" "0" "0" "MP_GAME == 2" " " "clear" 
 3 10 "MP3 Start" "1" "0" "0" "MP_GAME == 3" " " "clear" 
 4 10 "MP4 Start" "1" "0" "0" "MP_GAME == 4" " " "clear" 
-0 11 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " " 
+5 10 "MP5 Start" "1" "0" "0" "MP_GAME == 5" " " "clear"
+6 10 "MP6 Start" "1" "0" "0" "MP_GAME == 6" " " "clear"
+0 11 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " "
 1 11 "MP1 Comment" "2" "1" "1" "MP_GAME == 1" " " " " 
 2 11 "MP2 Comment" "2" "1" "1" "MP_GAME == 2" " " " " 
 3 11 "MP3 Comment" "2" "1" "1" "MP_GAME == 3" " " " " 
 4 11 "MP4 Comment" "2" "1" "1" "MP_GAME == 4" " " " " 
-0 5 "Heroin in Inventory (Boond)" "2" "0" "1" "BSTATUS == 0 data INV_HEROIN > 0" " " " " 
+5 11 "MP5 Comment" "2" "1" "1" "MP_GAME == 5" " " " "
+6 11 "MP6 Comment" "2" "1" "1" "MP_GAME == 6" " " " "
+0 5 "Heroin in Inventory (Boond)" "2" "0" "1" "BSTATUS == 0 data INV_HEROIN > 0" " " " "
 1 5 "Heroin in Inventory (Commissar)" "2" "0" "1" "BSTATUS == 1 data INV_HEROIN > 0" " " " " 
 2 5 "Heroin in Inventory (Agent)" "2" "0" "1" "BSTATUS == 2 data INV_HEROIN > 0" " " " " 
 3 5 "Nymbos in Inventory" "2" "0" "1" "data INV_NYMBOS > 0" " " " " 

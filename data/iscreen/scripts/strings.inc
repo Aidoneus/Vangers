@@ -558,11 +558,17 @@
 #define iSTR_PASSEMBLOSS1		"PASSEMBLOSS"
 #define iSTR_PASSEMBLOSS2		"€‘‘…Œ‹Ž‘"
 
-#define iSTR_HUNTAGE1			"MIR-RAGE"
-#define iSTR_HUNTAGE2			"Œˆ-€†"
+#define iSTR_HUNTAGE1			"HUNTAGE"
+#define iSTR_HUNTAGE2			"Ž•Ž’Ž"
 
 #define iSTR_MUSTODONT1 		"MUSTODONT"
 #define iSTR_MUSTODONT2 		"Œ€‘’Ž„Ž’"
+
+#define iSTR_MIR_RAGE1 			"MIR-RAGE"
+#define iSTR_MIR_RAGE2 			"Œˆ-€†"
+
+#define iSTR_UNIVANG1 			"UNIVANG-3/8"
+#define iSTR_UNIVANG2 			"“ˆ‚€ƒ-3/8"
 
 #define iSTR_JOYSTICK_SETUP1		"JOYSTICK SETUP"
 #define iSTR_JOYSTICK_SETUP2		"€‘’Ž‰Š€ „†Ž‘’ˆŠ€"

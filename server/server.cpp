@@ -45,7 +45,7 @@ XStream fout("lst", XS_OUT);
 #define MOUT1(str, code) \
 	{ std::cout << str << ", code: " << code << "                                       \n"; }
 
-const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS"};
+const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS", "HUNTAGE", "MUSTODONT", "MIR_RAGE", "UNIVANG"};
 
 XStream stat_log;
 
@@ -82,6 +82,18 @@ Game::~Game() {
 			break;
 		case PASSEMBLOSS:
 			process_PASSEMBLOSS_ratings();
+			break;
+		case HUNTAGE:
+			process_HUNTAGE_ratings();
+			break;
+		case MUSTODONT:
+			process_MUSTODONT_ratings();
+			break;
+		case MIR_RAGE:
+			process_MIR_RAGE_ratings();
+			break;
+		case UNIVANG:
+			process_UNIVANG_ratings();
 			break;
 		}
 	}
@@ -201,6 +213,18 @@ int Game::quant() {
 					break;
 				case PASSEMBLOSS:
 					process_PASSEMBLOSS_ratings();
+					break;
+				case HUNTAGE:
+					process_HUNTAGE_ratings();
+					break;
+				case MUSTODONT:
+					process_MUSTODONT_ratings();
+					break;
+				case MIR_RAGE:
+					process_MIR_RAGE_ratings();
+					break;
+				case UNIVANG:
+					process_UNIVANG_ratings();
 					break;
 				}
 			} else
@@ -487,6 +511,242 @@ void Game::process_PASSEMBLOSS_ratings() {
 	}
 }
 
+void Game::process_HUNTAGE_ratings() {
+	int total_account = 0;
+	int counter = 0;
+	double avr_rating = 0;
+	Player *p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.kills - p->body.deaths));
+			total_account += p->body.kills;
+			avr_rating += p->body.rating;
+			counter++;
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.kills - p->body.deaths));
+		total_account += p->body.kills;
+		avr_rating += p->body.rating;
+		counter++;
+		p = p->next;
+	}
+	if (!counter)
+		return;
+	avr_rating /= (double)counter;
+
+	double total_weight = 0;
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS)
+			total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	if (total_weight < 0.01)
+		return;
+	total_weight /= 2.;
+
+	double factor = (double)total_account / (total_weight);
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+			p->server->add_rating_data(p, HUNTAGE);
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+		p->server->add_rating_data(p, HUNTAGE);
+		p = p->next;
+	}
+}
+
+void Game::process_MUSTODONT_ratings() {
+	int total_account = 0;
+	int counter = 0;
+	double avr_rating = 0;
+	Player *p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.kills - p->body.deaths));
+			total_account += p->body.kills;
+			avr_rating += p->body.rating;
+			counter++;
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.kills - p->body.deaths));
+		total_account += p->body.kills;
+		avr_rating += p->body.rating;
+		counter++;
+		p = p->next;
+	}
+	if (!counter)
+		return;
+	avr_rating /= (double)counter;
+
+	double total_weight = 0;
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS)
+			total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	if (total_weight < 0.01)
+		return;
+	total_weight /= 2.;
+
+	double factor = (double)total_account / (total_weight);
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+			p->server->add_rating_data(p, MUSTODONT);
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+		p->server->add_rating_data(p, MUSTODONT);
+		p = p->next;
+	}
+}
+
+void Game::process_MIR_RAGE_ratings() {
+	int total_account = 0;
+	int counter = 0;
+	double avr_rating = 0;
+	Player *p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.kills - p->body.deaths));
+			total_account += p->body.kills;
+			avr_rating += p->body.rating;
+			counter++;
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.kills - p->body.deaths));
+		total_account += p->body.kills;
+		avr_rating += p->body.rating;
+		counter++;
+		p = p->next;
+	}
+	if (!counter)
+		return;
+	avr_rating /= (double)counter;
+
+	double total_weight = 0;
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS)
+			total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	if (total_weight < 0.01)
+		return;
+	total_weight /= 2.;
+
+	double factor = (double)total_account / (total_weight);
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+			p->server->add_rating_data(p, MIR_RAGE);
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+		p->server->add_rating_data(p, MIR_RAGE);
+		p = p->next;
+	}
+}
+
+void Game::process_UNIVANG_ratings() {
+	int total_account = 0;
+	int counter = 0;
+	double avr_rating = 0;
+	Player *p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.kills - p->body.deaths));
+			total_account += p->body.kills;
+			avr_rating += p->body.rating;
+			counter++;
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.kills - p->body.deaths));
+		total_account += p->body.kills;
+		avr_rating += p->body.rating;
+		counter++;
+		p = p->next;
+	}
+	if (!counter)
+		return;
+	avr_rating /= (double)counter;
+
+	double total_weight = 0;
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS)
+			total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	if (total_weight < 0.01)
+		return;
+	total_weight /= 2.;
+
+	double factor = (double)total_account / (total_weight);
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+			p->server->add_rating_data(p, UNIVANG);
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+		p->server->add_rating_data(p, UNIVANG);
+		p = p->next;
+	}
+}
+
 void Game::save_result() {
 	if (!players.size() && !removed_players.size())
 		return;
@@ -541,6 +801,18 @@ void Game::load_result(Server *server, char *name) {
 		break;
 	case PASSEMBLOSS:
 		process_PASSEMBLOSS_ratings();
+		break;
+	case HUNTAGE:
+		process_HUNTAGE_ratings();
+		break;
+	case MUSTODONT:
+		process_MUSTODONT_ratings();
+		break;
+	case MIR_RAGE:
+		process_MIR_RAGE_ratings();
+		break;
+	case UNIVANG:
+		process_UNIVANG_ratings();
 		break;
 	}
 }
@@ -1352,6 +1624,38 @@ int Player::receive() {
 						code_queue.put(Event(PLAYERS_RATING, this));
 				}
 				break;
+			case HUNTAGE:
+				if (body.kills != prev_body.kills || body.deaths != prev_body.deaths ||
+					body.rating != prev_body.rating) {
+					game->process_HUNTAGE_ratings();
+					if (fabs(body.rating - prev_body.rating) > 0.01)
+						code_queue.put(Event(PLAYERS_RATING, this));
+				}
+				break;
+			case MUSTODONT:
+				if (body.kills != prev_body.kills || body.deaths != prev_body.deaths ||
+					body.rating != prev_body.rating) {
+					game->process_MUSTODONT_ratings();
+					if (fabs(body.rating - prev_body.rating) > 0.01)
+						code_queue.put(Event(PLAYERS_RATING, this));
+				}
+				break;
+			case MIR_RAGE:
+				if (body.kills != prev_body.kills || body.deaths != prev_body.deaths ||
+					body.rating != prev_body.rating) {
+					game->process_MIR_RAGE_ratings();
+					if (fabs(body.rating - prev_body.rating) > 0.01)
+						code_queue.put(Event(PLAYERS_RATING, this));
+				}
+				break;
+			case UNIVANG:
+				if (body.kills != prev_body.kills || body.deaths != prev_body.deaths ||
+					body.rating != prev_body.rating) {
+					game->process_UNIVANG_ratings();
+					if (fabs(body.rating - prev_body.rating) > 0.01)
+						code_queue.put(Event(PLAYERS_RATING, this));
+				}
+				break;
 			}
 			game->put_event_for_all(PLAYERS_DATA, this);
 			IN_EVENTS_LOG(SET_PLAYER_DATA);
@@ -1876,6 +2180,7 @@ void Server::analyse_statistics(Game *g) {
 
 void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 	int num = 0;
+	char* gameTypeLetter = "-";
 	Game *g = games.first();
 	while (g) {
 		if (g->data.GameType != UNCONFIGURED && g->used_players_IDs != 0x7fffffff &&
@@ -1889,8 +2194,31 @@ void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 	while (g) {
 		if (g->data.GameType != UNCONFIGURED && g->used_players_IDs != 0x7fffffff &&
 			g->client_version == client_version) {
-			out_buffer < g->ID < g->name < ": " <= g->players.size() < " " <
-				(g->data.GameType == VAN_WAR ? "V" : (g->data.GameType == MECHOSOMA ? "M" : "P"));
+			switch(g->data.GameType) {
+				case VAN_WAR:
+					gameTypeLetter = "V";
+					break;
+				case MECHOSOMA:
+					gameTypeLetter = "M";
+					break;
+				case PASSEMBLOSS:
+					gameTypeLetter = "P";
+					break;
+				case HUNTAGE:
+					gameTypeLetter = "H";
+					break;
+				case MUSTODONT:
+					gameTypeLetter = "D";
+					break;
+				case MIR_RAGE:
+					gameTypeLetter = "R";
+					break;
+				case UNIVANG:
+					gameTypeLetter = "U";
+					break;
+				default: break;
+			}
+			out_buffer < g->ID < g->name < ": " <= g->players.size() < " " < gameTypeLetter;
 
 			int t = (SDL_GetTicks() - g->birth_time) / 1000;
 			int ts = t % 60;

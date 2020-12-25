@@ -1040,9 +1040,6 @@ void VangerUnit::Destroy(void)
 				PalCD.Set(CPAL_HIDE_PASSAGE,ExternalTime);
 
 				switch(my_server_data.GameType){
-					case MECHOSOMA:
-						ChangeWorldConstraction = CurrentWorld;
-						break;
 					case VAN_WAR:
 						if (my_server_data.Van_War.Nascency == -1) {
                             ChangeWorldConstraction = RND(3);
@@ -1051,6 +1048,9 @@ void VangerUnit::Destroy(void)
 						} else {
                             ChangeWorldConstraction = my_server_data.Van_War.Nascency;
 						}
+						break;
+					case MECHOSOMA:
+						ChangeWorldConstraction = CurrentWorld;
 						break;
 					case PASSEMBLOSS:
 						if(UsedCheckNum == 0) ChangeWorldConstraction = GloryPlaceData[0].World;
@@ -1063,7 +1063,16 @@ void VangerUnit::Destroy(void)
 							};
 						};
 						break;
-					case 3: // HUNTAGE
+					case HUNTAGE:
+						ChangeWorldConstraction = WORLD_FOSTRAL;
+						break;
+					case MUSTODONT:
+						ChangeWorldConstraction = WORLD_FOSTRAL;
+						break;
+					case MIR_RAGE:
+						ChangeWorldConstraction = WORLD_FOSTRAL;
+						break;
+					case UNIVANG:
 						ChangeWorldConstraction = WORLD_FOSTRAL;
 						break;
 				};
@@ -2692,7 +2701,19 @@ void ActionDispatcher::Quant(void)
 							RaceTxtBuff <= n_position < "|" <= n_total;
 						};
 						break;
-					case 3: // HUNTAGE
+					case HUNTAGE:
+						strcpy(aciCurRaceType,"   ");
+						RaceTxtBuff < "   ";
+						break;
+					case MUSTODONT:
+						strcpy(aciCurRaceType,"   ");
+						RaceTxtBuff < "   ";
+						break;
+					case MIR_RAGE:
+						strcpy(aciCurRaceType,"   ");
+						RaceTxtBuff < "   ";
+						break;
+					case UNIVANG:
 						strcpy(aciCurRaceType,"   ");
 						RaceTxtBuff < "   ";
 						break;
@@ -13991,7 +14012,7 @@ void NetworkGetStart(char* name,int& x,int& y)
 	StaticSort(SnsTableSize,(StaticObject**)SensorObjectData,(StaticObject**)SensorSortedData);
 
     // CxInfo: here we can change x and y (and then "return;") to manually change spawn point upon exiting an escave
-	if (NetworkON && my_server_data.GameType == 3) { // HUNTAGE
+	if (NetworkON && my_server_data.GameType == HUNTAGE) {
 		x = getWorld(WORLD_MIRAGE)->x_spawn;
 		y = getWorld(WORLD_MIRAGE)->y_spawn;
 		return;

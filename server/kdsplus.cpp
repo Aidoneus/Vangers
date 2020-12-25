@@ -4,6 +4,7 @@
 #include <thread>
 
 #define VERSION "1.9"
+#define CXVERSION "0.62"
 /* --------------------------- PROTOTYPE SECTION --------------------------- */
 void ComlineAnalyze(int argc, char **argv);
 
@@ -37,6 +38,7 @@ int xtInitApplication(void) {
 #endif
 	std::cout << "Multiplayer VANGERS Server by K-D LAB\nRelease Version " VERSION
 				 " (c) 1998 All Rights Reserved\n";
+	std::cout << "Cx Version 0.62, https://kiv.name/cx\n";
 	std::cout << "Compilation: DATE: " << __DATE__ << " TIME: " << __TIME__ << "\n\n";
 
 	// SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);

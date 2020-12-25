@@ -238,6 +238,14 @@
 "МАСТОДОНТ стартовал!"
 "MUSTODONT started!"
 
+[MP5 Start]
+"МИР-РАЖ стартовал!"
+"MIR-RAGE started!"
+
+[MP6 Start]
+"УНИВАНГ стартовал!"
+"UNIVANG started!"
+
 [MP0 Comment]
 "ВАН-ВАР идёт жестокий... А ты решил сидеть в тиши эскейва, дрожа и плача? Быстрей на мир! Найди того урода, что смел тебя задеть, и покажи ему, что значит гнев героя. А можешь пушку взять крутую и ей накостылять обидчикам. Я уступлю за полцены, вали отсюда только..."
 "The VAN-WAR is in full swing and you are quaking in an escave, you stinking coward! Go up into the world and find the chump who dared offend you. Show him what the anger of a real hero means. You want to take a decent gun to shoot up those drips? I'll sell it for half the price if you disappear quick!"
@@ -257,6 +265,14 @@
 [MP4 Comment]
 "МАСТОДОНТ продолжается..."
 "MUSTODONT in progress..."
+
+[MP5 Comment]
+"МИР-РАЖ продолжается..."
+"MIR-RAGE in progress..."
+
+[MP6 Comment]
+"УНИВАНГ продолжается..."
+"UNIVANG in progress..."
 
 [Protractor in Inventory]
 "Смотрю, ты Начертатель раздобыл, колесник ушлый. Легенды много говорят о нем. Ты, значит, сам решил испробовать забавы древних, смотри не погуби себя."

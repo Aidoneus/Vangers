@@ -478,10 +478,14 @@ void uniVangPrepare(void){
 			break;
 		case PASSEMBLOSS:
 			break;
-		case 3: // HUNTAGE
+		case HUNTAGE:
 			break;
-		case 4: // MUSTODONT
+		case MUSTODONT:
 			uvsUnikumeMechos = 0;
+			break;
+		case MIR_RAGE:
+			break;
+		case UNIVANG:
 			break;
 		};
 	}
@@ -818,12 +822,18 @@ void uniVangPrepare(void){
 			else
 				CurrentWorld = my_server_data.Passembloss.RandomEscave;
 			break;
-		case 3: // HUNTAGE
+		case HUNTAGE:
 			aciUpdateCurCredits(my_server_data.Huntage.InitialCash);
 			break;
-		case 4: // MUSTODONT
+		case MUSTODONT:
 			aciUpdateCurCredits(my_server_data.Mustodont.InitialCash);
 			uvsUnikumeMechos = my_server_data.Mustodont.UniqueMechosName + MAX_MECHOS_TYPE - MAX_MECHOS_CONSTRACTOR - MAX_MECHOS_CUSTOM;
+			break;
+		case MIR_RAGE:
+			aciUpdateCurCredits(my_server_data.Mir_Rage.InitialCash);
+			break;
+		case UNIVANG:
+			aciUpdateCurCredits(my_server_data.UniVang.InitialCash);
 			break;
 		};
 

@@ -1,6 +1,6 @@
 9
 9
-56
+60
 7
 6 1 "Key to Xplo Gift" "1" "1" "0" "data INV_WEEZYK > 0 OR data BEEBS > 300000" " " "key2xplo_gift" 
 8 0 "Zyklope Winner II" "1" "1" "0" "data INV_WEEZYK > 0" " " " " 
@@ -33,12 +33,16 @@
 2 7 "MP2 Start" "1" "0" "0" "MP_GAME == 2" " " "clear" 
 3 7 "MP3 Start" "1" "0" "0" "MP_GAME == 3" " " "clear" 
 4 7 "MP4 Start" "1" "0" "0" "MP_GAME == 4" " " "clear" 
-0 8 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " " 
+5 7 "MP5 Start" "1" "0" "0" "MP_GAME == 5" " " "clear"
+6 7 "MP6 Start" "1" "0" "0" "MP_GAME == 6" " " "clear"
+0 8 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " "
 1 8 "MP1 Comment" "2" "1" "1" "MP_GAME == 1" " " " " 
 2 8 "MP2 Comment" "2" "1" "1" "MP_GAME == 2" " " " " 
 3 8 "MP3 Comment" "2" "1" "1" "MP_GAME == 3" " " " " 
 4 8 "MP4 Comment" "2" "1" "1" "MP_GAME == 4" " " " " 
-4 0 "Spummy in Inventory" "3" "0" "1" "data INV_SPUMMY > 0" "abort" "block" 
+5 8 "MP5 Comment" "2" "1" "1" "MP_GAME == 5" " " " "
+6 8 "MP6 Comment" "2" "1" "1" "MP_GAME == 6" " " " "
+4 0 "Spummy in Inventory" "3" "0" "1" "data INV_SPUMMY > 0" "abort" "block"
 1 0 "Zyklope Loser" "3" "0" "1" "data ZYK_TOTAL > 0 data INV_WEEZYK == 0" "abort" "block" 
 2 0 "Zyklope Harrier" "3" "0" "1" "data ZYK_TOTAL > 0 data INV_WEEZYK == 0" "abort" "block" 
 3 0 "Toxick in Inventory" "3" "0" "1" "data INV_TOXICK > 0" "abort" "block" 
