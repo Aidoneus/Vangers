@@ -265,6 +265,10 @@ struct Game {
 	void process_VAN_WAR_ratings();
 	void process_MECHOSOMA_ratings();
 	void process_PASSEMBLOSS_ratings();
+	void process_HUNTAGE_ratings();
+	void process_MUSTODONT_ratings();
+	void process_MIR_RAGE_ratings();
+	void process_UNIVANG_ratings();
 	void save_result();
 	void load_result(Server *server, char *name);
 };
