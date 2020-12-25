@@ -2072,9 +2072,6 @@ void iSetMultiGameParameters(void)
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_IN_ESCAVE_TIME,value);
 			
 			
-			time(&tm);
-			
-			
 			//CheckpointsNumber [0(?)-?]
 			switch (modID) {
 				case ID_WARM_UP: value = 6; break;
