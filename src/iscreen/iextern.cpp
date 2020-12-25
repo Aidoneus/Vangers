@@ -1686,7 +1686,7 @@ void iGetMultiGameParameters(void)
 				case ID_MECHOSUMO: value = 2; break;
 				case ID_ARENA: value = 4; break;
 				case ID_MAMMOTH:
-				case ID_MECHOKVACH;
+				case ID_MECHOKVACH:
 					if (iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY) < 1 || iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY) > 3) value = 1;
 					break;
 				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY); break;
@@ -1946,7 +1946,7 @@ void iSetMultiGameParameters(void)
 				case ID_MECHOSUMO: value = 2; break;
 				case ID_ARENA: value = 4; break;
 				case ID_MAMMOTH:
-				case ID_MECHOKVACH;
+				case ID_MECHOKVACH:
 					if (my_server_data.Van_War.Nascency < 0 || my_server_data.Van_War.Nascency > 2) value = 1;
 					break;
 				default: value = my_server_data.Van_War.Nascency + 1; break;
