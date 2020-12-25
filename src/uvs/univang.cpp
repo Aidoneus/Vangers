@@ -1440,7 +1440,7 @@ void uvsContimer::Quant(void){
 		}
 	}
 
-	if (is_start==2 && isMod(ID_WIRNG)) {
+	if (is_start==2 && isMod(ID_WIRING)) {
 		if (ActD.Active && (ActD.Active->R_curr.z <= 240 ||
 		ActD.Active->R_curr.y <= 14710 || ActD.Active->R_curr.y >= 16025 ||
 		(ActD.Active->R_curr.y <= 14770 && (ActD.Active->R_curr.x >= 1200 && ActD.Active->R_curr.x <= 1400)) ||
