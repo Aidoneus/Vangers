@@ -5738,7 +5738,7 @@ void aciShowFrags(void)
 	aScrDisp -> curPrompt -> fontID = ACI_FRAG_FONT;
 
 	switch(iCurMultiGame){
-		case 0: // VAN-WAR...
+		case VAN_WAR:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();
@@ -5749,7 +5749,7 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
-		case 1: // MECHOSOMA...
+		case MECHOSOMA:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();
@@ -5761,7 +5761,7 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
-		case 2: // PASSEMBLOSS...
+		case PASSEMBLOSS:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();
@@ -5772,7 +5772,7 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
-		case 3: // HUNTAGE
+		case HUNTAGE:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();
@@ -5783,7 +5783,7 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
-		case 4: // MUSTODONT
+		case MUSTODONT:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();
@@ -5794,7 +5794,7 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
-		case 5: // MIR-RAGE
+		case MIR_RAGE:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();
@@ -5805,7 +5805,7 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
-		case 6: // UNIVANG
+		case UNIVANG:
 			for(i = 0; i < num; i ++){
 				p = iPlayers[i];
 				XBuf.init();

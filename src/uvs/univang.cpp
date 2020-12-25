@@ -627,8 +627,7 @@ void uniVangPrepare(void){
 			if ((i == UVS_ITEM_TYPE::MACHOTINE_GUN_LIGHT ||
 			    i == UVS_ITEM_TYPE::SPEETLE_SYSTEM_LIGHT ||
 			    i == UVS_ITEM_TYPE::GHORB_GEAR_LIGHT ) ||
-                (NetworkON && my_server_data.GameType == VAN_WAR && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0 ||
-				strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0)))
+                (my_server_data.GameType == VAN_WAR && (isMod(ID_ARENA) || isMod(ID_NEPTUNE))))
 #endif
             {
                 for (int j = 0; j < MAIN_WORLD_MAX + 1; j++) {
@@ -647,9 +646,9 @@ void uniVangPrepare(void){
 			for( int j = 0; j < MAIN_WORLD_MAX; j++) WorldTable[j] -> generate_item( i );
 #else
 
-			if (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)
+			if (my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))
                 WorldTable[WORLD_SATADI] -> generate_item( i );
-			else if (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0)
+			else if (my_server_data.GameType == VAN_WAR && isMod(ID_NEPTUNE))
                 for( int j = 0; j < MAIN_WORLD_MAX; j++) WorldTable[j] -> generate_item(i);
             else {
                 switch(i){
@@ -694,7 +693,7 @@ void uniVangPrepare(void){
 	meanN = 0;
 
 	//zNfo Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¼ÐµÑ…Ð¾ÑÐ¾Ð²
-	if (NetworkON && (my_server_data.GameType == VAN_WAR && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0))) {
+	if (my_server_data.GameType == VAN_WAR && (isMod(ID_ARENA) || isMod(ID_NEPTUNE))) {
 		guaranteedMechoses = MAX_MECHOS_TYPE - MAX_MECHOS_CUSTOM;
 	}
 	for( int k = 0; k < guaranteedMechoses; k++){
@@ -860,7 +859,7 @@ void uniVangPrepare(void){
 
 	//zNfo  DEFAULT MECHOS
 	int MechosID = 0;
-	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	int modID = getCurrentMod();
 	if (NetworkON) {
 		switch (z_my_server_data.mod_id) {
 			case Z_MODS_RAFARUN_ID:		{ MechosID = 16; break; } // Ð¼Ð¾Ñ‚Ð¾Ðº
@@ -869,12 +868,26 @@ void uniVangPrepare(void){
 			case Z_MODS_TEST_ID:		{ MechosID =  5; break; } // Ð´Ñ€ÑÑ…Ð»Ñ‹Ð¹ Ð´ÑƒÑˆÐµÐ³ÑƒÐ±
 			default: MechosID = 5; // Ð´Ñ€ÑÑ…Ð»Ñ‹Ð¹ Ð´ÑƒÑˆÐµÐ³ÑƒÐ±
 		}
-		if (my_server_data.GameType == PASSEMBLOSS && strcmp(game_name,"raffa run")==0) MechosID = 16;
-		else if (my_server_data.GameType == MECHOSOMA && strcmp(game_name,"raffasoma")==0) MechosID = 16;
-		else if (my_server_data.GameType == PASSEMBLOSS && strcmp(game_name,"truck-trial")==0) MechosID = 7;
-		else if (my_server_data.GameType == MECHOSOMA && strcmp(game_name,"skysoma")==0) MechosID = 22;
-		else if (my_server_data.GameType == VAN_WAR && strcmp(game_name,"neptune")==0) MechosID = 21;
-		else if (my_server_data.GameType == VAN_WAR && strcmp(game_name,"arena")==0) MechosID = 16;
+		switch (modID) {
+			case ID_TRUCK_TRIAL:
+				if (my_server_data.GameType == PASSEMBLOSS) MechosID = 7;
+				break;
+			case ID_RAFFA_RUN:
+				if (my_server_data.GameType == PASSEMBLOSS) MechosID = 16;
+				break;
+			case ID_RAFFASOMA:
+				if (my_server_data.GameType == MECHOSOMA) MechosID = 16;
+				break;
+			case ID_ARENA:
+				if (my_server_data.GameType == VAN_WAR) MechosID = 16;
+				break;
+			case ID_NEPTUNE:
+				if (my_server_data.GameType == VAN_WAR) MechosID = 21;
+				break;
+			case ID_SKYSOMA:
+				if (my_server_data.GameType == VAN_WAR) MechosID = 22;
+				break;
+		}
 		if (customMechousUsage) MechosID = customMechousId;
 	}
 
@@ -946,7 +959,7 @@ void uvsRestoreVanger(void){
 			int x, y;
 			NetworkGetStart(v -> Pescave -> name, x, y);
 			addVanger(v,x,y, 1);
-			if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0 && ActD.Active) {
+			if (isMod(ID_NEPTUNE) && ActD.Active) {
 				aciWorldLinksON();
 				ActD.Active->PassageCount = ActD.Active->MaxPassageCount+1;
 			}
@@ -954,7 +967,7 @@ void uvsRestoreVanger(void){
 			int x, y;
 			NetworkGetStart(v -> Pspot -> name, x, y);
 			addVanger(v,x, y, 1);
-			if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0 && ActD.Active) {
+			if (isMod(ID_NEPTUNE) && ActD.Active) {
 				aciWorldLinksON();
 				ActD.Active->PassageCount = ActD.Active->MaxPassageCount+1;
 			}
@@ -1220,9 +1233,7 @@ void uvsContimer::Quant(void){
 		}
 	}
 
-	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
-
-	if (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(game_name,"arena")==0) {
+	if (my_server_data.GameType == VAN_WAR && isMod(ID_ARENA)) {
 		if (CurrentWorld==10) {
 			// after 10, next 20, next 30, then each 60 ~sec
 			countFromDeath++;
@@ -1280,9 +1291,11 @@ void uvsContimer::Quant(void){
 		rollcallTime++;
 		if (rollcallTime == 1)
 			message_dispatcher.send("[bot]¥à¥ª«¨çª ", MESSAGE_FOR_PLAYER, 0);
+			
 			PlayerData* pd;
 			pd = players_list.first();
 			rollcallNum=0;
+			
 			while (pd) {
 				if (pd->status == GAMING_STATUS) {
 					rollcallNum++;
@@ -1291,20 +1304,23 @@ void uvsContimer::Quant(void){
 			}
 		if (rollcallTime == 1200 || isRollcall >= rollcallNum) {
 			message_dispatcher.send("[bot]-----------------", MESSAGE_FOR_PLAYER, 0);
+			
 			char *rollsize = new char[3]();
 			int plsize = 0;
 			PlayerData* pd;
 			pd = players_list.first();
+			
 			while (pd) {
 				if (pd->status == GAMING_STATUS) {
 					plsize++;
 				}
 				pd = (PlayerData*)pd -> next;
 			}
+			
 			port_itoa(plsize, rollsize, 10);
 			char *prollsize = new char[3]();
 			port_itoa(isRollcall, prollsize, 10);
-		
+			
 			char *roll_msg = new char[strlen(rollsize) + strlen(prollsize) + 6]();
 			strcpy(roll_msg, "[bot]");
 			strcat(roll_msg, prollsize);
@@ -1316,7 +1332,7 @@ void uvsContimer::Quant(void){
 			is_start = 7;
 			isRollcall=-1;
 		}
-		else if (rollcallTime == 240) {
+		else if (rollcallTime == 1200) {
 			message_dispatcher.send("[bot]¥à¥ª«¨çª  ®â¬¥­¥­ ", MESSAGE_FOR_PLAYER, 0);
 			isRollcall = -1;
 			rollcallNicknames = new char[10000]();
@@ -1327,7 +1343,7 @@ void uvsContimer::Quant(void){
 	
 	if (NetworkON && is_start==1) {
 		countFromStart++;
-		if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mammoth hunt")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mamont")==0) {
+		if (isMod(ID_MAMMOTH)) {
 			if (countFromStart==300) message_dispatcher.send("[bot]5(¬ ¬®­â)", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==320) message_dispatcher.send("[bot]4(¬ ¬®­â)", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==340) message_dispatcher.send("[bot]3(¬ ¬®­â)", MESSAGE_FOR_PLAYER, 0);
@@ -1345,7 +1361,7 @@ void uvsContimer::Quant(void){
 				is_start=0;
 			}
 		}
-		else if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "mechokvach") == 0) {
+		else if (isMod(ID_MECHOKVACH)) {
 			if (countFromStart==300) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==320) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==340) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
@@ -1387,7 +1403,7 @@ void uvsContimer::Quant(void){
 	}
 	if (NetworkON && is_start==7) {
 		countFromStart++;
-		if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "mamont")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "mammoth hunt")==0) {
+		if (isMod(ID_MAMMOTH)) {
 			if (countFromStart==1) message_dispatcher.send("[bot]5(¬ ¬®­â)", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==20) message_dispatcher.send("[bot]4(¬ ¬®­â)", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==40) message_dispatcher.send("[bot]3(¬ ¬®­â)", MESSAGE_FOR_PLAYER, 0);
@@ -1405,7 +1421,7 @@ void uvsContimer::Quant(void){
 				is_start=0;
 			}
 		}
-		else if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0) {
+		else if (isMod(ID_MECHOKVACH)) {
 			if (countFromStart==1) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==20) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==40) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
@@ -1434,7 +1450,7 @@ void uvsContimer::Quant(void){
 		}
 	}
 
-	if (NetworkON && is_start==2 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"wiring")==0) {
+	if (is_start==2 && isMod(ID_WIRING)) {
 		if (ActD.Active && (ActD.Active->R_curr.z <= 240 ||
 		ActD.Active->R_curr.y <= 14710 || ActD.Active->R_curr.y >= 16025 ||
 		(ActD.Active->R_curr.y <= 14770 && (ActD.Active->R_curr.x >= 1200 && ActD.Active->R_curr.x <= 1400)) ||
@@ -1454,7 +1470,7 @@ void uvsContimer::Quant(void){
 			is_start=3;
 		}
 	}
-	else if (NetworkON && is_start==2 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechosumo")==0) {
+	else if (is_start==2 && isMod(ID_MECHOSUMO)) {
 		if (ActD.Active && (ActD.Active->R_curr.y <= 8400 || ActD.Active->R_curr.y >= 8770 || ActD.Active->R_curr.x >= 1240 || ActD.Active->R_curr.x <= 900)) {
 			char *out_msg;
 			out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
@@ -1471,7 +1487,7 @@ void uvsContimer::Quant(void){
 			is_start=3;
 		}
 	}
-	else if (NetworkON && is_start==2 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0 && whoIsKvach==2) {
+	else if (is_start==2 && isMod(ID_MECHOKVACH) && whoIsKvach==2) {
 		if (strcmp(kvachName, aciGetPlayerName())==0) {
 			char newKvachID[20];
 			char *kvach_msg;
@@ -1489,7 +1505,7 @@ void uvsContimer::Quant(void){
 	
 	
 	
-	if (NetworkON && is_start==2 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0 && strcmp(kvachId, "-------------------")!=0) {
+	if (is_start==2 && isMod(ID_MECHOKVACH) && strcmp(kvachId, "-------------------") != 0) {
 		if (ActD.Active) {
 			VangerUnit* p;
 			p = (VangerUnit*)(ActD.Tail);
@@ -1548,7 +1564,7 @@ void uvsContimer::Quant(void){
 			strcpy(kvachId, "-------------------");
 		}
 	}
-	else if (NetworkON && is_start==0 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0) {
+	else if (is_start==0 && isMod(ID_MECHOKVACH)) {
 		if (ActD.Active) {
 			VangerUnit* p;
 			p = (VangerUnit*)(ActD.Tail);
@@ -4124,7 +4140,7 @@ void uvsShop::updateResource(void){
 		if (  GetItem( Pitem, i, 0) == NULL  && !RND(3)  && ItemHere[i]) {
 			addItem(pi = new uvsItem(i));
 		}
-		if (GetItem( Pitem, i, 0) == NULL && (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+		if (GetItem( Pitem, i, 0) == NULL && (NetworkON && my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
             addItem(pi = new uvsItem(i));
 		}
     }
@@ -4132,7 +4148,7 @@ void uvsShop::updateResource(void){
 		if (  GetItem( Pitem, i, 0) == NULL  && !RND(3) && ItemHere[i]) {
 			addItem(pi = new uvsItem(i));
 		}
-        if (GetItem( Pitem, i, 0) == NULL && (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+        if (GetItem( Pitem, i, 0) == NULL && (NetworkON && my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
             addItem(pi = new uvsItem(i));
         }
 	}
@@ -10942,13 +10958,28 @@ uvsVanger* uvsMakeNewGamerInEscave(uvsEscave* pe, int what ){
 					pm -> prev -> next = pm -> next;
 				}
 
-				char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
-				if (my_server_data.GameType == PASSEMBLOSS && strcmp(game_name,"raffa run")==0) pm -> type = 16;
-				else if (my_server_data.GameType == MECHOSOMA && strcmp(game_name,"raffasoma")==0) pm -> type = 16;
-				else if (my_server_data.GameType == PASSEMBLOSS && strcmp(game_name,"truck-trial")==0) pm -> type = 7;
-				else if (my_server_data.GameType == MECHOSOMA && strcmp(game_name,"skysoma")==0) pm -> type = 22;
-				else if (my_server_data.GameType == VAN_WAR && strcmp(game_name,"neptune")==0) pm -> type = 21;
-				else pm -> type = RND(MAX_MECHOS_RAFFA) + MAX_MECHOS_MAIN;
+				int modID = getCurrentMod();
+				switch (modID) {
+					case ID_TRUCK_TRIAL:
+						if (my_server_data.GameType == PASSEMBLOSS) pm -> type = 7;
+						break;
+					case ID_RAFFA_RUN:
+						if (my_server_data.GameType == PASSEMBLOSS) pm -> type = 16;
+						break;
+					case ID_RAFFASOMA:
+						if (my_server_data.GameType == MECHOSOMA) pm -> type = 16;
+						break;
+					case ID_ARENA:
+						if (my_server_data.GameType == VAN_WAR) pm -> type = 16;
+						break;
+					case ID_NEPTUNE:
+						if (my_server_data.GameType == VAN_WAR) pm -> type = 21;
+						break;
+					case ID_SKYSOMA:
+						if (my_server_data.GameType == VAN_WAR) pm -> type = 22;
+						break;
+					default: pm -> type = RND(MAX_MECHOS_RAFFA) + MAX_MECHOS_MAIN;; break;
+				}
 				if (ai() != PLAYER) {
 					pm -> type = 5; // CxDebug: detect net mod and change mechous accordingly
 				}

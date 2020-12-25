@@ -710,27 +710,24 @@ void VangerUnit::BulletCollision(int pow,GeneralObject* p)
 		Energy = 0;
 	};
 	
-	if(pa > 0 && Armor <= 0 && p && NetworkON && p->ID == ID_VANGER && !(NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0)){
-		if (NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechosumo")==0) {
-			if (is_start==1 || is_start==2) {
-				char *out_msg;
-				out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
-				strcpy(out_msg,"[bot]");
-				strcat(out_msg,aciGetPlayerName());
-				strcat(out_msg," выбыл...");
-				message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
-				is_start=3;
-			}
-		} else if (NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"wiring")==0) {
-			if (is_start==1 || is_start==2) {
-				char *out_msg;
-				out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
-				strcpy(out_msg,"[bot]");
-				strcat(out_msg,aciGetPlayerName());
-				strcat(out_msg," выбыл...");
-				message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
-				is_start=3;
-			}
+	if(pa > 0 && Armor <= 0 && p && p->ID == ID_VANGER && !isMod(ID_MECHOKVACH)){
+		if (is_start==2 && isMod(ID_MECHOSUMO)) {
+			char *out_msg;
+			out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
+			strcpy(out_msg,"[bot]");
+			strcat(out_msg,aciGetPlayerName());
+			strcat(out_msg," выбыл...");
+			message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
+			is_start=3;
+		} 
+		else if (is_start==2 && isMod(ID_WIRING)) {
+			char *out_msg;
+			out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
+			strcpy(out_msg,"[bot]");
+			strcat(out_msg,aciGetPlayerName());
+			strcat(out_msg," выбыл...");
+			message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
+			is_start=3;
 		}
 		switch(my_server_data.GameType){
 			case VAN_WAR:
@@ -808,7 +805,7 @@ void VangerUnit::BulletCollision(int pow,GeneralObject* p)
 
 			if(s) uvsCheckKronIventTabuTask(UVS_KRON_EVENT::SHOT,s);
 
-			if(Armor <= 0 && pa > 0 && !(NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0)){
+			if(Armor <= 0 && pa > 0 && !isMod(ID_MECHOKVACH)){
 				PlayerDestroyFlag = 1;
 				GamerResult.vanger_kill++;
 				uvsPoint->KillStatic();
@@ -831,28 +828,24 @@ void VangerUnit::DestroyCollision(int l_16,Object* p)
 	if((Armor -= l_16) < 0)
 		Armor = 0;
 
-	if(pa > 0 && Armor <= 0 && p && !(NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0)){
-		if (NetworkON && p->ID == ID_VANGER && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechosumo")==0) {
-			if (is_start==1 || is_start==2) {
-				char *out_msg;
-				out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
-				strcpy(out_msg,"[bot]");
-				strcat(out_msg,aciGetPlayerName());
-				strcat(out_msg," выбыл...");
-				message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
-				is_start=3;
-			}
+	if(pa > 0 && Armor <= 0 && p && !isMod(ID_MECHOKVACH)){
+		if (is_start == 2 && p->ID == ID_VANGER && isMod(ID_MECHOSUMO)) {
+			char *out_msg;
+			out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
+			strcpy(out_msg,"[bot]");
+			strcat(out_msg,aciGetPlayerName());
+			strcat(out_msg," выбыл...");
+			message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
+			is_start=3;
 		} 
-		else if (NetworkON && p->ID == ID_VANGER && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"wiring")==0) {
-			if (is_start==1 || is_start==2) {
-				char *out_msg;
-				out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
-				strcpy(out_msg,"[bot]");
-				strcat(out_msg,aciGetPlayerName());
-				strcat(out_msg," выбыл...");
-				message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
-				is_start=3;
-			}
+		else if (is_start == 2 && p->ID == ID_VANGER && isMod(ID_WIRING)) {
+			char *out_msg;
+			out_msg = new char[strlen("[bot]") + strlen(aciGetPlayerName()) + 9];
+			strcpy(out_msg,"[bot]");
+			strcat(out_msg,aciGetPlayerName());
+			strcat(out_msg," выбыл...");
+			message_dispatcher.send(out_msg,MESSAGE_FOR_ALL,0);
+			is_start=3;
 		}
 		//NetDestroyID = GET_STATION(p->NetID);
 		if(NetworkON && p->ID == ID_VANGER){
@@ -877,7 +870,7 @@ void VangerUnit::DestroyCollision(int l_16,Object* p)
 			uvsPoint->KillStatic();		
 		};
 	};
-	if (p && NetworkON && p->ID == ID_VANGER && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0) {
+	if (p && NetworkON && p->ID == ID_VANGER && isMod(ID_MECHOKVACH)) {
 		if (ActD.Active && is_start == 2 && kvachTime==-1) {
 			if (((VangerUnit*)(ActD.Active))->uvsPoint->Pmechos->color == ((VangerUnit*)(ActD.Active))->uvsPoint->Pmechos->actualColor &&
 			((VangerUnit*)(p))->uvsPoint->Pmechos->color != ((VangerUnit*)(p))->uvsPoint->Pmechos->actualColor) {
@@ -4926,7 +4919,7 @@ void VangerUnit::AutomaticTouchSensor(SensorDataType* p) //znfo !!!
 				if (ai() != PLAYER) {
 					if(DoorFlag){
 						if(p->Owner){
-							if(p->Owner->Type == EngineTypeList::DOOR && !(NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)){
+							if(p->Owner->Type == EngineTypeList::DOOR && !(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))){
 								d = (DoorEngine*)(p->Owner);
 								if(d->Luck > 0){
 									if((int)(RND(d->Luck)) <= aiCutLuck){
@@ -5203,7 +5196,7 @@ void VangerUnit::TouchSensor(SensorDataType* p)
 		case SensorTypeList::SENSOR:
 			if(DoorFlag){
 				if(p->Owner){
-					if(p->Owner->Type == EngineTypeList::DOOR && !(NetworkON && ((my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0) || (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0)))){
+					if(p->Owner->Type == EngineTypeList::DOOR && !((my_server_data.GameType == VAN_WAR && isMod(ID_ARENA)) || (isMod(ID_MECHOKVACH)))){
 						d = (DoorEngine*)(p->Owner);
 						if(d->Luck > 0){
 							if((int)(RND(d->Luck)) <= aiCutLuck){
@@ -7743,9 +7736,9 @@ void VangerUnit::ItemQuant(void)
 				if(GunSlotData[ItemMatrix->nSlot[i]].pData)
 					GunSlotData[ItemMatrix->nSlot[i]].Quant();
 			};
-			if(Armor <= 0 && !(NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0)) Destroy();
+			if(Armor <= 0 && !isMod(ID_MECHOKVACH)) Destroy();
 		}else{
-			if(Armor <= 0 && !(NetworkON && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mechokvach")==0)){
+			if(Armor <= 0 && !isMod(ID_MECHOKVACH)){
 				if(DeviceData){
 					p = DeviceData;
 					while(p){
@@ -14024,7 +14017,7 @@ void NetworkGetStart(char* name,int& x,int& y)
 		y = getWorld(WORLD_MIRAGE)->y_spawn;
 		return;
 	}
-	if (NetworkON && my_server_data.GameType == 0 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0) {
+	if (my_server_data.GameType == 0 && isMod(ID_NEPTUNE)) {
 		x = 1400;
 		y = 11440;
 		return;

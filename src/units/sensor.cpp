@@ -1904,7 +1904,7 @@ void DangerDataType::Quant(void)
 					FireWork(800,PI / 6);
 					break;
 				case WORLD_SATADI:
-					if (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0) {
+					if (my_server_data.GameType == VAN_WAR && isMod(ID_ARENA)) {
                         activityStart = (double)my_server_data.Van_War.MaxTime*60 / ((double)age_of_current_game()+1000);
 						activity = pow(round(activityStart * 36),2);
 						FireWork(activity,PI/8);

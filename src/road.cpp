@@ -896,7 +896,7 @@ void FirstEscaveOutRTO::Init(int id)
 #ifdef ISCREEN
 #ifndef _ACI_SKIP_SHOP_
 	// CxInfo: skip shop for the first spawn on Arena
-	if (!(NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+	if (!(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
 		iOutEscaveInit();
 	}
 #endif
@@ -910,7 +910,7 @@ int FirstEscaveOutRTO::Quant(void)
 	int val;
 #ifndef _ACI_SKIP_SHOP_
 	// CxInfo: skip shop for the first spawn on Arena
-	if (!(NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+	if (!(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
 		val = iOutEscaveQuant();
 	} else {
 		val = 1;
@@ -938,7 +938,7 @@ void FirstEscaveOutRTO::Finit(void)
 #ifdef ISCREEN
 #ifndef _ACI_SKIP_SHOP_
 	// CxInfo: skip shop for the first spawn on Arena
-	if (!(NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+	if (!(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
 		iOutEscaveFinit();
 		aci_LocationQuantFinit();
 	}
@@ -1019,7 +1019,7 @@ _MEM_STATISTIC_("AFTER curGMap  -> ");
 	XGR_SetPal(palbuf,0,255);
 #endif
 	// CxInfo: skip shop for the first spawn on Arena
-	if (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0) {
+	if (my_server_data.GameType == VAN_WAR && isMod(ID_ARENA)) {
 		XGR_SetPal(palbuf,0,255);
 	}
 
@@ -1041,7 +1041,7 @@ _MEM_STATISTIC_("AFTER ACILOADDATA INIT -> ");
 _MEM_STATISTIC_("AFTER FIRSTSHOP PREPARE INIT -> ");
 #ifndef _ACI_SKIP_SHOP_
 	// CxInfo: skip shop for the first spawn on Arena
-	if (!(NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+	if (!(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
 		aci_LocationQuantPrepare();
 		_MEM_STATISTIC_("AFTER LOADQUANT PREPARE INIT -> ");
 		aciShowLocation();
@@ -1086,7 +1086,7 @@ int FirstEscaveRTO::Quant(void)
 	int code;
 #ifndef _ACI_SKIP_SHOP_
 	// CxInfo: skip shop for the first spawn on Arena
-	if (!(NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0)) {
+	if (!(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA))) {
 		code = iQuantSecond();
 	} else {
 		code = 1;
