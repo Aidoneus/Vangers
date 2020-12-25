@@ -46,6 +46,7 @@ char modsArray[][4][40] =
 	{"mechosumo", "мехосумо"},
 	{"neptune", "нептун"},
 	{"raffa run", "тараканьи бега"},
+	{"raffasoma", "раффасома"},
 	{"roulette", "рулетка"},
 	{"skysoma", "небосома"},
 	{"truck-trial", "трак-триал"},
