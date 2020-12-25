@@ -2180,7 +2180,7 @@ void Server::analyse_statistics(Game *g) {
 
 void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 	int num = 0;
-	char gameTypeLetter = "-";
+	char* gameTypeLetter = "-";
 	Game *g = games.first();
 	while (g) {
 		if (g->data.GameType != UNCONFIGURED && g->used_players_IDs != 0x7fffffff &&
