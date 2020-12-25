@@ -46,6 +46,14 @@
 "МАСТОДОНТ стартовал!"
 "MUSTODONT started!"
 
+[MP5 Start]
+"МИР-РАЖ стартовал!"
+"MIR-RAGE started!"
+
+[MP6 Start]
+"УНИВАНГ стартовал!"
+"UNIVANG started!"
+
 [MP0 Comment]
 "ВАН-ВАР продолжается."
 "VAN-WAR in progress."
@@ -65,4 +73,12 @@
 [MP4 Comment]
 "МАСТОДОНТ продолжается..."
 "MUSTODONT in progress..."
+
+[MP5 Comment]
+"МИР-РАЖ продолжается..."
+"MIR-RAGE in progress..."
+
+[MP6 Comment]
+"УНИВАНГ продолжается..."
+"UNIVANG in progress..."
 

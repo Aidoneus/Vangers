@@ -6808,7 +6808,7 @@ Screen "Select Game"
 	#include "iscreen/scripts/gameobj.inc"
 
 	/*
-	Object "Cx version"
+	Object "Inactive game mode string template"
 	{
 		x	690
 		y	555
@@ -6820,7 +6820,7 @@ Screen "Select Game"
 
 			font		3
 			null_level	$DEFAULT_NULL
-			string		"0.62"
+			string		"Hello world"
 		}
 	}
 	 */
@@ -12019,7 +12019,7 @@ Screen "Select Game2"
 	#include "iscreen/scripts/gameobj.inc"
 
 	/*
-	Object "Cx version"
+	Object "Inactive game mode string template"
 	{
 		x	690
 		y	555
@@ -12031,7 +12031,7 @@ Screen "Select Game2"
 
 			font		3
 			null_level	$DEFAULT_NULL
-			string		"0.62"
+			string		"Hello world"
 		}
 	}
 	 */

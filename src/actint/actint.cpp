@@ -4241,7 +4241,7 @@ void actIntDispatcher::i_finit(void)
 	aciPrepareWorldsMenu();
 
 	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
-	if (NetworkON && my_server_data.GameType == 3 && CurrentWorld != 14) { // HUNTAGE
+	if (NetworkON && my_server_data.GameType == MIR_RAGE && CurrentWorld != 14) { // Mir-Rage world template
 		aScrDisp->send_event(EV_TELEPORT, 14);
 	}
 

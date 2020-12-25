@@ -1,6 +1,6 @@
 11
 10
-67
+71
 7
 6 2 "Spummy Death" "2" "0" "1" "spummy_death > 0" " " "clear" 
 2 5 "Zeex in Inventory" "2" "0" "1" "data INV_ZEEX > 0" " " " " 
@@ -10,13 +10,17 @@
 9 0 "Boorawchick in Inventory" "3" "0" "1" "data INV_BOORAWCHICK > 0" "abort" "block" 
 8 0 "Mechanic Messiah in Inventory" "3" "0" "1" "data INV_MESSIAH > 0" "abort" "block" 
 8 5 "Vangers Killing Comments" "2" "0" "1" "data KILLED_VANGERS > 0" " " "fury_level_increase" 
-4 9 "MP4 Comment" "2" "1" "1" "MP_GAME == 4" " " " " 
-3 9 "MP3 Comment" "2" "1" "1" "MP_GAME == 3" " " " " 
+6 9 "MP6 Comment" "2" "1" "1" "MP_GAME == 6" " " " "
+5 9 "MP5 Comment" "2" "1" "1" "MP_GAME == 5" " " " "
+4 9 "MP4 Comment" "2" "1" "1" "MP_GAME == 4" " " " "
+3 9 "MP3 Comment" "2" "1" "1" "MP_GAME == 3" " " " "
 2 9 "MP2 Comment" "2" "1" "1" "MP_GAME == 2" " " " " 
 1 9 "MP1 Comment" "2" "1" "1" "MP_GAME == 1" " " " " 
 0 9 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " " 
-4 8 "MP4 Start" "1" "0" "0" "MP_GAME == 4" " " "clear" 
-3 8 "MP3 Start" "1" "0" "0" "MP_GAME == 3" " " "clear" 
+6 8 "MP6 Start" "1" "0" "0" "MP_GAME == 6" " " "clear"
+5 8 "MP5 Start" "1" "0" "0" "MP_GAME == 5" " " "clear"
+4 8 "MP4 Start" "1" "0" "0" "MP_GAME == 4" " " "clear"
+3 8 "MP3 Start" "1" "0" "0" "MP_GAME == 3" " " "clear"
 2 8 "MP2 Start" "1" "0" "0" "MP_GAME == 2" " " "clear" 
 1 8 "MP1 Start" "1" "0" "0" "MP_GAME == 1" " " "clear" 
 0 8 "MP0 Start" "1" "0" "0" "MP_GAME == 0" " " "clear" 

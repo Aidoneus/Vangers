@@ -3877,6 +3877,24 @@ void NetworkWorldOpen(void)
 	//zNfo - инициализация game type
 
 	switch(my_server_data.GameType){
+		case VAN_WAR:
+			if(!my_server_data.Van_War.WorldAccess){
+				aciOpenWorldLink(WORLD_FOSTRAL,WORLD_GLORX);
+				aciOpenWorldLink(WORLD_FOSTRAL,WORLD_WEEXOW);
+				aciOpenWorldLink(WORLD_GLORX,WORLD_XPLO);
+				aciOpenWorldLink(WORLD_GLORX,WORLD_NECROSS);
+				aciOpenWorldLink(WORLD_GLORX,WORLD_KHOX);
+				aciOpenWorldLink(WORLD_NECROSS,WORLD_ARKONOY);
+				aciOpenWorldLink(WORLD_NECROSS,WORLD_BOOZEENA);
+				aciOpenWorldLink(WORLD_XPLO,WORLD_THREALL);
+				aciOpenWorldLink(WORLD_HMOK,WORLD_HMOK);
+				aciOpenWorldLink(WORLD_SATADI,WORLD_SATADI);
+				aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
+			};
+			aciPrepareWorldsMenu();
+			break;
+		case MECHOSOMA:
+			break;
 		case PASSEMBLOSS:
 			if(!GloryPlaceData){
 				GloryRnd.aiInit(my_server_data.InitialRND);
@@ -3899,35 +3917,13 @@ void NetworkWorldOpen(void)
 			aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
 			aciPrepareWorldsMenu();
 			break;
-		case VAN_WAR:
-			if(!my_server_data.Van_War.WorldAccess){
-				aciOpenWorldLink(WORLD_FOSTRAL,WORLD_GLORX);
-				aciOpenWorldLink(WORLD_FOSTRAL,WORLD_WEEXOW);
-				aciOpenWorldLink(WORLD_GLORX,WORLD_XPLO);
-				aciOpenWorldLink(WORLD_GLORX,WORLD_NECROSS);
-				aciOpenWorldLink(WORLD_GLORX,WORLD_KHOX);
-				aciOpenWorldLink(WORLD_NECROSS,WORLD_ARKONOY);
-				aciOpenWorldLink(WORLD_NECROSS,WORLD_BOOZEENA);
-				aciOpenWorldLink(WORLD_XPLO,WORLD_THREALL);
-				aciOpenWorldLink(WORLD_HMOK,WORLD_HMOK);
-  			    aciOpenWorldLink(WORLD_SATADI,WORLD_SATADI);
-				aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
-			};
-			aciPrepareWorldsMenu();
+		case HUNTAGE:
 			break;
-		case 3: // HUNTAGE
-			aciOpenWorldLink(WORLD_FOSTRAL,WORLD_GLORX);
-			aciOpenWorldLink(WORLD_FOSTRAL,WORLD_WEEXOW);
-			aciOpenWorldLink(WORLD_GLORX,WORLD_XPLO);
-			aciOpenWorldLink(WORLD_GLORX,WORLD_NECROSS);
-			aciOpenWorldLink(WORLD_GLORX,WORLD_KHOX);
-			aciOpenWorldLink(WORLD_NECROSS,WORLD_ARKONOY);
-			aciOpenWorldLink(WORLD_NECROSS,WORLD_BOOZEENA);
-			aciOpenWorldLink(WORLD_XPLO,WORLD_THREALL);
-			aciOpenWorldLink(WORLD_HMOK,WORLD_HMOK);
-			aciOpenWorldLink(WORLD_SATADI,WORLD_SATADI);
-			aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
-			aciPrepareWorldsMenu();
+		case MUSTODONT:
+			break;
+		case MIR_RAGE:
+			break;
+		case UNIVANG:
 			break;
 	};
 

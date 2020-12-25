@@ -449,6 +449,14 @@
 "МАСТОДОНТ стартовал!"
 "MUSTODONT started!"
 
+[MP5 Start]
+"МИР-РАЖ стартовал!"
+"MIR-RAGE started!"
+
+[MP6 Start]
+"УНИВАНГ стартовал!"
+"UNIVANG started!"
+
 [MP0 Comment]
 "Ну, пугливый, ВАН-ВАР ещё идёт! Вооружись получше, сразу почувствуешь себя уверенней. У тебя ещё есть возможность догнать того невежу, который посмел подъехать к тебе на кривом мехосе. Влепи ему так, чтоб в округе обвалились мосты и попадали кверху брюхом бибы!"
 "Okay, yellow belly, the VAN-WAR is high! Get yourself a big gun, maybe you'll feel more confident then. You can still get at the jackanapes who dared take you on in his craggy buggy. Blow the scab up so that nearby bridges collapse and beebs fall legs up!"
@@ -468,6 +476,14 @@
 [MP4 Comment]
 "МАСТОДОНТ продолжается..."
 "MUSTODONT in progress..."
+
+[MP5 Comment]
+"МИР-РАЖ продолжается..."
+"MIR-RAGE in progress..."
+
+[MP6 Comment]
+"УНИВАНГ продолжается..."
+"UNIVANG in progress..."
 
 [Larva 0 Note]
 "Запомни, агент. Кукла, ответственная за Прогресс, временно пребывает в зоне Цепи под кодовым названием $(World of Larva0)..."

@@ -5772,6 +5772,50 @@ void aciShowFrags(void)
 				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
 			}
 			break;
+		case 3: // HUNTAGE
+			for(i = 0; i < num; i ++){
+				p = iPlayers[i];
+				XBuf.init();
+				world_name = aScrDisp -> wMap -> world_ptr[aScrDisp -> wMap -> world_ids[p -> body.world]] -> name;
+				XBuf < p -> name;
+				aScrDisp -> curPrompt -> add_str(i,(unsigned char*)XBuf.address());
+				aScrDisp -> curPrompt -> TimeBuf[i] = ACI_FRAG_TIMER;
+				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
+			}
+			break;
+		case 4: // MUSTODONT
+			for(i = 0; i < num; i ++){
+				p = iPlayers[i];
+				XBuf.init();
+				world_name = aScrDisp -> wMap -> world_ptr[aScrDisp -> wMap -> world_ids[p -> body.world]] -> name;
+				XBuf < p -> name;
+				aScrDisp -> curPrompt -> add_str(i,(unsigned char*)XBuf.address());
+				aScrDisp -> curPrompt -> TimeBuf[i] = ACI_FRAG_TIMER;
+				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
+			}
+			break;
+		case 5: // MIR-RAGE
+			for(i = 0; i < num; i ++){
+				p = iPlayers[i];
+				XBuf.init();
+				world_name = aScrDisp -> wMap -> world_ptr[aScrDisp -> wMap -> world_ids[p -> body.world]] -> name;
+				XBuf < p -> name;
+				aScrDisp -> curPrompt -> add_str(i,(unsigned char*)XBuf.address());
+				aScrDisp -> curPrompt -> TimeBuf[i] = ACI_FRAG_TIMER;
+				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
+			}
+			break;
+		case 6: // UNIVANG
+			for(i = 0; i < num; i ++){
+				p = iPlayers[i];
+				XBuf.init();
+				world_name = aScrDisp -> wMap -> world_ptr[aScrDisp -> wMap -> world_ids[p -> body.world]] -> name;
+				XBuf < p -> name;
+				aScrDisp -> curPrompt -> add_str(i,(unsigned char*)XBuf.address());
+				aScrDisp -> curPrompt -> TimeBuf[i] = ACI_FRAG_TIMER;
+				aScrDisp -> curPrompt -> ColBuf[i] = fragColors[p -> body.color];
+			}
+			break;
 	}
 }
 
