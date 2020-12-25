@@ -718,12 +718,16 @@ void iPrepareOptions(void)
 	iScrOpt[iMPGAME2_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr2");
 	iScrOpt[iMPGAME3_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr3");
 	iScrOpt[iMPGAME4_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr4");
+	iScrOpt[iMPGAME5_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr5");
+	iScrOpt[iMPGAME6_ID] = new iScreenOption(iSTRING,0,"Select Game","GameStr6");
 
 	iScrOpt[iMPGAME0_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME1_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME2_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME3_ID] -> flags |= iOPTION_NO_SAVE;
 	iScrOpt[iMPGAME4_ID] -> flags |= iOPTION_NO_SAVE;
+	iScrOpt[iMPGAME5_ID] -> flags |= iOPTION_NO_SAVE;
+	iScrOpt[iMPGAME6_ID] -> flags |= iOPTION_NO_SAVE;
 
 	iScrOpt[iCUR_MPGAME_ID] = new iScreenOption(iSTRING,0,"Server Config screen","GameNameStr");
 	iScrOpt[iCUR_MPGAME_ID] -> flags |= iOPTION_NO_SAVE;
@@ -2007,6 +2011,12 @@ void iUpdateMultiGameName(void)
 			break;
 		case 4:
 			name = iGetOptionValueCHR(iMPGAME4_ID);
+			break;
+		case 5:
+			name = iGetOptionValueCHR(iMPGAME5_ID);
+			break;
+		case 6:
+			name = iGetOptionValueCHR(iMPGAME6_ID);
 			break;
 	}
 	if(!name) return;

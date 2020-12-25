@@ -45,7 +45,7 @@ XStream fout("lst", XS_OUT);
 #define MOUT1(str, code) \
 	{ std::cout << str << ", code: " << code << "                                       \n"; }
 
-const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS"};
+const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS", "HUNTAGE", "MUSTODONT", "MIR_RAGE", "UNIVANG"};
 
 XStream stat_log;
 

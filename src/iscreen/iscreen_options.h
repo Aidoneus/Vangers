@@ -71,11 +71,14 @@ enum iScreenOptionID
 	iCAMERA_TURN,			// 42
 	iCAMERA_SLOPE,			// 43
 	iCAMERA_SCALE,			// 44
-	
+
 	iFULLSCREEN,			// 45
 
 	iAUTO_ACCELERATION,			// 46
 	iLIGHTING_CYCLE,			// 47
+
+	iMPGAME5_ID,			// 48
+	iMPGAME6_ID,			// 49
 
 	iMAX_OPTION_ID
 };
