@@ -2,9 +2,9 @@ name: Vangers Linux Build
 
 on:
   push:
-    branches: [ master, cx ]
+    branches: [ master, cx, patch-1 ]
   pull_request:
-    branches: [ master, 60fps, hd_v2, patch-1 ]
+    branches: [ master, 60fps, hd_v2 ]
 
 jobs:
   build:
