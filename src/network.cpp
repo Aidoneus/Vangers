@@ -36,6 +36,26 @@ extern int kvachTime;
 int isRollcall = -1;
 char* rollcallNicknames = new char[10000]();
 
+char modsArray[][4][40] = 
+{
+	{"arena", "арена"},
+	{"aveslom", "авеслом"},
+	{"formula", "формула"},
+	{"mammoth_hunt", "mamont", "охота на мамонта", "мамонт"},
+	{"mechokvach", "мехоквач"},
+	{"mechosumo", "мехосумо"},
+	{"neptune", "нептун"},
+	{"raffa run", "тараканьи бега"},
+	{"raffasoma", "раффасома"},
+	{"roulette", "рулетка"},
+	{"skysoma", "небосома"},
+	{"truck-trial", "трак-триал"},
+	{"warm-up", "разминка"},
+	{"wiring", "проводка"},
+	{"zeefick", "цыфик"},
+	{"khox run", "нюхнем коксу!", "нюхнем коксу"}
+};
+
 //zmod
 int zserver_version = 0;
 
@@ -1207,6 +1227,28 @@ void void_network_quant()
 		events_in.next_event();
 	}
 }
+
+int isMod(int id) {
+	if (!NetworkON) return false;
+	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	for (int i = 0; i < strlen(game_name); i++) {
+		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= 128 && game_name[i] <= 143)) game_name[i] += 32;
+		else if (game_name[i] >= 144 && game_name[i] <= 159) game_name[i] += 80;
+	}
+
+	for (int name = 0; name < sizeof(modsArray[id])/sizeof(*modsArray[id]); name++) {
+		if (!modsArray[id][name]) break;
+		
+		if (strcmp(game_name, modsArray[id][name])==0) return true;
+	}
+	return false;
+}
+int getCurrentMod() {
+	for (int id = 0; id < sizeof(modsArray)/sizeof(*modsArray); id++) {
+		if (isMod(id)) return id;
+	}
+	return -1;
+}
 /*******************************************************************************
 				Player's List
 *******************************************************************************/
@@ -1341,7 +1383,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
     } else if ((strcmp(msg, "/start")==0||strcmp(msg, ".ыефке")==0) && is_start==0) {
 		name = (char*)"$";
 		actual_msg = (char*)"Старт через 20 секунд";
-		if (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "mammoth hunt")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"mamont")==0) 
+		if (isMod(ID_MAMMOTH)) 
 			actual_msg = (char*)"Старт мамонта через 20 секунд, охотников через 40";
 		actual_col = 3;
 		is_start = 1;
@@ -1368,7 +1410,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		for	(int i = 6; i < strlen(msg); i++) 
 			kvachId[i-6] = msg[i];
 	}
-	else if ((strcmp(msg, "/rekvach")==0||strcmp(msg, ".кулмфср")==0) && is_start==2 && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "mechokvach")==0) {
+	else if ((strcmp(msg, "/rekvach")==0||strcmp(msg, ".кулмфср")==0) && is_start==2 && isMod(ID_MECHOKVACH)) {
 		name = (char*)"$";
 		actual_msg = (char*)"Кто квач? (я/z)";
 		actual_col = 3;

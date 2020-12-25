@@ -3225,11 +3225,11 @@ void FishWarriorList::Init(void)
 		switch(CurrentWorld){
 			case WORLD_GLORX:
 //				if (z_my_server_data.mod_id == Z_MODS_FORMULAV_ID)
-				if (NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"formula")==0)
+				if (my_server_data.GameType == PASSEMBLOSS && isMod(ID_FORMULA))
 					max = 512;
 			case WORLD_WEEXOW:
 //				if (z_my_server_data.mod_id == Z_MODS_NEPTUN_ID) //zmod 1.20 neptun fix
-				if (NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"neptune")==0) //zmod 1.20 neptun fix
+				if (my_server_data.GameType == VAN_WAR && isMod(ID_NEPTUNE)) //zmod 1.20 neptun fix
 					max = 2;
 				Data = new FishWarrior[max];
 				for(i = 0;i < max;i++){
@@ -3670,7 +3670,7 @@ void GloryPlace::Init(int ind)
 	
 	//Formula-V
 	if ((z_my_server_data.mod_id == Z_MODS_FORMULAV_ID) ||
-		(NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"formula")==0)) {
+		(my_server_data.GameType == PASSEMBLOSS && isMod(ID_FORMULA))) {
 		World = WORLD_GLORX;
 		switch (ind % 4) {
 		case 0:	R_curr.x = 1341;	R_curr.y = 5971;	break;
@@ -3683,7 +3683,7 @@ void GloryPlace::Init(int ind)
 	
 	//Trak-Trial
 	if ((z_my_server_data.mod_id == Z_MODS_TRAKTRIAL_ID) ||
-		(NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"truck-trial")==0)) {
+		(my_server_data.GameType == PASSEMBLOSS && isMod(ID_TRUCK_TRIAL))) {
 		World = WORLD_NECROSS;
 		switch (ind % 2) {
 		case 0:	R_curr.x =  620;	R_curr.y = 14771;	break;
@@ -3694,7 +3694,7 @@ void GloryPlace::Init(int ind)
 	
 	//khoxrun
 	if ((z_my_server_data.mod_id == Z_MODS_KHOXRUN_ID) ||
-		(NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"khox run")==0)) {
+		(my_server_data.GameType == PASSEMBLOSS && isMod(ID_KHOX_RUN))) {
 		World = WORLD_KHOX;
 		switch (ind) {
 		case  0:	R_curr.x = 1358;	R_curr.y = 7036;	World = WORLD_GLORX;	break; // НЕ МЕНЯТЬ !!! Связано с багом вылета клиента при смерти в пассе. если чек не на трех мирах.
@@ -3714,7 +3714,7 @@ void GloryPlace::Init(int ind)
 	}
 
 	//roulette
-	if (NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"roulette")==0) {
+	if (my_server_data.GameType == PASSEMBLOSS && isMod(ID_ROULETTE)) {
 		World = WORLD_BOOZEENA;
 		switch (ind) {
 		case  0:	R_curr.x = 1358;	R_curr.y = 7036;	World = WORLD_GLORX;	break; // НЕ МЕНЯТЬ !!! Связано с багом вылета клиента при смерти в пассе. если чек не на трех мирах.
@@ -3739,7 +3739,7 @@ void GloryPlace::Init(int ind)
 	}
 
 	//zeefick
-	if (NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"zeefick")==0) {
+	if (my_server_data.GameType == PASSEMBLOSS && isMod(ID_ZEEFICK)) {
 		World = WORLD_ARKONOY;
 		switch (ind) {
 		case  0:	R_curr.x = 1321;	R_curr.y = 13542;	World = WORLD_NECROSS;	break; // НЕ МЕНЯТЬ !!! Связано с багом вылета клиента при смерти в пассе. если первый чек не на трех мирах.
@@ -3757,7 +3757,7 @@ void GloryPlace::Init(int ind)
 	}
 
 	//aveslom
-	if (NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"aveslom")==0) {
+	if (my_server_data.GameType == PASSEMBLOSS && isMod(ID_AVESLOM)) {
 		World = WORLD_THREALL;
 		switch (ind) {
 		case  0:	R_curr.x = 1260;	R_curr.y = 14380;	World = WORLD_GLORX;	break; // НЕ МЕНЯТЬ !!! Связано с багом вылета клиента при смерти в пассе. если первый чек не на трех мирах.
@@ -3788,9 +3788,9 @@ void GloryPlace::Init(int ind)
 			World = GloryRnd.aiRnd(WORLD_MAX-2);
 
 //		if(z_my_server_data.mod_id == Z_MODS_RAFARUN_ID ) //tarakan'i bega/ excludes hmok && threall
-		if(NetworkON && my_server_data.GameType == PASSEMBLOSS && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"raffa run")==0) //tarakan'i bega/ excludes hmok && threall
+		if(my_server_data.GameType == PASSEMBLOSS && isMod(ID_RAFFA_RUN)) //tarakan'i bega/ excludes hmok && threall
 			while (World==WORLD_HMOK || World==WORLD_THREALL || World==WORLD_SATADI || World==WORLD_MIRAGE)
-		World = GloryRnd.aiRnd(WORLD_MAX-2);
+				World = GloryRnd.aiRnd(WORLD_MAX-2);
 	};
 	R_curr.x = GloryRnd.aiRnd(WorldTable[World]->x_size);
 	if(World < MAIN_WORLD_MAX - 1)

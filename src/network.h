@@ -19,6 +19,27 @@ extern char* rollcallNicknames;
 extern double zMod_cycle;
 extern double zMod_flood_level_delta;
 
+extern char modsArray[][4][40];
+
+enum {
+	ID_ARENA,
+	ID_AVESLOM,
+	ID_FORMULA,
+	ID_MAMMOTH,
+	ID_MECHOKVACH,
+	ID_MECHOSUMO,
+	ID_NEPTUNE,
+	ID_RAFFA_RUN,
+	ID_RAFFASOMA,
+	ID_ROULETTE,
+	ID_SKYSOMA,
+	ID_TRUCK_TRIAL,
+	ID_WARM_UP,
+	ID_WIRING,
+	ID_ZEEFICK,
+	ID_KHOX_RUN
+};
+
 /*****************************************************************
 			Механизм поиска сереров
 *****************************************************************/
@@ -264,6 +285,9 @@ void delay(int msec);
 int send_server_data(char* name, ServerData* data, zServerData* zdata); // returns 1 if _You_'ve configured server, otherwise data and name will be changed
 int is_current_server_configured(char* name, ServerData* data, zServerData* zdata);  // changes name and data if server is configured
 void void_network_quant(); // receives messages only
+
+int isMod(int id); //returns true if server_name is mod else false
+int getCurrentMod(); //returns mod id or -1
 
 int NetInit(ServerFindChain* p);
 
