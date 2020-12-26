@@ -1230,16 +1230,18 @@ void void_network_quant()
 
 int isMod(int id) {
 	if (!NetworkON) return false;
+	
 	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	char *tolowerName = new char[strlen(game_name)];
+	
 	for (int i = 0; i < strlen(game_name); i++) {
-		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= 128 && game_name[i] <= 143)) game_name[i] += 32;
-		else if (game_name[i] >= 144 && game_name[i] <= 159) game_name[i] += 80;
+		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= -128 && game_name[i] <= -113)) tolowerName[i] = game_name[i] + 32;
+		else if (game_name[i] >= -112 && game_name[i] <= -97) tolowerName[i] = game_name[i] + 80;
+		else tolowerName[i] = game_name[i];
 	}
-
 	for (int name = 0; name < sizeof(modsArray[id])/sizeof(*modsArray[id]); name++) {
 		if (!modsArray[id][name]) break;
-		
-		if (strcmp(game_name, modsArray[id][name])==0) return true;
+		if (strncmp(tolowerName, modsArray[id][name], strlen(modsArray[id][name]))==0) return true;
 	}
 	return false;
 }
