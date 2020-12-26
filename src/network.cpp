@@ -1471,7 +1471,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 				if (strlen(name)==strlen(nickname) && strncmp(name, nickname, strlen(name))==0) {
 					break;
 				}
-				isNew=0;
+				isNew = 0;
 				nickname = new char[40]();
 			}
 			else if (isNew>-1) {
