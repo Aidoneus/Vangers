@@ -1230,16 +1230,18 @@ void void_network_quant()
 
 int isMod(int id) {
 	if (!NetworkON) return false;
+	
 	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	char *tolowerName = new char[strlen(game_name)];
+	
 	for (int i = 0; i < strlen(game_name); i++) {
-		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= 128 && game_name[i] <= 143)) game_name[i] += 32;
-		else if (game_name[i] >= 144 && game_name[i] <= 159) game_name[i] += 80;
+		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= -128 && game_name[i] <= -113)) tolowerName[i] = game_name[i] + 32;
+		else if (game_name[i] >= -112 && game_name[i] <= -97) tolowerName[i] = game_name[i] + 80;
+		else tolowerName[i] = game_name[i];
 	}
-
 	for (int name = 0; name < sizeof(modsArray[id])/sizeof(*modsArray[id]); name++) {
 		if (!modsArray[id][name]) break;
-		
-		if (strcmp(game_name, modsArray[id][name])==0) return true;
+		if (strncmp(tolowerName, modsArray[id][name], strlen(modsArray[id][name]))==0) return true;
 	}
 	return false;
 }
@@ -1385,6 +1387,11 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		actual_msg = (char*)"Старт через 20 секунд";
 		if (isMod(ID_MAMMOTH)) 
 			actual_msg = (char*)"Старт мамонта через 20 секунд, охотников через 40";
+		if (isMod(ID_MECHOKVACH)) {
+			strcpy(kvachId, "-------------------");
+			whoIsKvach=0;
+			kvachName="";
+		}
 		actual_col = 3;
 		is_start = 1;
 	} else if ((strcmp(msg, "/finish")==0||strcmp(msg, ".аштшыр")==0) && (is_start==2 || is_start==3)) {
@@ -1448,7 +1455,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		
 		for (int i = 0; i < strlen(rollcallNicknames); i++) {
 			if (rollcallNicknames[i] == ((char*)(";"))[0]) {
-				if (strncmp(name, nickname, strlen(name))==0 && strlen(name)==strlen(nickname)) {
+				if (strlen(name)==strlen(nickname) && strncmp(name, nickname, strlen(name))==0) {
 					break;
 				}
 				rollcallNicknames[i] = ((char*)("|"))[0];
@@ -1457,14 +1464,13 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 				}
 				rollcallNicknames[i+strlen(name)+1] = ((char*)(";"))[0];
 				isRollcall += 1;
-				
 				name = (char*)player_name;
 				actual_msg = (char*)"Готов";
 				actual_col = 4;
 				break;
 			}
 			else if (rollcallNicknames[i] == ((char*)("|"))[0]) {
-				if (strncmp(name, nickname, strlen(name))==0 && strlen(name)==strlen(nickname)) {
+				if (strlen(name)==strlen(nickname) && strncmp(name, nickname, strlen(name))==0) {
 					break;
 				}
 				isNew = 0;
