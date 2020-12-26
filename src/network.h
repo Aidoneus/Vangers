@@ -5,7 +5,7 @@
 #include "xsocket.h"
 #include "multiplayer.h"
 
-#define DEFAULT_SERVER_PORT	2197
+#define DEFAULT_SERVER_PORT	2195
 
 extern int is_start;
 extern int kvachTime;

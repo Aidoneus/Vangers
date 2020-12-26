@@ -15,7 +15,7 @@ struct KDsPlus: XRuntimeObject {
 
 int frame = 0;
 int broadcast_port = 1992;
-int default_server_port = 2197;
+int default_server_port = 2195;
 int time_to_live = 0;
 int ErrHExcept = 1;
 int GlobalExit = 0;

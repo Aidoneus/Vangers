@@ -104,7 +104,7 @@ int customMechousId;
 
 bool autoconnect = false;
 char *autoconnectHost;
-int  autoconnectPort = 2197;
+int  autoconnectPort = 2195;
 bool autoconnectJoinGame = false;
 int  autoconnectGameID;
 

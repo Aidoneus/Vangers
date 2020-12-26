@@ -442,7 +442,7 @@ int iProxyPortTerr = -1;
 int iProxyUsage = 0;
 char* iProxyServer = NULL;
 int iProxyPort = 1080;
-int iServerPort = 2197;
+int iServerPort = 2195;
 
 void init_hfonts(void)
 {
@@ -597,7 +597,7 @@ void iQuantFirst(void)
         iSetOptionValueCHR(iSERVER_NAME, iSTR_NONE);
         iSetOptionValueCHR(iPROXY_SERVER, "192.1.1.1");
         iSetOptionValueCHR(iPROXY_PORT, "1080");
-        iSetOptionValueCHR(iSERVER_PORT, "2197");
+        iSetOptionValueCHR(iSERVER_PORT, "2195");
         iGetIP();
 #endif
         iInitMultiGames();
@@ -2220,8 +2220,8 @@ void iHandleExtEvent(int code,int data)
 			iServerPort = atoi(iGetOptionValueCHR(iSERVER_PORT));
 			break;
 		case iEXT_RESTORE_PORT:
-			iSetOptionValueCHR(iSERVER_PORT,"2197");
-			iServerPort = 2197;
+			iSetOptionValueCHR(iSERVER_PORT,"2195");
+			iServerPort = 2195;
 			break;
 		case iEXT_SELECT_HALL:
 			iCurHall = data;
