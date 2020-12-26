@@ -1280,8 +1280,6 @@ void uvsContimer::Quant(void){
 	if (isRollcall>-1) {
 		rollcallTime++;
 		if (rollcallTime == 1)
-			message_dispatcher.send("[bot]Перекличка", MESSAGE_FOR_PLAYER, 0);
-			
 			PlayerData* pd;
 			pd = players_list.first();
 			rollcallNum=0;
