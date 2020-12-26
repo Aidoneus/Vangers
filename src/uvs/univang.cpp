@@ -1308,11 +1308,6 @@ void uvsContimer::Quant(void){
 		}
 		if (isRollcall >= rollcallNum) {
 			is_start = 7;
-			if (isMod(ID_MECHOKVACH)) {
-				strcpy(kvachId, "-------------------");
-				whoIsKvach=0;
-				kvachName="";
-			}
 			isRollcall=-1;
 		}
 		else if (rollcallTime == 1200) {

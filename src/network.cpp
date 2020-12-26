@@ -1453,7 +1453,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		
 		for (int i = 0; i < strlen(rollcallNicknames); i++) {
 			if (rollcallNicknames[i] == ((char*)(";"))[0]) {
-				if (strncmp(name, nickname, strlen(name))==0 && strlen(name)==strlen(nickname)) {
+				if (strlen(name)==strlen(nickname) && strncmp(name, nickname, strlen(name))==0) {
 					break;
 				}
 				rollcallNicknames[i] = ((char*)("|"))[0];
@@ -1462,17 +1462,16 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 				}
 				rollcallNicknames[i+strlen(name)+1] = ((char*)(";"))[0];
 				isRollcall += 1;
-				
 				name = (char*)player_name;
 				actual_msg = (char*)"Готов";
 				actual_col = 4;
 				break;
 			}
 			else if (rollcallNicknames[i] == ((char*)("|"))[0]) {
-				if (strncmp(name, nickname, strlen(name))==0 && strlen(name)==strlen(nickname)) {
+				if (strlen(name)==strlen(nickname) && strncmp(name, nickname, strlen(name))==0) {
 					break;
 				}
-				isNew = 0;
+				isNew=0;
 				nickname = new char[40]();
 			}
 			else if (isNew>-1) {
