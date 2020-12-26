@@ -94,11 +94,11 @@
 #define ACCESS_STR_X		245
 #define ACCESS_TRG_X		380
 
-//#define SELECT_SCREEN_START_Y   130
-//#define SELECT_SCREEN_DELTA_Y   50
-
-#define SELECT_SCREEN_START_Y	170
-#define SELECT_SCREEN_DELTA_Y	50
+#define SELECT_SCREEN_START_Y	70
+#define SELECT_SCREEN_DELTA_Y	38
+#define HALL_SCREEN_START_Y		130
+#define HALL_SCREEN_DELTA_Y		50
+#define DESC_DELTA_Y			32
 
 #define PARAMS_START_Y		80
 #define PARAMS_DELTA_Y		40
@@ -6562,7 +6562,7 @@ Screen "Controls screen 5"
 	$KEY_ID_OBJECT2
 }
 
-#define GAME_OBJECT		align_x 	center												\
+#define GAME_OBJECT		x	20												\
 				y		{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * $GAME_Y }					\
 																		\
 				selectable_obj													\
@@ -6572,7 +6572,7 @@ Screen "Controls screen 5"
 																		\
 					terrain_num	$TERRAIN2										\
 																		\
-					font		$GAME_FNT										\
+					font		$PARAM_FNT										\
 					null_level	$DEFAULT_NULL										\
 					string		$GAME_OBJ_ID										\
 				}														\
@@ -6665,6 +6665,11 @@ Screen "Controls screen 5"
 					}													\
 				}
 
+#define GAME_DESC Object $GD_NAME {	\
+		x 280 y { $SELECT_SCREEN_START_Y + $DESC_DELTA_Y * $GD_Y }	\
+		Element STRING { align_x center terrain_num $TERRAIN3 font 4 null_level $DEFAULT_NULL string $GD_TEXT }	\
+	}
+
 Screen "Select Game"
 {
 	default_obj "GameObj0"
@@ -6672,7 +6677,7 @@ Screen "Select Game"
 	Object "TitleStr"
 	{
 		align_x center
-		y	{ $TITLE_STR2_Y - 0 }
+		y	{ $TITLE_STR2_Y - 50 }
 
 		Element STRING {
 			align_x center
@@ -6744,7 +6749,6 @@ Screen "Select Game"
 	#define GAME_OBJ_ID	$iSTR_VAN_WAR
 	#define GAME_SCR	"Game Params 0"
 	#define GAME_STRING_ID	"GameStr0"
-
 	#include "iscreen/scripts/gameobj.inc"
 
 	#define GAME_Y		1
@@ -6754,19 +6758,18 @@ Screen "Select Game"
 	#define GAME_OBJ_ID	$iSTR_MECHOSOMA
 	#define GAME_SCR	"Game Params 1"
 	#define GAME_STRING_ID	"GameStr1"
-
 	#include "iscreen/scripts/gameobj.inc"
 
 	#define GAME_Y		2
 	#define GAME_OBJ_NAME	"GameObj2"
-	#define GAME_OBJ_NEXT   "GameObj3"
+//	#define GAME_OBJ_NEXT   "GameObj3"
+	#define GAME_OBJ_NEXT   "GameObj5"
 	#define GAME_OBJ_PREV	"GameObj1"
 	#define GAME_OBJ_ID	$iSTR_PASSEMBLOSS
 	#define GAME_SCR	"Game Params 2"
 	#define GAME_STRING_ID	"GameStr2"
-
 	#include "iscreen/scripts/gameobj.inc"
-
+/*
 	#define GAME_Y		3
 	#define GAME_OBJ_NAME	"GameObj3"
 	#define GAME_OBJ_NEXT	"GameObj4"
@@ -6774,9 +6777,24 @@ Screen "Select Game"
 	#define GAME_OBJ_ID	$iSTR_HUNTAGE
 	#define GAME_SCR	"Game Params 3"
 	#define GAME_STRING_ID	"GameStr3"
-
 	#include "iscreen/scripts/gameobj.inc"
+*/
+	Object "GameStr3Inactive"
+	{
+		x	20
+		y	{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * 3 }
 
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN4
+
+			font		$PARAM_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_HUNTAGE
+		}
+	}
+/*
 	#define GAME_Y		4
 	#define GAME_OBJ_NAME	"GameObj4"
 	#define GAME_OBJ_NEXT	"GameObj5"
@@ -6784,19 +6802,35 @@ Screen "Select Game"
 	#define GAME_OBJ_ID	$iSTR_MUSTODONT
 	#define GAME_SCR	"Game Params 4"
 	#define GAME_STRING_ID	"GameStr4"
-
 	#include "iscreen/scripts/gameobj.inc"
+*/
+	Object "GameStr4Inactive"
+	{
+		x	20
+		y	{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * 4 }
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN4
+
+			font		$PARAM_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_MUSTODONT
+		}
+	}
 
 	#define GAME_Y		5
 	#define GAME_OBJ_NAME	"GameObj5"
-	#define GAME_OBJ_NEXT	"GameObj6"
-	#define GAME_OBJ_PREV	"GameObj4"
+//	#define GAME_OBJ_NEXT	"GameObj6"
+	#define GAME_OBJ_NEXT	"GameObj2"
+//	#define GAME_OBJ_PREV	"GameObj4"
+	#define GAME_OBJ_PREV	"GameObj2"
 	#define GAME_OBJ_ID	$iSTR_MIR_RAGE
 	#define GAME_SCR	"Game Params 5"
 	#define GAME_STRING_ID	"GameStr5"
-
 	#include "iscreen/scripts/gameobj.inc"
-
+/*
 	#define GAME_Y		6
 	#define GAME_OBJ_NAME	"GameObj6"
 	#define GAME_OBJ_NEXT	"GameObj5"
@@ -6804,26 +6838,73 @@ Screen "Select Game"
 	#define GAME_OBJ_ID	$iSTR_UNIVANG
 	#define GAME_SCR	"Game Params 6"
 	#define GAME_STRING_ID	"GameStr6"
-
 	#include "iscreen/scripts/gameobj.inc"
-
-	/*
-	Object "Inactive game mode string template"
+*/
+	Object "GameStr6Inactive"
 	{
-		x	690
-		y	555
+		x	20
+		y	{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * 6 }
 
 		Element STRING {
 			align_x center
 
-			terrain_num	$TERRAIN2
+			terrain_num	$TERRAIN4
 
-			font		3
+			font		$PARAM_FNT
 			null_level	$DEFAULT_NULL
-			string		"Hello world"
+			string		$iSTR_UNIVANG
 		}
 	}
-	 */
+
+// Game description - no more than 10 rows
+
+// Game description VAN_WAR
+// Game description MECHOSOMA
+// Game description PASSEMBLOSS
+// Game description HUNTAGE
+// Game description MUSTODONT
+// Game description MIR_RAGE
+	#define GD_NAME	"GameDesc50"
+	#define GD_Y	0
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC0
+	$GAME_DESC
+	#define GD_NAME	"GameDesc51"
+	#define GD_Y	1
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC1
+	$GAME_DESC
+	#define GD_NAME	"GameDesc52"
+	#define GD_Y	2
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC2
+	$GAME_DESC
+	#define GD_NAME	"GameDesc53"
+	#define GD_Y	3
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC3
+	$GAME_DESC
+	#define GD_NAME	"GameDesc54"
+	#define GD_Y	4
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC4
+	$GAME_DESC
+	#define GD_NAME	"GameDesc55"
+	#define GD_Y	5
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC5
+	$GAME_DESC
+	#define GD_NAME	"GameDesc56"
+	#define GD_Y	6
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC6
+	$GAME_DESC
+	#define GD_NAME	"GameDesc57"
+	#define GD_Y	7
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC7
+	$GAME_DESC
+	#define GD_NAME	"GameDesc58"
+	#define GD_Y	8
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC8
+	$GAME_DESC
+	#define GD_NAME	"GameDesc59"
+	#define GD_Y	9
+	#define GD_TEXT	$iSTR_MIR_RAGE_DESC9
+	$GAME_DESC
+// Game description UNIVANG
 }
 
 Screen "Game Params 0"  // VAN-WAR
@@ -11774,7 +11855,7 @@ Screen "INet Host screen"
 }
 
 #define GAME_OBJECT		align_x 	center												\
-				y		{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * $GAME_Y }					\
+				y		{ $HALL_SCREEN_START_Y + $HALL_SCREEN_DELTA_Y * $GAME_Y }					\
 																		\
 				selectable_obj													\
 				Element STRING {												\
@@ -11980,7 +12061,7 @@ Screen "Select Game2"
 
 	#define GAME_Y		3
 	#define GAME_OBJ_NAME	"GameObj3"
-	#define GAME_OBJ_NEXT	"GameObj4"
+	#define GAME_OBJ_NEXT	"GameObj2"
 	#define GAME_OBJ_PREV	"GameObj2"
 	#define GAME_OBJ_ID	$iSTR_HUNTAGE
 	#define GAME_SCR	"HallOfFame screen"
@@ -11990,51 +12071,13 @@ Screen "Select Game2"
 
 	#define GAME_Y		4
 	#define GAME_OBJ_NAME	"GameObj4"
-	#define GAME_OBJ_NEXT	"GameObj5"
+	#define GAME_OBJ_NEXT	"GameObj3"
 	#define GAME_OBJ_PREV	"GameObj3"
 	#define GAME_OBJ_ID	$iSTR_MUSTODONT
 	#define GAME_SCR	"HallOfFame screen"
 	#define GAME_STRING_ID	"GameStr4"
 
 	#include "iscreen/scripts/gameobj.inc"
-
-	#define GAME_Y		5
-	#define GAME_OBJ_NAME	"GameObj5"
-	#define GAME_OBJ_NEXT	"GameObj6"
-	#define GAME_OBJ_PREV	"GameObj4"
-	#define GAME_OBJ_ID	$iSTR_MIR_RAGE
-	#define GAME_SCR	"HallOfFame screen"
-	#define GAME_STRING_ID	"GameStr5"
-
-	#include "iscreen/scripts/gameobj.inc"
-
-	#define GAME_Y		6
-	#define GAME_OBJ_NAME	"GameObj6"
-	#define GAME_OBJ_NEXT	"GameObj5"
-	#define GAME_OBJ_PREV	"GameObj5"
-	#define GAME_OBJ_ID	$iSTR_UNIVANG
-	#define GAME_SCR	"HallOfFame screen"
-	#define GAME_STRING_ID	"GameStr6"
-
-	#include "iscreen/scripts/gameobj.inc"
-
-	/*
-	Object "Inactive game mode string template"
-	{
-		x	690
-		y	555
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN2
-
-			font		3
-			null_level	$DEFAULT_NULL
-			string		"Hello world"
-		}
-	}
-	 */
 }
 
 Screen "HallOfFame screen"

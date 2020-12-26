@@ -41,7 +41,7 @@ char modsArray[][4][40] =
 	{"arena", "арена"},
 	{"aveslom", "авеслом"},
 	{"formula", "формула"},
-	{"mammoth_hunt", "mamont", "охота на мамонта", "мамонт"},
+	{"mammoth hunt", "mamont", "охота на мамонта", "мамонт"},
 	{"mechokvach", "мехоквач"},
 	{"mechosumo", "мехосумо"},
 	{"neptune", "нептун"},
@@ -53,7 +53,7 @@ char modsArray[][4][40] =
 	{"warm-up", "разминка"},
 	{"wiring", "проводка"},
 	{"zeefick", "цыфик"},
-	{"khox run", "нюхнем коксу!", "нюхнем коксу"}
+	{"khox run", "нюхнём коксу!", "нюхнём коксу"}
 };
 
 //zmod

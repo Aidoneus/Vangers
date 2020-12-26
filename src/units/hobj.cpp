@@ -3893,8 +3893,8 @@ void NetworkWorldOpen(void)
 			};
 			aciPrepareWorldsMenu();
 			break;
-		case MECHOSOMA:
-			break;
+//		case MECHOSOMA:
+//			break;
 		case PASSEMBLOSS:
 			if(!GloryPlaceData){
 				GloryRnd.aiInit(my_server_data.InitialRND);
@@ -3917,14 +3917,26 @@ void NetworkWorldOpen(void)
 			aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
 			aciPrepareWorldsMenu();
 			break;
-		case HUNTAGE:
-			break;
-		case MUSTODONT:
-			break;
+//		case HUNTAGE:
+//			break;
+//		case MUSTODONT:
+//			break;
 		case MIR_RAGE:
+			aciOpenWorldLink(WORLD_FOSTRAL,WORLD_GLORX);
+			aciOpenWorldLink(WORLD_FOSTRAL,WORLD_WEEXOW);
+			aciOpenWorldLink(WORLD_GLORX,WORLD_XPLO);
+			aciOpenWorldLink(WORLD_GLORX,WORLD_NECROSS);
+			aciOpenWorldLink(WORLD_GLORX,WORLD_KHOX);
+			aciOpenWorldLink(WORLD_NECROSS,WORLD_ARKONOY);
+			aciOpenWorldLink(WORLD_NECROSS,WORLD_BOOZEENA);
+			aciOpenWorldLink(WORLD_XPLO,WORLD_THREALL);
+			aciOpenWorldLink(WORLD_HMOK,WORLD_HMOK);
+			aciOpenWorldLink(WORLD_SATADI,WORLD_SATADI);
+			aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
+			aciPrepareWorldsMenu();
 			break;
-		case UNIVANG:
-			break;
+//		case UNIVANG:
+//			break;
 	};
 
 	
@@ -3950,6 +3962,18 @@ void NetworkWorldOpen(void)
 				break;
 			case PASSEMBLOSS:
 				art_log = my_server_data.Passembloss.ArtefactsUsing;
+				break;
+			case HUNTAGE:
+				art_log = my_server_data.Huntage.ArtefactsUsing;
+				break;
+			case MUSTODONT:
+				art_log = my_server_data.Mustodont.ArtefactsUsing;
+				break;
+			case MIR_RAGE:
+				art_log = my_server_data.Mir_Rage.ArtefactsUsing;
+				break;
+			case UNIVANG:
+				art_log = my_server_data.UniVang.ArtefactsUsing;
 				break;
 		};
 

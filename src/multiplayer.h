@@ -273,10 +273,10 @@ struct PassemblossStatistic
 	int MaxTime;//None
 };
 
-struct HuntageStatistic
-{
+//struct HuntageStatistic
+//{
 	//int TotalTime;//hh:mm:ss
-};
+//};
 
 struct MustodontStatistic
 {
@@ -286,15 +286,15 @@ struct MustodontStatistic
 	int MakeTime;
 };
 
-struct MirRageStatistic
-{
+//struct MirRageStatistic
+//{
 	//int TotalTime;//hh:mm:ss
-};
+//};
 
-struct UniVangStatistic
-{
+//struct UniVangStatistic
+//{
 	//int TotalTime;//hh:mm:ss
-};
+//};
 
 struct PlayerBody {
 	unsigned char kills;
@@ -313,10 +313,10 @@ struct PlayerBody {
 		VanVarStatistic VanVarStat;
 		MechosomaStatistic MechosomaStat;
 		PassemblossStatistic PassemblossStat;
-		HuntageStatistic HuntageStat;
+		//HuntageStatistic HuntageStat;
 		MustodontStatistic MustodontStat;
-		MirRageStatistic MirRageStat;
-		UniVangStatistic UniVangStat;
+		//MirRageStatistic MirRageStat;
+		//UniVangStatistic UniVangStat;
 	};
 
 	void clear(){ memset(this,0,sizeof(PlayerBody));CarIndex = 255; }
