@@ -1245,14 +1245,14 @@ int isMod(int id) {
 		}
 	}
 	for (int name = 0; name < sizeof(modsArray[id])/sizeof(*modsArray[id]); name++) {
-		if (!modsArray[id][name]) {
+		if (strlen(modsArray[id][name]) == 0) {
 			break;
 		}
-		if (strncmp(tolowerName, modsArray[id][name], strlen(modsArray[id][name]))==0) {
+		if (strncmp(tolowerName, modsArray[id][name], strlen(modsArray[id][name])) == 0) {
 			result = true;
+			break;
 		}
 	}
-	std::cout<<"    CxDebug: isMod("<<id<<"): game_name="<<game_name<<", lower="<<tolowerName<<", result="<<result<<std::endl;
 	return result;
 }
 int getCurrentMod() {
@@ -1263,7 +1263,6 @@ int getCurrentMod() {
 			break;
 		};
 	}
-	std::cout<<"    CxDebug: getCurrentMod(): result="<<resultId<<std::endl;
 	return resultId;
 }
 /*******************************************************************************
