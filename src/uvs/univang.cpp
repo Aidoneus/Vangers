@@ -1279,7 +1279,7 @@ void uvsContimer::Quant(void){
 	}
 	if (isRollcall>-1) {
 		rollcallTime++;
-		if (rollcallTime == 1)
+		if (rollcallTime == 1) {
 			PlayerData* pd;
 			pd = players_list.first();
 			rollcallNum=0;
@@ -1290,6 +1290,7 @@ void uvsContimer::Quant(void){
 				}
 				pd = (PlayerData*)pd -> next;
 			}
+		}
 		if (rollcallTime == 1200 || isRollcall >= rollcallNum) {
 			message_dispatcher.send("[bot]-----------------", MESSAGE_FOR_PLAYER, 0);
 			
