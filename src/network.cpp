@@ -1385,6 +1385,11 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		actual_msg = (char*)"Старт через 20 секунд";
 		if (isMod(ID_MAMMOTH)) 
 			actual_msg = (char*)"Старт мамонта через 20 секунд, охотников через 40";
+		if (isMod(ID_MECHOKVACH)) {
+			strcpy(kvachId, "-------------------");
+			whoIsKvach=0;
+			kvachName="";
+		}
 		actual_col = 3;
 		is_start = 1;
 	} else if ((strcmp(msg, "/finish")==0||strcmp(msg, ".аштшыр")==0) && (is_start==2 || is_start==3)) {

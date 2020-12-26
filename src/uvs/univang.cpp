@@ -1295,18 +1295,7 @@ void uvsContimer::Quant(void){
 			message_dispatcher.send("[bot]-----------------", MESSAGE_FOR_PLAYER, 0);
 			
 			char *rollsize = new char[3]();
-			int plsize = 0;
-			PlayerData* pd;
-			pd = players_list.first();
-			
-			while (pd) {
-				if (pd->status == GAMING_STATUS) {
-					plsize++;
-				}
-				pd = (PlayerData*)pd -> next;
-			}
-			
-			port_itoa(plsize, rollsize, 10);
+			port_itoa(rollcallNum, rollsize, 10);
 			char *prollsize = new char[3]();
 			port_itoa(isRollcall, prollsize, 10);
 			
@@ -1319,6 +1308,11 @@ void uvsContimer::Quant(void){
 		}
 		if (isRollcall >= rollcallNum) {
 			is_start = 7;
+			if (isMod(ID_MECHOKVACH)) {
+				strcpy(kvachId, "-------------------");
+				whoIsKvach=0;
+				kvachName="";
+			}
 			isRollcall=-1;
 		}
 		else if (rollcallTime == 1200) {
