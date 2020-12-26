@@ -14012,7 +14012,7 @@ void NetworkGetStart(char* name,int& x,int& y)
 	StaticSort(SnsTableSize,(StaticObject**)SensorObjectData,(StaticObject**)SensorSortedData);
 
     // CxInfo: here we can change x and y (and then "return;") to manually change spawn point upon exiting an escave
-	if (NetworkON && my_server_data.GameType == HUNTAGE) {
+	if (NetworkON && my_server_data.GameType == MIR_RAGE) {
 		x = getWorld(WORLD_MIRAGE)->x_spawn;
 		y = getWorld(WORLD_MIRAGE)->y_spawn;
 		return;

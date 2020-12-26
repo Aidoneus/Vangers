@@ -20,8 +20,8 @@ extern XStream fout;
 extern int frame;
 extern int GlobalExit;
 
-#define CLIENT_VERSION	1
-#define SERVER_VERSION	1
+#define CLIENT_VERSION	2
+#define SERVER_VERSION	2
 
 #include "iscreen/iscreen_options.h"
 #include "iscreen/iscreen.h"
@@ -256,7 +256,7 @@ int identification(XSocket& socket)
 {
 	char string[256] = "";
 	memset(string,0,256);
-	unsigned int len,identificated = 0;
+	unsigned int len, identificated = 0;
 	START_TIMER(60*1000);
 	const char* request_str = "Vivat Sicher, Rock'n'Roll forever!!!";
 	strcpy(string, request_str);
@@ -269,7 +269,7 @@ int identification(XSocket& socket)
 			break;
 			}
 	if(!identificated) {
-		std::cout<<"Network:identificated is wrong! SV:"<<SERVER_VERSION<<" SV2:"<<(int)string[strlen(string)+1]<<std::endl;
+		std::cout<<"Network: identification is wrong! Expected server version:"<<SERVER_VERSION<<", received server version:"<<(int)string[strlen(string)+1]<<std::endl;
 		socket.close();
 		return 0;
 	}
@@ -1233,23 +1233,38 @@ int isMod(int id) {
 	
 	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
 	char *tolowerName = new char[strlen(game_name)];
+	bool result = false;
 	
 	for (int i = 0; i < strlen(game_name); i++) {
-		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= -128 && game_name[i] <= -113)) tolowerName[i] = game_name[i] + 32;
-		else if (game_name[i] >= -112 && game_name[i] <= -97) tolowerName[i] = game_name[i] + 80;
-		else tolowerName[i] = game_name[i];
+		if ((game_name[i] >= 65 && game_name[i] <= 90) || (game_name[i] >= -128 && game_name[i] <= -113)) {
+			tolowerName[i] = game_name[i] + 32;
+		} else if (game_name[i] >= -112 && game_name[i] <= -97) {
+			tolowerName[i] = game_name[i] + 80;
+		} else {
+			tolowerName[i] = game_name[i];
+		}
 	}
 	for (int name = 0; name < sizeof(modsArray[id])/sizeof(*modsArray[id]); name++) {
-		if (!modsArray[id][name]) break;
-		if (strncmp(tolowerName, modsArray[id][name], strlen(modsArray[id][name]))==0) return true;
+		if (!modsArray[id][name]) {
+			break;
+		}
+		if (strncmp(tolowerName, modsArray[id][name], strlen(modsArray[id][name]))==0) {
+			result = true;
+		}
 	}
-	return false;
+	std::cout<<"    CxDebug: isMod("<<id<<"): game_name="<<game_name<<", lower="<<tolowerName<<", result="<<result<<std::endl;
+	return result;
 }
 int getCurrentMod() {
+	int resultId = -1;
 	for (int id = 0; id < sizeof(modsArray)/sizeof(*modsArray); id++) {
-		if (isMod(id)) return id;
+		if (isMod(id)) {
+			resultId = id;
+			break;
+		};
 	}
-	return -1;
+	std::cout<<"    CxDebug: getCurrentMod(): result="<<resultId<<std::endl;
+	return resultId;
 }
 /*******************************************************************************
 				Player's List

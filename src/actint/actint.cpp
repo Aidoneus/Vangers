@@ -3926,7 +3926,7 @@ void actIntDispatcher::init(void)
 	}
 #endif
 	// CxInfo: skip shop for the first spawn on Arena
-	if((NetworkON && my_server_data.GameType == VAN_WAR && strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"arena")==0) && !curMatrix){
+	if(my_server_data.GameType == VAN_WAR && isMod(ID_ARENA) && !curMatrix){
 		curMatrix = alloc_matrix(16); // CxInfo: was curMatrixID, but we can place any mechos ID here
 	}
 

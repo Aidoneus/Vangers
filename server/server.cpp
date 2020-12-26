@@ -3,7 +3,7 @@
 
 #define LAG -3000
 //#define EVENTS_LOG
-#define SERVER_VERSION 1
+#define SERVER_VERSION 2
 
 #ifdef EVENTS_LOG
 XStream fout("lst", XS_OUT);
@@ -45,6 +45,7 @@ XStream fout("lst", XS_OUT);
 #define MOUT1(str, code) \
 	{ std::cout << str << ", code: " << code << "                                       \n"; }
 
+//const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS", "HUNTAGE", "MUSTODONT", "MIR_RAGE", "UNIVANG"};
 const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS", "HUNTAGE", "MUSTODONT", "MIR_RAGE", "UNIVANG"};
 
 XStream stat_log;
@@ -1227,8 +1228,9 @@ void Player::identification() {
 		if (!strcmp(string, request_str)) {
 			size_t stringlen = strlen(string);
 			identificated = 1;
-			if (len > strlen(request_str) + 1)
+			if (len > strlen(request_str) + 1) {
 				client_version = ((unsigned char *)string)[len - 1];
+			}
 			strcpy(string, response_str);
 			string[stringlen + 1] = SERVER_VERSION;
 			socket.send(string, stringlen + 2);
