@@ -1567,7 +1567,7 @@ void load_text(char* fname)
 	iStringElement* p;
 	if(iCurObjType == I_OBJECT){
 		fh.open(fname,XS_IN);
-//		buf = aciLoadPackedFile(fh,sz);
+		// buf = aciLoadPackedFile(fh,sz);
 		sz = fh.size();
 		buf = new char[sz];
 		fh.read(buf,sz);
@@ -1614,7 +1614,7 @@ void load_s_text(char* fname)
 	iS_StringElement* p;
 	if(iCurObjType == I_OBJECT){
 		fh.open(fname,XS_IN);
-//		buf = aciLoadPackedFile(fh,sz);
+		// buf = aciLoadPackedFile(fh,sz);
 		sz = fh.size();
 		buf = new char[sz];
 		fh.read(buf,sz);
@@ -1650,6 +1650,8 @@ void load_s_text(char* fname)
 				}
 			}
 		}
+
+		delete [] buf;
 	}
 }
 
