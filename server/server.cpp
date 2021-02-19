@@ -2197,25 +2197,25 @@ void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 			g->client_version == client_version) {
 			switch(g->data.GameType) {
 				case VAN_WAR:
-					gameTypeLetter[0] = "V";
+					gameTypeLetter[0] = 'V';
 					break;
 				case MECHOSOMA:
-					gameTypeLetter[0] = "M";
+					gameTypeLetter[0] = 'M';
 					break;
 				case PASSEMBLOSS:
-					gameTypeLetter[0] = "P";
+					gameTypeLetter[0] = 'P';
 					break;
 				case HUNTAGE:
-					gameTypeLetter[0] = "H";
+					gameTypeLetter[0] = 'H';
 					break;
 				case MUSTODONT:
-					gameTypeLetter[0] = "D";
+					gameTypeLetter[0] = 'D';
 					break;
 				case MIR_RAGE:
-					gameTypeLetter[0] = "R";
+					gameTypeLetter[0] = 'R';
 					break;
 				case UNIVANG:
-					gameTypeLetter[0] = "U";
+					gameTypeLetter[0] = 'U';
 					break;
 				default: break;
 			}
