@@ -2486,7 +2486,9 @@ void Object::controls(int mode,int param)
 				}
 			break;
 		case CONTROLS::JUMP_USING_ACCUMULATED_POWER:
+		  #ifndef _SURMAP_
 			if (isMod(ID_TRUCK_TRIAL)) break;
+			#endif
 			if(jump_power){
 				jump();
 				if(active)
@@ -2631,7 +2633,11 @@ void Object::direct_keyboard_control()
 	if(XKey.Pressed(VK_INSERT) | XKey.Pressed('A'))
 		controls(CONTROLS::JUMP_POWER_ACCUMULATION_ON);
 	else
-		if(jump_power && !isMod(ID_TRUCK_TRIAL))
+		if(jump_power
+		#ifndef _SURMAP_
+		&& !isMod(ID_TRUCK_TRIAL)
+		#endif
+		)
 			controls(CONTROLS::JUMP_USING_ACCUMULATED_POWER);
 
 	if(XKey.Pressed('Z'))
@@ -2729,7 +2735,11 @@ void Object::direct_keyboard_control()
 	if(iKeyPressed(iKEY_ACTIVATE_KID))
 		controls(CONTROLS::JUMP_POWER_ACCUMULATION_ON);
 	else
-		if(jump_power && !isMod(ID_TRUCK_TRIAL))
+		if(jump_power
+		#ifndef _SURMAP_
+		&& !isMod(ID_TRUCK_TRIAL)
+		#endif
+		)
 			controls(CONTROLS::JUMP_USING_ACCUMULATED_POWER);
 
 	//if(iKeyPressed(iKEY_VERTICAL_THRUST))
@@ -2944,10 +2954,19 @@ void Object::mechous_analysis(double dt)
 	int i;
 	dt *= speed_correction_factor;
 	if(Status & SOBJ_AUTOMAT){
-		if(jump_power && ++jump_power > max_jump_power && !isMod(ID_TRUCK_TRIAL))
+		if(jump_power && ++jump_power > max_jump_power
+		#ifndef _SURMAP_
+		&& !isMod(ID_TRUCK_TRIAL)
+		#endif
+		)
 			jump();
 	} else {
-		if(jump_power && !isMod(ID_TRUCK_TRIAL) && CheckStartJump(this)){
+		if(jump_power
+		#ifndef _SURMAP_
+		&& !isMod(ID_TRUCK_TRIAL)
+		#endif
+		&& CheckStartJump(this)
+		){
 			jump();
 			if(active)
 				SOUND_KIDPUSH();

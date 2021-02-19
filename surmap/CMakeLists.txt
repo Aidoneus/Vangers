@@ -45,7 +45,6 @@ SET(vangers_surmap_SRCS
 	"${PROJECT_SOURCE_DIR}/src/rle.cpp"
 
 	"${PROJECT_SOURCE_DIR}/src/ai.cpp"
-	"${PROJECT_SOURCE_DIR}/src/network.cpp"
 )
 
 ADD_EXECUTABLE(surmap ${surmap_SRCS} ${vangers_surmap_SRCS})
