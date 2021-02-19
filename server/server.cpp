@@ -1224,7 +1224,7 @@ void Player::identification() {
 	static const char *response_str = "Enter, my son, please...";
 	static const char *kill_str = "I'm sorry, darling...";
 	unsigned int len;
-	if ((len = socket.receive(string, sizeof(string) - 1) != 0) {
+	if ((len = socket.receive(string, sizeof(string) - 1)) != 0) {
 		if (!strcmp(string, request_str)) {
 			identificated = 1;
 			if (len > strlen(request_str) + 1) {
@@ -2181,7 +2181,7 @@ void Server::analyse_statistics(Game *g) {
 
 void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 	int num = 0;
-	char[] gameTypeLetter = "-";
+	char gameTypeLetter[] = "-";
 	Game *g = games.first();
 	while (g) {
 		if (g->data.GameType != UNCONFIGURED && g->used_players_IDs != 0x7fffffff &&
