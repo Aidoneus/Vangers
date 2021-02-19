@@ -421,7 +421,7 @@ iStackElement* iStack::get(void)
 	return heap[curSize];
 }
 
-void ParseScript(const char* fname,char* bname)
+void ParseScript(const char* fname,const char* bname)
 {
 	int id,t_id = 0,st = 0;
 
@@ -1616,7 +1616,8 @@ void load_s_text(char* fname)
 		fh.open(fname,XS_IN);
 		// buf = aciLoadPackedFile(fh,sz);
 		sz = fh.size();
-		buf = new char[sz];
+		buf = new char[sz + 1];
+		memset(buf, 0, sz + 1);
 		fh.read(buf,sz);
 		fh.close();
 		
@@ -1630,9 +1631,9 @@ void load_s_text(char* fname)
 				if(i >= sz) break;
 			}
 			if(i < sz){
-				p = new iS_StringElement;
 				t_sz = strlen(buf + i) + 1;
 				if(t_sz){
+					p = new iS_StringElement;
 					strcpy(p -> string,buf + i);
 					p -> flags |= EL_TEXT_STRING;
 
