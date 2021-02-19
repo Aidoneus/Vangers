@@ -1305,7 +1305,7 @@ void uvsContimer::Quant(void){
 			}
 		}
 		if (rollcallTime == 1200 || isRollcall >= rollcallNum) {
-			message_dispatcher.send("[bot]-----------------", MESSAGE_FOR_PLAYER, 0);
+			message_dispatcher.send((char*) "[bot]-----------------", MESSAGE_FOR_PLAYER, 0);
 			
 			char *rollsize = new char[3]();
 			port_itoa(rollcallNum, rollsize, 10);
@@ -1324,7 +1324,7 @@ void uvsContimer::Quant(void){
 			isRollcall=-1;
 		}
 		else if (rollcallTime == 1200) {
-			message_dispatcher.send("[bot]Перекличка отменена", MESSAGE_FOR_PLAYER, 0);
+			message_dispatcher.send((char*) "[bot]Перекличка отменена", MESSAGE_FOR_PLAYER, 0);
 			isRollcall = -1;
 			rollcallNicknames = new char[10000]();
 		}
@@ -1335,32 +1335,32 @@ void uvsContimer::Quant(void){
 	if (NetworkON && is_start==1) {
 		countFromStart++;
 		if (isMod(ID_MAMMOTH)) {
-			if (countFromStart==300) message_dispatcher.send("[bot]5(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==320) message_dispatcher.send("[bot]4(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==340) message_dispatcher.send("[bot]3(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==360) message_dispatcher.send("[bot]2(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==380) message_dispatcher.send("[bot]1(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==400) message_dispatcher.send("[bot]20 секунд мамонта", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==700) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==720) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==740) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==760) message_dispatcher.send("[bot]2", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==780) message_dispatcher.send("[bot]1", MESSAGE_FOR_PLAYER, 0);
+			if (countFromStart==300) message_dispatcher.send((char*) "[bot]5(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==320) message_dispatcher.send((char*) "[bot]4(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==340) message_dispatcher.send((char*) "[bot]3(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==360) message_dispatcher.send((char*) "[bot]2(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==380) message_dispatcher.send((char*) "[bot]1(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==400) message_dispatcher.send((char*) "[bot]20 секунд мамонта", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==700) message_dispatcher.send((char*) "[bot]5", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==720) message_dispatcher.send((char*) "[bot]4", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==740) message_dispatcher.send((char*) "[bot]3", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==760) message_dispatcher.send((char*) "[bot]2", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==780) message_dispatcher.send((char*) "[bot]1", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==800) {
-				message_dispatcher.send("[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
 				countFromStart=0;
 				is_start=0;
 			}
 		}
 		else if (isMod(ID_MECHOKVACH)) {
-			if (countFromStart==300) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==320) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==340) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==360) message_dispatcher.send("[bot]2", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==380) message_dispatcher.send("[bot]1", MESSAGE_FOR_PLAYER, 0);
+			if (countFromStart==300) message_dispatcher.send((char*) "[bot]5", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==320) message_dispatcher.send((char*) "[bot]4", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==340) message_dispatcher.send((char*) "[bot]3", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==360) message_dispatcher.send((char*) "[bot]2", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==380) message_dispatcher.send((char*) "[bot]1", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==400) {
-				message_dispatcher.send("[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
-				message_dispatcher.send("[bot]Кто квач? (я/z)", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]Кто квач? (я/z)", MESSAGE_FOR_PLAYER, 0);
 				countFromStart=0;
 				is_start=2;
 				whoIsKvach=1;
@@ -1368,13 +1368,13 @@ void uvsContimer::Quant(void){
 			}
 		}
 		else {
-			if (countFromStart==300) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==320) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==340) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==360) message_dispatcher.send("[bot]2", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==380) message_dispatcher.send("[bot]1", MESSAGE_FOR_PLAYER, 0);
+			if (countFromStart==300) message_dispatcher.send((char*) "[bot]5", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==320) message_dispatcher.send((char*) "[bot]4", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==340) message_dispatcher.send((char*) "[bot]3", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==360) message_dispatcher.send((char*) "[bot]2", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==380) message_dispatcher.send((char*) "[bot]1", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==400) {
-				message_dispatcher.send("[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
 				countFromStart=0;
 				is_start=2;
 			}
@@ -1382,45 +1382,45 @@ void uvsContimer::Quant(void){
 	}
 	if (NetworkON && is_start==2 && kvachTime >= 0 && kvachTime < 200) {
 		kvachTime++;
-		if (kvachTime==100) message_dispatcher.send("[bot]5(квач)", MESSAGE_FOR_PLAYER, 0);
-		else if (kvachTime==120) message_dispatcher.send("[bot]4(квач)", MESSAGE_FOR_PLAYER, 0);
-		else if (kvachTime==140) message_dispatcher.send("[bot]3(квач)", MESSAGE_FOR_PLAYER, 0);
-		else if (kvachTime==160) message_dispatcher.send("[bot]2(квач)", MESSAGE_FOR_PLAYER, 0);
-		else if (kvachTime==180) message_dispatcher.send("[bot]1(квач)", MESSAGE_FOR_PLAYER, 0);
+		if (kvachTime==100) message_dispatcher.send((char*) "[bot]5(квач)", MESSAGE_FOR_PLAYER, 0);
+		else if (kvachTime==120) message_dispatcher.send((char*) "[bot]4(квач)", MESSAGE_FOR_PLAYER, 0);
+		else if (kvachTime==140) message_dispatcher.send((char*) "[bot]3(квач)", MESSAGE_FOR_PLAYER, 0);
+		else if (kvachTime==160) message_dispatcher.send((char*) "[bot]2(квач)", MESSAGE_FOR_PLAYER, 0);
+		else if (kvachTime==180) message_dispatcher.send((char*) "[bot]1(квач)", MESSAGE_FOR_PLAYER, 0);
 		else if (kvachTime==200) {
-			message_dispatcher.send("[bot]Старт квача", MESSAGE_FOR_PLAYER, 0);
+			message_dispatcher.send((char*) "[bot]Старт квача", MESSAGE_FOR_PLAYER, 0);
 			kvachTime=-1;
 		}
 	}
 	if (NetworkON && is_start==7) {
 		countFromStart++;
 		if (isMod(ID_MAMMOTH)) {
-			if (countFromStart==1) message_dispatcher.send("[bot]5(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==20) message_dispatcher.send("[bot]4(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==40) message_dispatcher.send("[bot]3(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==60) message_dispatcher.send("[bot]2(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==80) message_dispatcher.send("[bot]1(мамонт)", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==100) message_dispatcher.send("[bot]20 секунд мамонта", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==400) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==420) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==440) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==460) message_dispatcher.send("[bot]2", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==480) message_dispatcher.send("[bot]1", MESSAGE_FOR_PLAYER, 0);
+			if (countFromStart==1) message_dispatcher.send((char*) "[bot]5(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==20) message_dispatcher.send((char*) "[bot]4(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==40) message_dispatcher.send((char*) "[bot]3(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==60) message_dispatcher.send((char*) "[bot]2(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==80) message_dispatcher.send((char*) "[bot]1(мамонт)", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==100) message_dispatcher.send((char*) "[bot]20 секунд мамонта", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==400) message_dispatcher.send((char*) "[bot]5", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==420) message_dispatcher.send((char*) "[bot]4", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==440) message_dispatcher.send((char*) "[bot]3", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==460) message_dispatcher.send((char*) "[bot]2", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==480) message_dispatcher.send((char*) "[bot]1", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==500) {
-				message_dispatcher.send("[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
 				countFromStart=0;
 				is_start=0;
 			}
 		}
 		else if (isMod(ID_MECHOKVACH)) {
-			if (countFromStart==1) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==20) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==40) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==60) message_dispatcher.send("[bot]2", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==80) message_dispatcher.send("[bot]1", MESSAGE_FOR_PLAYER, 0);
+			if (countFromStart==1) message_dispatcher.send((char*) "[bot]5", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==20) message_dispatcher.send((char*) "[bot]4", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==40) message_dispatcher.send((char*) "[bot]3", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==60) message_dispatcher.send((char*) "[bot]2", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==80) message_dispatcher.send((char*) "[bot]1", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==100) {
-				message_dispatcher.send("[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
-				message_dispatcher.send("[bot]Кто квач? (я/z)", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]Кто квач? (я/z)", MESSAGE_FOR_PLAYER, 0);
 				countFromStart=0;
 				is_start=2;
 				whoIsKvach=1;
@@ -1428,13 +1428,13 @@ void uvsContimer::Quant(void){
 			}
 		}
 		else {
-			if (countFromStart==1) message_dispatcher.send("[bot]5", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==20) message_dispatcher.send("[bot]4", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==40) message_dispatcher.send("[bot]3", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==60) message_dispatcher.send("[bot]2", MESSAGE_FOR_PLAYER, 0);
-			else if (countFromStart==80) message_dispatcher.send("[bot]1", MESSAGE_FOR_PLAYER, 0);
+			if (countFromStart==1) message_dispatcher.send((char*) "[bot]5", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==20) message_dispatcher.send((char*) "[bot]4", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==40) message_dispatcher.send((char*) "[bot]3", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==60) message_dispatcher.send((char*) "[bot]2", MESSAGE_FOR_PLAYER, 0);
+			else if (countFromStart==80) message_dispatcher.send((char*) "[bot]1", MESSAGE_FOR_PLAYER, 0);
 			else if (countFromStart==100) {
-				message_dispatcher.send("[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
+				message_dispatcher.send((char*) "[bot]СТАРТ!!!", MESSAGE_FOR_PLAYER, 0);
 				countFromStart=0;
 				is_start=2;
 			}
