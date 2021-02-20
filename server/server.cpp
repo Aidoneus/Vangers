@@ -45,8 +45,8 @@ XStream fout("lst", XS_OUT);
 #define MOUT1(str, code) \
 	{ std::cout << str << ", code: " << code << "                                       \n"; }
 
-//const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS", "HUNTAGE", "MUSTODONT", "MIR_RAGE", "UNIVANG"};
 const char *MP_GAMES_NAMES[NUMBER_MP_GAMES] = {"VAN_WAR", "MECHOSOMA", "PASSEMBLOSS", "HUNTAGE", "MUSTODONT", "MIR_RAGE", "UNIVANG"};
+const char MP_GAMES_LETTERS[] = "VMPHDRU";
 
 XStream stat_log;
 
@@ -2195,30 +2195,7 @@ void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 	while (g) {
 		if (g->data.GameType != UNCONFIGURED && g->used_players_IDs != 0x7fffffff &&
 			g->client_version == client_version) {
-			switch(g->data.GameType) {
-				case VAN_WAR:
-					gameTypeLetter[0] = 'V';
-					break;
-				case MECHOSOMA:
-					gameTypeLetter[0] = 'M';
-					break;
-				case PASSEMBLOSS:
-					gameTypeLetter[0] = 'P';
-					break;
-				case HUNTAGE:
-					gameTypeLetter[0] = 'H';
-					break;
-				case MUSTODONT:
-					gameTypeLetter[0] = 'D';
-					break;
-				case MIR_RAGE:
-					gameTypeLetter[0] = 'R';
-					break;
-				case UNIVANG:
-					gameTypeLetter[0] = 'U';
-					break;
-				default: break;
-			}
+				gameTypeLetter[0] = MP_GAMES_LETTERS[g->data.GameType];
 			out_buffer < g->ID < g->name < ": " <= g->players.size() < " " < gameTypeLetter;
 
 			int t = (SDL_GetTicks() - g->birth_time) / 1000;
