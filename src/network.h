@@ -1,8 +1,9 @@
 #ifndef __NETWORK_H__
 #define __NETWORK_H__
-#include "zmod_client.h"
 
 #include <vector>
+
+#include "zmod_client.h"
 
 #include "xsocket.h"
 #include "multiplayer.h"

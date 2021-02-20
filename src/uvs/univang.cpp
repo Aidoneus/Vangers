@@ -4,6 +4,8 @@
 		Author: K-D Lab::KranK, KoTo
 */
 
+#include <vector>
+
 #include "../global.h"
 
 //XStream VOVA("VOVA.LST", XS_OUT);
@@ -91,10 +93,10 @@ int rollcallNum = 0;
 extern int is_start;
 extern int whoIsKvach;
 extern char* kvachName;
-extern char kvachId[20];
+extern std::string kvachId;
 
 extern int isRollcall;
-extern char* rollcallNicknames;
+extern std::vector<std::string> rollcallNicknames;
 
 extern int Dead,Quit;
 extern int GameQuantReturnValue;
@@ -1326,7 +1328,7 @@ void uvsContimer::Quant(void){
 		else if (rollcallTime == 1200) {
 			message_dispatcher.send((char*) "[bot]Перекличка отменена", MESSAGE_FOR_PLAYER, 0);
 			isRollcall = -1;
-			rollcallNicknames = new char[10000]();
+			rollcallNicknames.clear();
 		}
 	}
 	
@@ -1496,14 +1498,14 @@ void uvsContimer::Quant(void){
 	
 	
 	
-	if (is_start==2 && isMod(ID_MECHOKVACH) && strcmp(kvachId, "-------------------") != 0) {
+	if (is_start==2 && isMod(ID_MECHOKVACH) && !kvachId.empty()) {
 		if (ActD.Active) {
 			VangerUnit* p;
 			p = (VangerUnit*)(ActD.Tail);
 			while (p) {
-				char newKvachID[20];
-				port_itoa(p->ShellNetID, newKvachID, 10);
-				if (strncmp(newKvachID, kvachId, strlen(newKvachID))==0) {
+				std::string newKvachID = std::to_string(p->ShellNetID);
+				
+				if (kvachId == newKvachID) {
 					if (p->uvsPoint->Pmechos->actualColor == 4) {
 						p->uvsPoint->Pmechos->color = 1;
 						p->set_body_color(COLORS_IDS::BODY_RED);
@@ -1552,7 +1554,7 @@ void uvsContimer::Quant(void){
 				}
 				p = (VangerUnit*)(p->NextTypeList);
 			}
-			strcpy(kvachId, "-------------------");
+			kvachId.clear();
 		}
 	}
 	else if (is_start==0 && isMod(ID_MECHOKVACH)) {
