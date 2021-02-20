@@ -2195,7 +2195,7 @@ void Server::get_games_list(OutputEventBuffer &out_buffer, int client_version) {
 	while (g) {
 		if (g->data.GameType != UNCONFIGURED && g->used_players_IDs != 0x7fffffff &&
 			g->client_version == client_version) {
-				gameTypeLetter[0] = MP_GAMES_LETTERS[g->data.GameType];
+			gameTypeLetter[0] = MP_GAMES_LETTERS[g->data.GameType];
 			out_buffer < g->ID < g->name < ": " <= g->players.size() < " " < gameTypeLetter;
 
 			int t = (SDL_GetTicks() - g->birth_time) / 1000;
