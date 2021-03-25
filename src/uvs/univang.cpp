@@ -5938,9 +5938,17 @@ void uvsEscave::add_goods_to_shop( void ){ //znfo - добавка товаро�
 			n = uvsQuantity;
 
 			if (n > 32) n = 32;
-
-			if (!uvsGoodsON)
-				n = 0;
+			
+			switch (pt->type) {
+				case UVS_ITEM_TYPE::NYMBOS: n -= GamerResult.nymbos_buy; break;
+				case UVS_ITEM_TYPE::HEROIN: n -= GamerResult.heroin_buy; break;
+				case UVS_ITEM_TYPE::SHRUB: n -= GamerResult.shrub_buy; break;
+				case UVS_ITEM_TYPE::POPONKA: n -= GamerResult.poponka_buy; break;
+			}
+			if (uvsGoodsON) {
+				GamerResult.phlegma_buy *= (int)(GamerResult.phlegma_buy < 0);
+				GamerResult.toxick_buy *= (int)(GamerResult.toxick_buy < 0);
+			}
 		} else {
 			n = 4 + RND(5) + 4;
 
@@ -6066,9 +6074,17 @@ void uvsSpot::add_goods_to_shop( void ){
 		if (NetworkON){
 			n = uvsQuantity;
 			if (n > 32) n = 32;
-
-			if (!uvsGoodsON)
-				n = 0;
+			
+			switch (pt->type) {
+				case UVS_ITEM_TYPE::PHLEGMA: n -= GamerResult.phlegma_buy; break;
+				case UVS_ITEM_TYPE::TOXICK: n -= GamerResult.toxick_buy; break;
+			}
+			if (uvsGoodsON) {
+				GamerResult.nymbos_buy *= (int)(GamerResult.nymbos_buy < 0);
+				GamerResult.heroin_buy *= (int)(GamerResult.heroin_buy < 0);
+				GamerResult.shrub_buy *= (int)(GamerResult.shrub_buy < 0);
+				GamerResult.poponka_buy *= (int)(GamerResult.poponka_buy < 0);
+			}
 		} else {
 			n = 4 + RND(5) + 4;
 
@@ -8512,6 +8528,10 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 
 		count = GamerResult.nymbos - ItemCount(Pitem,UVS_ITEM_TYPE::NYMBOS );
 		GamerResult.nymbos = ItemCount(Pitem,UVS_ITEM_TYPE::NYMBOS );
+		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "Podish") == 0) {
+			if (GamerResult.nymbos_buy - count > uvsQuantity) GamerResult.nymbos_buy = uvsQuantity;
+			else GamerResult.nymbos_buy -= count;
+		}
 		if (count > 0){
 			uvsTradeItem* pl = (uvsTradeItem*)pt;
 			while(pl){
@@ -8523,14 +8543,18 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
 
-			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Incubator") == 0){
 				my_player_body.MechosomaStat.ItemCount1 += count;
 				send_player_body(my_player_body);
 			}
 		}
-
+		
 		count = GamerResult.phlegma - ItemCount(Pitem, UVS_ITEM_TYPE::PHLEGMA);
 		GamerResult.phlegma = ItemCount(Pitem, UVS_ITEM_TYPE::PHLEGMA);
+		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Incubator") == 0) {
+			if (GamerResult.phlegma_buy - count > uvsQuantity) GamerResult.phlegma_buy = uvsQuantity;
+			else GamerResult.phlegma_buy -= count;
+		}
 		if (count > 0){
 			uvsTradeItem* pl = (uvsTradeItem*)pt;
 			while(pl){
@@ -8541,14 +8565,18 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "Podish") == 0) {
 				my_player_body.MechosomaStat.ItemCount2 += count;
 				send_player_body(my_player_body);
 			}
 		}
-		//stalkerg Где то тут
+		
 		count = GamerResult.heroin - ItemCount(Pitem,UVS_ITEM_TYPE::HEROIN );
 		GamerResult.heroin = ItemCount(Pitem,UVS_ITEM_TYPE::HEROIN );
+		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "VigBoo") == 0) {
+			if (GamerResult.heroin_buy - count > uvsQuantity) GamerResult.heroin_buy = uvsQuantity;
+			else GamerResult.heroin_buy -= count;
+		}
 		if (count > 0){
 			uvsTradeItem* pl = (uvsTradeItem*)pt;
 			while(pl){
@@ -8559,7 +8587,7 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Lampasso") == 0) {
 				my_player_body.MechosomaStat.ItemCount1 += count;
 				send_player_body(my_player_body);
 			}
@@ -8567,6 +8595,10 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 
 		count = GamerResult.shrub - ItemCount(Pitem,UVS_ITEM_TYPE::SHRUB );
 		GamerResult.shrub = ItemCount(Pitem,UVS_ITEM_TYPE::SHRUB );
+		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "VigBoo") == 0) {
+			if (GamerResult.shrub_buy - count > uvsQuantity) GamerResult.shrub_buy = uvsQuantity;
+			else GamerResult.shrub_buy -= count;
+		}
 		if (count > 0){
 			uvsTradeItem* pl = (uvsTradeItem*)pt;
 			while(pl){
@@ -8577,7 +8609,7 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Ogorod") == 0) {
 				my_player_body.MechosomaStat.ItemCount2 += count;
 				send_player_body(my_player_body);
 			}
@@ -8585,6 +8617,10 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 
 		count = GamerResult.poponka - ItemCount(Pitem,UVS_ITEM_TYPE::POPONKA );
 		GamerResult.poponka = ItemCount(Pitem,UVS_ITEM_TYPE::POPONKA );
+		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "ZeePa") == 0) {
+			if (GamerResult.poponka_buy - count > uvsQuantity) GamerResult.poponka_buy = uvsQuantity;
+			else GamerResult.poponka_buy -= count;
+		}
 		if (count > 0){
 			uvsTradeItem* pl = (uvsTradeItem*)pt;
 			while(pl){
@@ -8595,7 +8631,7 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "B-Zone") == 0) {
 				my_player_body.MechosomaStat.ItemCount1 += count;
 				send_player_body(my_player_body);
 			}
@@ -8603,6 +8639,10 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 
 		count = GamerResult.toxick - ItemCount(Pitem,UVS_ITEM_TYPE::TOXICK );
 		GamerResult.toxick = ItemCount(Pitem,UVS_ITEM_TYPE::TOXICK );
+		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "B-Zone") == 0) {
+			if (GamerResult.toxick_buy - count > uvsQuantity) GamerResult.toxick_buy = uvsQuantity;
+			else GamerResult.toxick_buy -= count;
+		}
 		if (count > 0){
 			uvsTradeItem* pl = (uvsTradeItem*)pt;
 			while(pl){
@@ -8613,7 +8653,7 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "ZeePa") == 0) {
 				my_player_body.MechosomaStat.ItemCount2 += count;
 				send_player_body(my_player_body);
 			}
@@ -10139,6 +10179,13 @@ void uvsGamerResult::Init(void){
 	toxick_bonus = 1;
 	BoorawchickGoHimself = 0;
 	unik_poponka = 0;
+	
+	nymbos_buy = 0;
+	phlegma_buy = 0;
+	heroin_buy = 0;
+	shrub_buy = 0;
+	poponka_buy = 0;
+	toxick_buy = 0;
 }
 
 void uvsGamerResult::LocalInit(void){
