@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+
+<meta charset="utf-8" />
+<title>Cx</title>
+<link rel="stylesheet" type="text/css" href="./style.css" />
+<script src="./script.js"></script>
+<script>
+  const CX_VERSION = "0.2.3",
+        lsPrefix = "n";
+  function nGeneralInit() {
+    document.title = `Cx: Community eXperiments for Vangers ${CX_VERSION}`;
+    fillPage();
+    document.removeEventListener("DOMContentLoaded", nGeneralInit);
+  }
+  document.addEventListener("DOMContentLoaded", nGeneralInit);
+</script>
+</head><body></body></html>
