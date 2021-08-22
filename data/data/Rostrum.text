@@ -54,6 +54,10 @@
 "УНИВАНГ стартовал!"
 "UNIVANG started!"
 
+[MP7 Start]
+"БЕРЕГУНЫ стартовали!"
+"CARETAKERS started!"
+
 [MP0 Comment]
 "ВАН-ВАР продолжается."
 "VAN-WAR in progress."
@@ -81,4 +85,8 @@
 [MP6 Comment]
 "УНИВАНГ продолжается..."
 "UNIVANG in progress..."
+
+[MP7 Comment]
+"БЕРЕГУНЫ продолжаются..."
+"CARETAKERS in progress..."
 

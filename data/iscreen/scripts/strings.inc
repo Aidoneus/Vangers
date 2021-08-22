@@ -570,6 +570,9 @@
 #define iSTR_UNIVANG1 			"UNIVANG-3/8"
 #define iSTR_UNIVANG2 			"УНИВАНГ-3/8"
 
+#define iSTR_CARETAKERS1 			"CARETAKERS"
+#define iSTR_CARETAKERS2 			"БЕРЕГУНЫ"
+
 #define iSTR_JOYSTICK_SETUP1		"JOYSTICK SETUP"
 #define iSTR_JOYSTICK_SETUP2		"НАСТРОЙКА ДЖОСТИКА"
 
@@ -645,44 +648,3 @@
 
 #define iSTR_CurIP1			"Your IP:"
 #define iSTR_CurIP2			"Ваш IP:"
-
-// Game modes descriptions
-
-//#define iSTR_VAN_WAR_DESC11		"VAN-WAR"
-//#define iSTR_VAN_WAR_DESC12		"ВАН-ВАР"
-
-//#define iSTR_MECHOSOMA_DESC11 	"MECHOSOMA"
-//#define iSTR_MECHOSOMA_DESC12 	"МЕХОСОМА"
-
-//#define iSTR_PASSEMBLOSS_DESC11	"PASSEMBLOSS"
-//#define iSTR_PASSEMBLOSS_DESC12	"ПАССЕМБЛОС"
-
-//#define iSTR_HUNTAGE_DESC11		"HUNTAGE"
-//#define iSTR_HUNTAGE_DESC12		"ОХОТРОН"
-
-//#define iSTR_MUSTODONT_DESC11 	"MUSTODONT"
-//#define iSTR_MUSTODONT_DESC12 	"МАСТОДОНТ"
-
-#define iSTR_MIR_RAGE_DESC02 	"   Здесь вангеры смогут"
-#define iSTR_MIR_RAGE_DESC12 	"  насладиться  свободной"
-#define iSTR_MIR_RAGE_DESC22 	"игрой на мирах, придуман-"
-#define iSTR_MIR_RAGE_DESC32 	" ных другими колесниками,"
-#define iSTR_MIR_RAGE_DESC42 	"   а могучие миротворцы -"
-#define iSTR_MIR_RAGE_DESC52 	"     произвести отладку"
-#define iSTR_MIR_RAGE_DESC62 	"       своих творений."
-#define iSTR_MIR_RAGE_DESC72 	""
-#define iSTR_MIR_RAGE_DESC82 	"  Больше информации на:"
-#define iSTR_MIR_RAGE_DESC92 	"      kiv.name/mir-rage"
-#define iSTR_MIR_RAGE_DESC01 	"e"
-#define iSTR_MIR_RAGE_DESC11 	"e"
-#define iSTR_MIR_RAGE_DESC21 	"e"
-#define iSTR_MIR_RAGE_DESC31 	"e"
-#define iSTR_MIR_RAGE_DESC41 	"e"
-#define iSTR_MIR_RAGE_DESC51 	"e"
-#define iSTR_MIR_RAGE_DESC61 	"e"
-#define iSTR_MIR_RAGE_DESC71 	"e"
-#define iSTR_MIR_RAGE_DESC81 	"e"
-#define iSTR_MIR_RAGE_DESC91 	"e"
-
-//#define iSTR_UNIVANG_DESC11 	"UNIVANG-3/8"
-//#define iSTR_UNIVANG_DESC12 	"УНИВАНГ-3/8"

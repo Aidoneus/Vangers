@@ -127,6 +127,7 @@ enum {
 	MUSTODONT,
 	MIR_RAGE,
 	UNIVANG,
+	CARETAKERS,
 
 	NUMBER_MP_GAMES
 };
@@ -208,6 +209,13 @@ struct UNIVANG_PRM {
 	int Color;
 };
 
+struct CARETAKERS_PRM {
+	int InitialCash;
+	int ArtefactsUsing;
+	int InEscaveTime;
+	int Color;
+};
+
 struct ServerData {
 	int InitialRND;
 	int GameType;
@@ -219,6 +227,7 @@ struct ServerData {
 		MUSTODONT_PRM		Mustodont;
 		MIR_RAGE_PRM		Mir_Rage;
 		UNIVANG_PRM			UniVang;
+		CARETAKERS_PRM		Caretakers;
 		};
 
 	ServerData();
@@ -296,6 +305,11 @@ struct MustodontStatistic
 	//int TotalTime;//hh:mm:ss
 //};
 
+//struct CaretakersStatistic
+//{
+	//int TotalTime;//hh:mm:ss
+//};
+
 struct PlayerBody {
 	unsigned char kills;
 	unsigned char deaths;
@@ -317,6 +331,7 @@ struct PlayerBody {
 		MustodontStatistic MustodontStat;
 		//MirRageStatistic MirRageStat;
 		//UniVangStatistic UniVangStat;
+		//CaretakersStatistic CaretakersStat;
 	};
 
 	void clear(){ memset(this,0,sizeof(PlayerBody));CarIndex = 255; }

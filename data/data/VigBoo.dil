@@ -1,6 +1,6 @@
 15
 15
-90
+92
 7
 4 6 "Larva 2 Note" "5" "0" "0" "BSTATUS == 2 visitW X > 0 data CYCLE == 2" " " " " 
 3 6 "Larva 1 Note" "5" "0" "0" "BSTATUS == 2 visitW X > 0 data CYCLE == 1" " " " " 
@@ -51,6 +51,7 @@
 11 1 "Kernoboo in Inventory (Boond)" "4" "1" "0" "BSTATUS == 0 data INV_KERNOBOO > 0" "abort" "block" 
 12 1 "Kernoboo in Inventory (Commissar)" "4" "1" "0" "BSTATUS == 1 data INV_KERNOBOO > 0" "abort" "block" 
 13 1 "Kernoboo in Inventory (Agent)" "4" "1" "0" "BSTATUS == 2 data INV_KERNOBOO > 0" "abort" "block" 
+7 11 "MP7 Comment" "2" "1" "1" "MP_GAME == 7" " " " "
 6 11 "MP6 Comment" "2" "1" "1" "MP_GAME == 6" " " " "
 5 11 "MP5 Comment" "2" "1" "1" "MP_GAME == 5" " " " "
 4 11 "MP4 Comment" "2" "1" "1" "MP_GAME == 4" " " " "
@@ -58,6 +59,7 @@
 2 11 "MP2 Comment" "2" "1" "1" "MP_GAME == 2" " " " " 
 1 11 "MP1 Comment" "2" "1" "1" "MP_GAME == 1" " " " " 
 0 11 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " " 
+7 10 "MP7 Start" "1" "0" "0" "MP_GAME == 7" " " "clear"
 6 10 "MP6 Start" "1" "0" "0" "MP_GAME == 6" " " "clear"
 5 10 "MP5 Start" "1" "0" "0" "MP_GAME == 5" " " "clear"
 4 10 "MP4 Start" "1" "0" "0" "MP_GAME == 4" " " "clear"

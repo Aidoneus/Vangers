@@ -2,6 +2,9 @@
 #include "iscreen/scripts/strings.inc"
 #include "iscreen/scripts/strings1.inc"
 
+#include "iscreen/scripts/gamemode.inc"
+#include "iscreen/scripts/gamemode1.inc"
+
 #include "iscreen/scripts/vkeys.inc"
 #include "iscreen/scripts/bugs.inc"
 

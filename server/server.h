@@ -269,6 +269,7 @@ struct Game {
 	void process_MUSTODONT_ratings();
 	void process_MIR_RAGE_ratings();
 	void process_UNIVANG_ratings();
+	void process_CARETAKERS_ratings();
 	void save_result();
 	void load_result(Server *server, char *name);
 };

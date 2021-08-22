@@ -1,0 +1,18 @@
+// Game modes description
+
+#define iSTR_MP0_001	"resource/iscreen/text/eng/mp0.txt"
+#define iSTR_MP0_002	"resource/iscreen/text/rus/mp0.txt"
+#define iSTR_MP1_001	"resource/iscreen/text/eng/mp1.txt"
+#define iSTR_MP1_002	"resource/iscreen/text/rus/mp1.txt"
+#define iSTR_MP2_001	"resource/iscreen/text/eng/mp2.txt"
+#define iSTR_MP2_002	"resource/iscreen/text/rus/mp2.txt"
+#define iSTR_MP3_001	"resource/iscreen/text/eng/mp3.txt"
+#define iSTR_MP3_002	"resource/iscreen/text/rus/mp3.txt"
+#define iSTR_MP4_001	"resource/iscreen/text/eng/mp4.txt"
+#define iSTR_MP4_002	"resource/iscreen/text/rus/mp4.txt"
+#define iSTR_MP5_001	"resource/iscreen/text/eng/mp5.txt"
+#define iSTR_MP5_002	"resource/iscreen/text/rus/mp5.txt"
+#define iSTR_MP6_001	"resource/iscreen/text/eng/mp6.txt"
+#define iSTR_MP6_002	"resource/iscreen/text/rus/mp6.txt"
+#define iSTR_MP7_001	"resource/iscreen/text/eng/mp7.txt"
+#define iSTR_MP7_002	"resource/iscreen/text/rus/mp7.txt"

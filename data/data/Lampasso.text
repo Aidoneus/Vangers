@@ -365,6 +365,10 @@
 "УНИВАНГ стартовал!"
 "UNIVANG started!"
 
+[MP7 Start]
+"БЕРЕГУНЫ стартовали!"
+"CARETAKERS started!"
+
 [MP0 Comment]
 "Ну, пугливый, ВАН-ВАР ещё идёт! Вооружись получше, сразу почувствуешь себя уверенней. У тебя ещё есть возможность догнать того невежу, который посмел подъехать к тебе на кривом мехосе. Влепи ему так, чтоб в округе обвалились мосты и попадали кверху брюхом бибы!"
 "Okay, yellow belly, the VAN-WAR is in full swing! Get yourself a big gun, maybe you'll feel more confident then. You can still get at the jackanapes who dared take you on in his craggy buggy. Blow the scab up so that nearby bridges collapse and beebs fall legs up!"
@@ -392,6 +396,10 @@
 [MP6 Comment]
 "УНИВАНГ продолжается..."
 "UNIVANG in progress..."
+
+[MP7 Comment]
+"БЕРЕГУНЫ продолжаются..."
+"CARETAKERS in progress..."
 
 [Cirt in Inventory]
 "Что я смею наблюдать! Вялый вангер собрал все свое обурение и раздобыл нюхи... Отрадно. Ты становишься на путь верного служителя Бюро и я рад, что не зря герои проявляют храбрость на стадионе, а Ядробусы падают с небес!"

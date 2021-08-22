@@ -366,6 +366,10 @@
 "УНИВАНГ стартовал!"
 "UNIVANG started!"
 
+[MP7 Start]
+"БЕРЕГУНЫ стартовали!"
+"CARETAKERS started!"
+
 [MP0 Comment]
 "ВАН-ВАР идёт жестокий... А ты решил сидеть в тиши эскейва, дрожа и плача? Быстрей на мир! Найди того урода, что смел тебя задеть, и покажи ему, что значит гнев героя. А можешь пушку взять крутую и ей накостылять обидчикам. Я уступлю за полцены, вали отсюда только..."
 "The VAN-WAR is in full swing and you are quaking in an escave, you stinking coward! Go up into the world and find the chump who dared offend you. Show him what the anger of a real hero means. You want to take a decent gun to shoot up those drips? I'll sell it for half the price if you disappear quick!"
@@ -393,6 +397,10 @@
 [MP6 Comment]
 "УНИВАНГ продолжается..."
 "UNIVANG in progress..."
+
+[MP7 Comment]
+"БЕРЕГУНЫ продолжаются..."
+"CARETAKERS in progress..."
 
 [Larva 0 Note]
 "Мир $(World of Larva0) - вот место, где пребывает Кукла, царица Жирогона!"

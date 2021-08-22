@@ -205,6 +205,10 @@
 "УНИВАНГ стартовал!"
 "UNIVANG started!"
 
+[MP7 Start]
+"БЕРЕГУНЫ стартовали!"
+"CARETAKERS started!"
+
 [MP0 Comment]
 "ВАН-ВАР продолжается, а ты здесь сидишь, трусишка. Видишь, осыпается глина со стен эскейва от воплей и выстрелов? Давай, торопись наверх, поддай жару. И прихвати пушку потяжелей. А если тебя, ненароком, прихлопнут, твоя добрая советница всегда поможет расквитаться с обидчиком!"
 "The VAN-WAR is in full swing while you're sitting here, yellow belly. See how clay is crumbling from the shots and yells? Come on, go up there quickly and give it to them hot. And take a bigger gun. Should they by any chance take you down, your faithful wife will seek revenge for you upon the scoundrels."
@@ -232,6 +236,10 @@
 [MP6 Comment]
 "УНИВАНГ продолжается..."
 "UNIVANG in progress..."
+
+[MP7 Comment]
+"БЕРЕГУНЫ продолжаются..."
+"CARETAKERS in progress..."
 
 [Larva 0 Note]
 "Сейчас Суббота, любимый. Где-то далеко и глубоко ползет наша Кукла. То место зовется $(World of Larva0)..."

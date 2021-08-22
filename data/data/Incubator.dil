@@ -1,6 +1,6 @@
 10
 9
-60
+62
 7
 6 4 "Larvae Vision note" "5" "0" "0" "data DOMINANCE > 50" " " " " 
 5 3 "Beeboorat in Inventory" "2" "0" "1" "data INV_BEEBOORAT > 0" " " " " 
@@ -20,6 +20,7 @@
 2 3 "Toxick in Inventory" "2" "0" "1" "data INV_TOXICK > 0" " " " " 
 4 2 "Kernoboo in Inventory" "2" "0" "1" "data INV_KERNOBOO > 0" " " " " 
 3 0 "Heroin in Inventory" "3" "0" "1" "data INV_HEROIN > 0" "abort" "block" 
+7 8 "MP7 Comment" "2" "1" "1" "MP_GAME == 7" " " " "
 6 8 "MP6 Comment" "2" "1" "1" "MP_GAME == 6" " " " "
 5 8 "MP5 Comment" "2" "1" "1" "MP_GAME == 5" " " " "
 4 8 "MP4 Comment" "2" "1" "1" "MP_GAME == 4" " " " "
@@ -27,6 +28,7 @@
 2 8 "MP2 Comment" "2" "1" "1" "MP_GAME == 2" " " " " 
 1 8 "MP1 Comment" "2" "1" "1" "MP_GAME == 1" " " " " 
 0 8 "MP0 Comment" "2" "1" "1" "MP_GAME == 0" " " " " 
+7 7 "MP7 Start" "1" "0" "0" "MP_GAME == 7" " " "clear"
 6 7 "MP6 Start" "1" "0" "0" "MP_GAME == 6" " " "clear"
 5 7 "MP5 Start" "1" "0" "0" "MP_GAME == 5" " " "clear"
 4 7 "MP4 Start" "1" "0" "0" "MP_GAME == 4" " " "clear"

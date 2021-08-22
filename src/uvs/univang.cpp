@@ -479,21 +479,17 @@ void uniVangPrepare(void){
 		RNDVAL = my_server_data.InitialRND|1;
 
 		switch (my_server_data.GameType){
-		case VAN_WAR:
-			break;
-		case MECHOSOMA:
-			break;
-		case PASSEMBLOSS:
-			break;
-		case HUNTAGE:
-			break;
-		case MUSTODONT:
-			uvsUnikumeMechos = 0;
-			break;
-		case MIR_RAGE:
-			break;
-		case UNIVANG:
-			break;
+			case VAN_WAR:
+			case MECHOSOMA:
+			case PASSEMBLOSS:
+			case HUNTAGE:
+			case MIR_RAGE:
+			case UNIVANG:
+			case CARETAKERS:
+				break;
+			case MUSTODONT:
+				uvsUnikumeMechos = 0;
+				break;
 		};
 	}
 
@@ -841,6 +837,9 @@ void uniVangPrepare(void){
 			break;
 		case UNIVANG:
 			aciUpdateCurCredits(my_server_data.UniVang.InitialCash);
+			break;
+		case CARETAKERS:
+			aciUpdateCurCredits(my_server_data.Caretakers.InitialCash);
 			break;
 		};
 

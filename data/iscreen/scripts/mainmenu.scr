@@ -218,7 +218,6 @@
 #define TITLE_STR2_Y		60
 
 #define MULTI_START_Y		150
-//#define MULTI_START_Y 	  200
 #define MULTI_DELTA_Y		80
 
 #define SERVER_START_Y		170
@@ -1036,25 +1035,9 @@ Object "Multiplayer Option"
 		}
 	}
 
-	Object "Cx name"
-	{
-		x	705
-		y	525
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN2
-
-			font		3
-			null_level	$DEFAULT_NULL
-			string		"Cx"
-		}
-	}
-
 	Object "Cx version"
 	{
-		x	690
+		x	640
 		y	555
 
 		Element STRING {
@@ -1064,7 +1047,7 @@ Object "Multiplayer Option"
 
 			font		3
 			null_level	$DEFAULT_NULL
-			string		"0.62"
+			string		"Cx 0.6.2"
 		}
 	}
 }
@@ -6665,247 +6648,7 @@ Screen "Controls screen 5"
 					}													\
 				}
 
-#define GAME_DESC Object $GD_NAME {	\
-		x 280 y { $SELECT_SCREEN_START_Y + $DESC_DELTA_Y * $GD_Y }	\
-		Element STRING { align_x center terrain_num $TERRAIN3 font 4 null_level $DEFAULT_NULL string $GD_TEXT }	\
-	}
-
-Screen "Select Game"
-{
-	default_obj "GameObj0"
-
-	Object "TitleStr"
-	{
-		align_x center
-		y	{ $TITLE_STR2_Y - 50 }
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN4
-
-			font		0
-			null_level	$DEFAULT_NULL
-			string		$iSTR_SELECT_GAME
-		}
-	}
-
-	Object "Back Option"
-	{
-		x	$Select_Game_Back_Option_PosX
-		y	$Select_Game_Back_Option_PosY
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN2
-
-			font		0
-			null_level	$DEFAULT_NULL
-			string		$iSTR_BACK
-		}
-		Event {
-			key $VK_LBUTTON
-			key $VK_ESCAPE
-
-			time { $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
-			EvComm {
-				low_obj 	"Back Option"
-				time		$PRESS_OBJ_TIME
-				start_time	0
-			}
-			EvComm {
-				move2screen	"Server Config screen"
-				start_time	$PRESS_OBJ_TIME
-				time		$MOVE2SCREEN_TIME
-			}
-		}
-		Event {
-			key $VK_RBUTTON
-
-			time { $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
-			EvComm {
-				smooth_obj	"Back Option" 2
-				start_time	0
-				time		$SMOOTH_OBJ_TIME
-			}
-			EvComm {
-				hide_obj	"Back Option"
-				start_time	$SMOOTH_OBJ_TIME
-				time		$HIDE_OBJ_TIME
-			}
-			EvComm {
-				move2screen	"Server Config screen"
-				start_time	{ $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME }
-				time		$MOVE2SCREEN_TIME
-			}
-		}
-	}
-
-	#define GAME_Y		0
-	#define GAME_OBJ_NAME	"GameObj0"
-	#define GAME_OBJ_NEXT	"GameObj1"
-	#define GAME_OBJ_PREV	"GameObj1"
-	#define GAME_OBJ_ID	$iSTR_VAN_WAR
-	#define GAME_SCR	"Game Params 0"
-	#define GAME_STRING_ID	"GameStr0"
-	#include "iscreen/scripts/gameobj.inc"
-
-	#define GAME_Y		1
-	#define GAME_OBJ_NAME	"GameObj1"
-	#define GAME_OBJ_NEXT	"GameObj2"
-	#define GAME_OBJ_PREV	"GameObj0"
-	#define GAME_OBJ_ID	$iSTR_MECHOSOMA
-	#define GAME_SCR	"Game Params 1"
-	#define GAME_STRING_ID	"GameStr1"
-	#include "iscreen/scripts/gameobj.inc"
-
-	#define GAME_Y		2
-	#define GAME_OBJ_NAME	"GameObj2"
-//	#define GAME_OBJ_NEXT   "GameObj3"
-	#define GAME_OBJ_NEXT   "GameObj5"
-	#define GAME_OBJ_PREV	"GameObj1"
-	#define GAME_OBJ_ID	$iSTR_PASSEMBLOSS
-	#define GAME_SCR	"Game Params 2"
-	#define GAME_STRING_ID	"GameStr2"
-	#include "iscreen/scripts/gameobj.inc"
-/*
-	#define GAME_Y		3
-	#define GAME_OBJ_NAME	"GameObj3"
-	#define GAME_OBJ_NEXT	"GameObj4"
-	#define GAME_OBJ_PREV	"GameObj2"
-	#define GAME_OBJ_ID	$iSTR_HUNTAGE
-	#define GAME_SCR	"Game Params 3"
-	#define GAME_STRING_ID	"GameStr3"
-	#include "iscreen/scripts/gameobj.inc"
-*/
-	Object "GameStr3Inactive"
-	{
-		x	20
-		y	{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * 3 }
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN4
-
-			font		$PARAM_FNT
-			null_level	$DEFAULT_NULL
-			string		$iSTR_HUNTAGE
-		}
-	}
-/*
-	#define GAME_Y		4
-	#define GAME_OBJ_NAME	"GameObj4"
-	#define GAME_OBJ_NEXT	"GameObj5"
-	#define GAME_OBJ_PREV	"GameObj3"
-	#define GAME_OBJ_ID	$iSTR_MUSTODONT
-	#define GAME_SCR	"Game Params 4"
-	#define GAME_STRING_ID	"GameStr4"
-	#include "iscreen/scripts/gameobj.inc"
-*/
-	Object "GameStr4Inactive"
-	{
-		x	20
-		y	{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * 4 }
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN4
-
-			font		$PARAM_FNT
-			null_level	$DEFAULT_NULL
-			string		$iSTR_MUSTODONT
-		}
-	}
-
-	#define GAME_Y		5
-	#define GAME_OBJ_NAME	"GameObj5"
-//	#define GAME_OBJ_NEXT	"GameObj6"
-	#define GAME_OBJ_NEXT	"GameObj2"
-//	#define GAME_OBJ_PREV	"GameObj4"
-	#define GAME_OBJ_PREV	"GameObj2"
-	#define GAME_OBJ_ID	$iSTR_MIR_RAGE
-	#define GAME_SCR	"Game Params 5"
-	#define GAME_STRING_ID	"GameStr5"
-	#include "iscreen/scripts/gameobj.inc"
-/*
-	#define GAME_Y		6
-	#define GAME_OBJ_NAME	"GameObj6"
-	#define GAME_OBJ_NEXT	"GameObj5"
-	#define GAME_OBJ_PREV	"GameObj5"
-	#define GAME_OBJ_ID	$iSTR_UNIVANG
-	#define GAME_SCR	"Game Params 6"
-	#define GAME_STRING_ID	"GameStr6"
-	#include "iscreen/scripts/gameobj.inc"
-*/
-	Object "GameStr6Inactive"
-	{
-		x	20
-		y	{ $SELECT_SCREEN_START_Y + $SELECT_SCREEN_DELTA_Y * 6 }
-
-		Element STRING {
-			align_x center
-
-			terrain_num	$TERRAIN4
-
-			font		$PARAM_FNT
-			null_level	$DEFAULT_NULL
-			string		$iSTR_UNIVANG
-		}
-	}
-
-// Game description - no more than 10 rows
-
-// Game description VAN_WAR
-// Game description MECHOSOMA
-// Game description PASSEMBLOSS
-// Game description HUNTAGE
-// Game description MUSTODONT
-// Game description MIR_RAGE
-	#define GD_NAME	"GameDesc50"
-	#define GD_Y	0
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC0
-	$GAME_DESC
-	#define GD_NAME	"GameDesc51"
-	#define GD_Y	1
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC1
-	$GAME_DESC
-	#define GD_NAME	"GameDesc52"
-	#define GD_Y	2
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC2
-	$GAME_DESC
-	#define GD_NAME	"GameDesc53"
-	#define GD_Y	3
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC3
-	$GAME_DESC
-	#define GD_NAME	"GameDesc54"
-	#define GD_Y	4
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC4
-	$GAME_DESC
-	#define GD_NAME	"GameDesc55"
-	#define GD_Y	5
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC5
-	$GAME_DESC
-	#define GD_NAME	"GameDesc56"
-	#define GD_Y	6
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC6
-	$GAME_DESC
-	#define GD_NAME	"GameDesc57"
-	#define GD_Y	7
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC7
-	$GAME_DESC
-	#define GD_NAME	"GameDesc58"
-	#define GD_Y	8
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC8
-	$GAME_DESC
-	#define GD_NAME	"GameDesc59"
-	#define GD_Y	9
-	#define GD_TEXT	$iSTR_MIR_RAGE_DESC9
-	$GAME_DESC
-// Game description UNIVANG
-}
+#include "iscreen/scripts/screens/select_game_mode.inc"
 
 Screen "Game Params 0"  // VAN-WAR
 {
@@ -7893,6 +7636,11 @@ Screen "Game Params 5"  // MIR-RAGE
 }
 
 Screen "Game Params 6"  // UNIVANG
+{
+	#include "iscreen/scripts/gamescr.inc"
+}
+
+Screen "Game Params 7"  // CARETAKERS
 {
 	#include "iscreen/scripts/gamescr.inc"
 }

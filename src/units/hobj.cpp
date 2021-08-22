@@ -3922,8 +3922,8 @@ void NetworkWorldOpen(void)
 			};
 			aciPrepareWorldsMenu();
 			break;
-//		case MECHOSOMA:
-//			break;
+		case MECHOSOMA:
+			break;
 		case PASSEMBLOSS:
 			if(!GloryPlaceData){
 				GloryRnd.aiInit(my_server_data.InitialRND);
@@ -3946,10 +3946,10 @@ void NetworkWorldOpen(void)
 			aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
 			aciPrepareWorldsMenu();
 			break;
-//		case HUNTAGE:
-//			break;
-//		case MUSTODONT:
-//			break;
+		case HUNTAGE:
+			break;
+		case MUSTODONT:
+			break;
 		case MIR_RAGE:
 			aciOpenWorldLink(WORLD_FOSTRAL,WORLD_GLORX);
 			aciOpenWorldLink(WORLD_FOSTRAL,WORLD_WEEXOW);
@@ -3964,8 +3964,10 @@ void NetworkWorldOpen(void)
 			aciOpenWorldLink(WORLD_MIRAGE,WORLD_MIRAGE);
 			aciPrepareWorldsMenu();
 			break;
-//		case UNIVANG:
-//			break;
+		case UNIVANG:
+			break;
+		case CARETAKERS:
+			break;
 	};
 
 	

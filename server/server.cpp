@@ -96,6 +96,9 @@ Game::~Game() {
 		case UNIVANG:
 			process_UNIVANG_ratings();
 			break;
+		case CARETAKERS:
+			process_CARETAKERS_ratings();
+			break;
 		}
 	}
 
@@ -226,6 +229,9 @@ int Game::quant() {
 					break;
 				case UNIVANG:
 					process_UNIVANG_ratings();
+					break;
+				case CARETAKERS:
+					process_CARETAKERS_ratings();
 					break;
 				}
 			} else
@@ -748,6 +754,65 @@ void Game::process_UNIVANG_ratings() {
 	}
 }
 
+void Game::process_CARETAKERS_ratings() {
+	int total_account = 0;
+	int counter = 0;
+	double avr_rating = 0;
+	Player *p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.kills - p->body.deaths));
+			total_account += p->body.kills;
+			avr_rating += p->body.rating;
+			counter++;
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.kills - p->body.deaths));
+		total_account += p->body.kills;
+		avr_rating += p->body.rating;
+		counter++;
+		p = p->next;
+	}
+	if (!counter)
+		return;
+	avr_rating /= (double)counter;
+
+	double total_weight = 0;
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS)
+			total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		total_weight += fabs(p->body.rating - avr_rating);
+		p = p->next;
+	}
+	if (total_weight < 0.01)
+		return;
+	total_weight /= 2.;
+
+	double factor = (double)total_account / (total_weight);
+	p = players.first();
+	while (p) {
+		if (p->status != INITIAL_STATUS) {
+			p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+			p->server->add_rating_data(p, CARETAKERS);
+		}
+		p = p->next;
+	}
+	p = removed_players.first();
+	while (p) {
+		p->body.rating = (float)((p->body.rating - avr_rating) * factor);
+		p->server->add_rating_data(p, CARETAKERS);
+		p = p->next;
+	}
+}
+
 void Game::save_result() {
 	if (!players.size() && !removed_players.size())
 		return;
@@ -814,6 +879,9 @@ void Game::load_result(Server *server, char *name) {
 		break;
 	case UNIVANG:
 		process_UNIVANG_ratings();
+		break;
+	case CARETAKERS:
+		process_CARETAKERS_ratings();
 		break;
 	}
 }
@@ -1653,6 +1721,14 @@ int Player::receive() {
 				if (body.kills != prev_body.kills || body.deaths != prev_body.deaths ||
 					body.rating != prev_body.rating) {
 					game->process_UNIVANG_ratings();
+					if (fabs(body.rating - prev_body.rating) > 0.01)
+						code_queue.put(Event(PLAYERS_RATING, this));
+				}
+				break;
+			case CARETAKERS:
+				if (body.kills != prev_body.kills || body.deaths != prev_body.deaths ||
+					body.rating != prev_body.rating) {
+					game->process_CARETAKERS_ratings();
 					if (fabs(body.rating - prev_body.rating) > 0.01)
 						code_queue.put(Event(PLAYERS_RATING, this));
 				}
