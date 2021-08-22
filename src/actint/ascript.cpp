@@ -605,7 +605,7 @@ void aParseScript(const char* fname,const char* bname)
 	aciML_D = new aciML_Dispatcher;
 
 #ifndef _BINARY_SCRIPT_
-	_sALLOC_HEAP_(3000000,char);
+	_sALLOC_HEAP_(4000000,char);
 #endif
 	script = new ScriptFile;
 #ifndef _BINARY_SCRIPT_

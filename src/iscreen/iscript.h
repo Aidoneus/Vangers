@@ -13,7 +13,7 @@
 
 const int 	iSCRIPT_INCLUDE_MAX	= 10;
 const int 	iSCRIPT_EOF		= 8383;
-const int 	iSCRIPT_HEAP_SIZE	= 3000000;
+const int 	iSCRIPT_HEAP_SIZE	= 4000000;
 
 struct ScriptFileBuffer
 {

@@ -20,7 +20,7 @@
 
 #include "iscreen/scripts/main.inc"
 
-#include "iscreen/scripts/cr_main1.inc"
+#include "iscreen/scripts/cr_main2.inc"
 
 /* ------------------------------ TEXT SECTION ------------------------------ */
 
