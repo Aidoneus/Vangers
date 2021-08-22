@@ -344,7 +344,8 @@ void ScreenQuant(void)
 				break;
 			case UVS_OBJECT::VANGER:
 				ind = ((uvsVanger*)p) -> Pworld -> gIndex;
-				if(ind != -1) scrTable[ind] -> VangerQuant((uvsVanger*)p);
+				// CxInfo: don't process vangers from worlds other than first 4
+				if(ind != -1 && ind <= 3) scrTable[ind] -> VangerQuant((uvsVanger*)p);
 				break;
 			}
 		p = p -> enext;

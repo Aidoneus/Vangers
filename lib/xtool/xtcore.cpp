@@ -108,6 +108,8 @@ unsigned short autoconnectPort = 2195;
 bool autoconnectJoinGame = false;
 int  autoconnectGameID;
 
+bool showStand;
+
 int main(int argc, char *argv[])
 {
 #ifdef __HAIKU__
@@ -137,6 +139,8 @@ int main(int argc, char *argv[])
             setLang(RUSSIAN);
 		} else if (cmd_key == "-ai") {
 			setAi(BOT);
+		} else if (cmd_key == "-stand") {
+        	showStand = true;
 		} else if (cmd_key == "-mechous") {
 			if (argc > i) {
 				customMechousUsage = true;

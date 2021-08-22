@@ -236,7 +236,6 @@ XBuffer msg_buf(16000);
 
 int view_lock = 0;
 int debug_view = 0;
-int StandLog;
 int loadingStatus = 1;
 
 int GameQuantReturnValue = 0;
@@ -325,6 +324,7 @@ const char* nVER = "Patch 4.20";
 
 extern iScreenOption** iScrOpt;
 
+extern bool showStand;
 
 #include "video/winvideo.h"
 #include "ai.h"
@@ -955,6 +955,12 @@ void LoadingRTO2::Init(int id)
 	aciLoadLog = 0;
 	i_change_res();
 	LoadingMessage(1);
+#endif
+
+#ifndef _DEBUG
+	if (showStand) {
+		StandScreenPrepare();
+	}
 #endif
 
 #ifdef _DEBUG
@@ -2091,7 +2097,7 @@ void iGameMap::draw(int self)
 
 		msg_buf.init();
 
-		if(StandLog) {
+		if(showStand) {
 			ScreenQuant();
 		}
 

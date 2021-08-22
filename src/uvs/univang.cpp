@@ -10,6 +10,9 @@
 
 //XStream VOVA("VOVA.LST", XS_OUT);
 
+// CxDebug: ��� �⫠��� �����筮� ����, ���� ��� � stand.dmp (����� ⥪�⮢� 䠩�)
+//#define STAND_REPORT
+
 #ifdef _DEBUG
 //#define _DEMO_
 #define STAND_REPORT
@@ -1642,6 +1645,7 @@ uvsWorld::uvsWorld(PrmFile* pfile,char* atom){
 	x_spawn = atoi(pfile -> getAtom());
 	y_spawn = atoi(pfile -> getAtom());
 	flood_level = atoi(pfile ->getAtom());
+	allow_dollies = atoi(pfile ->getAtom());
 
 	escTmax = sptTmax = pssTmax = 0;
 	escT = NULL;
@@ -1723,6 +1727,7 @@ uvsWorld::uvsWorld(XStream& pfile ){
 	pfile > x_spawn;
 	pfile > y_spawn;
 	pfile > flood_level;
+	pfile > allow_dollies;
 
 	escTmax = sptTmax = pssTmax = 0;
 	escT = NULL;
@@ -1772,6 +1777,7 @@ void uvsWorld::save(XStream& pfile ){
 	pfile < x_spawn;
 	pfile < y_spawn;
 	pfile < flood_level;
+	pfile < allow_dollies;
 
 	pfile < gIndex;
 	pfile < GamerVisit;
@@ -1832,7 +1838,7 @@ void uvsWorld::Quant(void){
 uvsDolly* uvsWorld::generateDolly(int biosInd){
 	uvsDolly* pd = (uvsDolly*)DollyTail;
 	while(pd){
-		if( pd -> Pworld == this && pd -> biosNindex == biosInd){
+		if( (pd -> Pworld == this && pd -> biosNindex == biosInd) || (pd -> Pworld -> allow_dollies == 0) ){
 			return NULL;
 			break;
 		}
@@ -6574,65 +6580,67 @@ void uvsVanger::Quant(void){
 
 //znfo event (for bots?)
 void uvsVanger::Event(UvsEventType ev){
-
-	switch(ev){
-		case UVS_EVENT::THIEF:
-			thief_from_escave(Pescave);
-			break;
-		case UVS_EVENT::THIEF_FROM_SHOP:
-			thief_from_shop(Pescave -> Pshop);
-			break;
-		case UVS_EVENT::GO_FROM_ESCAVE:
-			go_from_escave();
-			break;
-		case UVS_EVENT::GO_FROM_SPOT:
-			go_from_spot();
-			break;
-		case UVS_EVENT::GO_CIRT:
-			goCirt();
-			break;
-		case UVS_EVENT::GO_NEW_ESCAVE:
-			if (shape == UVS_VANGER_SHAPE::GAMER)
-				status = UVS_VANGER_STATUS::GO_NEW_ESCAVE;
-			else
-				goNewEscave();
-			break;
-		case UVS_EVENT::SPOT_ARRIVAL:
-			spotArrival();
-			if ( shape != UVS_VANGER_SHAPE::GAMER ){
-				status = UVS_VANGER_STATUS::SPOT_SLEEPING;
-			}else {
-				status = UVS_VANGER_STATUS::SHOPPING;
-				locTimer = LOC_TIME;
-			}
-			break;
-		case UVS_EVENT::ESCAVE_ARRIVAL:
-			homeArrival();
-			if ( shape != UVS_VANGER_SHAPE::GAMER ){
-				status = UVS_VANGER_STATUS::ESCAVE_SLEEPING;
-			} else {
-				status = UVS_VANGER_STATUS::SHOPPING;
-				locTimer = LOC_TIME;
-			}
-			break;
-		case UVS_EVENT::PASSAGE_ARRIVAL:
-			status = UVS_VANGER_STATUS::PASSAGE_GAP;
-			if ( shape != UVS_VANGER_SHAPE::GAMER ){
-				shiftOrders();
-			}
-			locTimer = shape == UVS_VANGER_SHAPE::GAMER ? 1 : V_PGAP_TIME;
-			break;
-		case UVS_EVENT::AIM_ARRIVAL:
-			aimHandle();
-			break;
-		case UVS_EVENT::FATALITY:
-			destroy();
-			break;
-		case UVS_EVENT::GO_NEW_WORLD:
-			status = UVS_VANGER_STATUS::GO_NEW_WORLD;
-
-		break;
+	if (Pworld->sptTmax < 1) {
+		destroy();
+	} else {
+		switch(ev){
+			case UVS_EVENT::THIEF:
+				thief_from_escave(Pescave);
+				break;
+			case UVS_EVENT::THIEF_FROM_SHOP:
+				thief_from_shop(Pescave -> Pshop);
+				break;
+			case UVS_EVENT::GO_FROM_ESCAVE:
+				go_from_escave();
+				break;
+			case UVS_EVENT::GO_FROM_SPOT:
+				go_from_spot();
+				break;
+			case UVS_EVENT::GO_CIRT:
+				goCirt();
+				break;
+			case UVS_EVENT::GO_NEW_ESCAVE:
+				if (shape == UVS_VANGER_SHAPE::GAMER)
+					status = UVS_VANGER_STATUS::GO_NEW_ESCAVE;
+				else
+					goNewEscave();
+				break;
+			case UVS_EVENT::SPOT_ARRIVAL:
+				spotArrival();
+				if ( shape != UVS_VANGER_SHAPE::GAMER ){
+					status = UVS_VANGER_STATUS::SPOT_SLEEPING;
+				}else {
+					status = UVS_VANGER_STATUS::SHOPPING;
+					locTimer = LOC_TIME;
+				}
+				break;
+			case UVS_EVENT::ESCAVE_ARRIVAL:
+				homeArrival();
+				if ( shape != UVS_VANGER_SHAPE::GAMER ){
+					status = UVS_VANGER_STATUS::ESCAVE_SLEEPING;
+				} else {
+					status = UVS_VANGER_STATUS::SHOPPING;
+					locTimer = LOC_TIME;
+				}
+				break;
+			case UVS_EVENT::PASSAGE_ARRIVAL:
+				status = UVS_VANGER_STATUS::PASSAGE_GAP;
+				if ( shape != UVS_VANGER_SHAPE::GAMER ){
+					shiftOrders();
+				}
+				locTimer = shape == UVS_VANGER_SHAPE::GAMER ? 1 : V_PGAP_TIME;
+				break;
+			case UVS_EVENT::AIM_ARRIVAL:
+				aimHandle();
+				break;
+			case UVS_EVENT::FATALITY:
+				destroy();
+				break;
+			case UVS_EVENT::GO_NEW_WORLD:
+				status = UVS_VANGER_STATUS::GO_NEW_WORLD;
+				break;
 		};
+	}
 }
 
 void uvsVanger::go_from_escave(void){
@@ -6663,30 +6671,38 @@ void uvsVanger::go_from_escave(void){
 	}
 	uvsEscave* pe;
 
-	if ( name == NULL ){
-		ps = Pworld -> getRandSpot();
-		uvsOrder* ord = orderT; 		// первый элемент
-		ord -> type = UVS_ORDER::MOVING;
-		ord -> event = UVS_EVENT::GO_SPOT;
-		ord -> target = UVS_TARGET::SPOT;
-		ord -> Ptarget = (uvsTarget*)ps;
-		Pspot = ps;
-	} else	if (( ps = (uvsSpot*)SpotTail -> seekName(name) )){
-		uvsOrder* ord = orderT; 		// первый элемент
-		ord -> type = UVS_ORDER::MOVING;
-		ord -> event = UVS_EVENT::GO_SPOT;
-		ord -> target = UVS_TARGET::SPOT;
-		ord -> Ptarget = (uvsTarget*)ps;
-		Pspot = ps;
-	} else if (( pe = (uvsEscave*)EscaveTail -> seekName(name) )){
-		uvsOrder* ord = orderT; 		// первый элемент
-		ord -> type = UVS_ORDER::MOVING;
-		ord -> event = UVS_EVENT::GO_ESCAVE;
-		ord -> target = UVS_TARGET::ESCAVE;
-		ord -> Ptarget = (uvsTarget*)pe;
-	} else ErrH.Abort("uvsVanger::go_from_escave - go nothing");
+	// CxInfo: let vangers "sleep" in escave if they're on world without spots
+	if (Pworld->sptTmax < 1) {
+		uvsOrder* ord = orderT;
+		ord->type = UVS_ORDER::NONE;
+		ord->event = UVS_EVENT::FATALITY;
+		status = UVS_VANGER_STATUS::ESCAVE_SLEEPING;
+	} else {
+		if ( name == NULL ){
+			ps = Pworld -> getRandSpot();
+			uvsOrder* ord = orderT; 		// первый элемент
+			ord -> type = UVS_ORDER::MOVING;
+			ord -> event = UVS_EVENT::GO_SPOT;
+			ord -> target = UVS_TARGET::SPOT;
+			ord -> Ptarget = (uvsTarget*)ps;
+			Pspot = ps;
+		} else	if (( ps = (uvsSpot*)SpotTail -> seekName(name) )){
+			uvsOrder* ord = orderT; 		// первый элемент
+			ord -> type = UVS_ORDER::MOVING;
+			ord -> event = UVS_EVENT::GO_SPOT;
+			ord -> target = UVS_TARGET::SPOT;
+			ord -> Ptarget = (uvsTarget*)ps;
+			Pspot = ps;
+		} else if (( pe = (uvsEscave*)EscaveTail -> seekName(name) )){
+			uvsOrder* ord = orderT; 		// первый элемент
+			ord -> type = UVS_ORDER::MOVING;
+			ord -> event = UVS_EVENT::GO_ESCAVE;
+			ord -> target = UVS_TARGET::ESCAVE;
+			ord -> Ptarget = (uvsTarget*)pe;
+		} else ErrH.Abort("uvsVanger::go_from_escave - go nothing");
 
-	status = UVS_VANGER_STATUS::MOVEMENT;
+		status = UVS_VANGER_STATUS::MOVEMENT;
+	}
 }
 
 void uvsVanger::thief_from_escave( uvsEscave* pe){
@@ -8022,6 +8038,7 @@ void uvsVanger::KillStatic(void){
 }
 
 void uvsVanger::destroy(int how){
+	// CxInfo: vangers' death and respawn
 	int i;
 	if(shape == UVS_VANGER_SHAPE::GAMER){
 #ifdef _ROAD_
