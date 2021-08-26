@@ -6580,7 +6580,8 @@ void uvsVanger::Quant(void){
 
 //znfo event (for bots?)
 void uvsVanger::Event(UvsEventType ev){
-	if (Pworld->sptTmax < 1) {
+	// CxDebug: modify condition for UniVang-3/8 game mode
+	if (Pworld->sptTmax < 1 && !NetworkON) {
 		destroy();
 	} else {
 		switch(ev){
@@ -6672,7 +6673,8 @@ void uvsVanger::go_from_escave(void){
 	uvsEscave* pe;
 
 	// CxInfo: let vangers "sleep" in escave if they're on world without spots
-	if (Pworld->sptTmax < 1) {
+	// CxDebug: modify condition for UniVang-3/8 game mode
+	if (Pworld->sptTmax < 1 && !NetworkON) {
 		uvsOrder* ord = orderT;
 		ord->type = UVS_ORDER::NONE;
 		ord->event = UVS_EVENT::FATALITY;
