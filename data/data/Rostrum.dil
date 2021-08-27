@@ -1,10 +1,9 @@
 15
 15
-20
+18
 7
-0 7 "empty" "0" "0" "0" "true" " " " " 
+0 0 "empty" "0" "0" "0" "true" " " " " 
 0 1 "empty" "0" "0" "0" "true" " " " " 
-0 2 "empty" "0" "0" "0" "true" " " " " 
 7 11 "MP7 Comment" "2" "1" "1" "MP_GAME == 7" " " " "
 6 11 "MP6 Comment" "2" "1" "1" "MP_GAME == 6" " " " "
 5 11 "MP5 Comment" "2" "1" "1" "MP_GAME == 5" " " " "
@@ -21,4 +20,3 @@
 2 10 "MP2 Start" "1" "0" "0" "MP_GAME == 2" " " "clear" 
 1 10 "MP1 Start" "1" "0" "0" "MP_GAME == 1" " " "clear" 
 0 10 "MP0 Start" "1" "0" "0" "MP_GAME == 0" " " "clear" 
-0 3 "empty" "0" "0" "0" "true" " " " " 
