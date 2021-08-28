@@ -1717,35 +1717,36 @@ void iGetMultiGameParameters(void)
 	switch(iCurMultiGame){
 		case iMP_VAN_WAR:
 			//InitialCash [0-999999]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_INITIAL_CASH);
 			switch (modID) {
 				case ID_ARENA: value = 3000; break;
 				case ID_NEPTUNE: value = 999999; break;
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_INITIAL_CASH); break;
 			}
 			my_server_data.Van_War.InitialCash = value;
 
 			//ArtefactsUsing [0-1]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_ARTEFACTS_USING);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_ARTEFACTS_USING); break;
 			}
 			my_server_data.Van_War.ArtefactsUsing = value;
 
 			//InEscaveTime [1-10]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_IN_ESCAVE_TIME);
 			switch (modID) {
 				case ID_ARENA:
 					if (iGetMultiGameParameter(iMP_VAN_WAR,iMP_IN_ESCAVE_TIME) < 1) value = 1;
 					break;
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_IN_ESCAVE_TIME); break;
 			}
 			my_server_data.Van_War.InEscaveTime = value;
 
 			//TeamMode [?-?]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_TEAM_MODE);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_TEAM_MODE); break;
 			}
 			my_server_data.Van_War.TeamMode = value;
 
 			//Nascency [0-Nascency]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_NASCENCY);
 			switch (modID) {
 				case ID_NEPTUNE:
 				case ID_WIRING: value = 1; break;
@@ -1755,126 +1756,126 @@ void iGetMultiGameParameters(void)
 				case ID_MECHOKVACH:
 					if (iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY) < 1 || iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY) > 3) value = 1;
 					break;
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY); break;
 			}
 			my_server_data.Van_War.Nascency = value - 1;
 
 			//WorldAccess [0-1]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_ACCESS);
 			switch (modID) {
 				case ID_NEPTUNE: value = 0; break;
 				case ID_MECHOKVACH: value = 1; break;
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_ACCESS); break;
 			}
 			my_server_data.Van_War.WorldAccess = value;
 
 			//MaxKills [?-?]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_MAX_KILLS);
 			switch (modID) {
 				case ID_NEPTUNE: value = 10; break;
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_KILLS); break;
 			}
 			my_server_data.Van_War.MaxKills = value;
 
 			//MaxTime [?-?]
+			value = iGetMultiGameParameter(iMP_VAN_WAR, iMP_MAX_TIME);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_TIME); break;
 			}
 			my_server_data.Van_War.MaxTime = value;
 			break;
 
 		case iMP_MECHOSOMA:
 			//InitialCash [0-999999]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_INITIAL_CASH);
 			switch (modID) {
 				case ID_MAMMOTH: value = 999999; break;
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_INITIAL_CASH); break;
 			}
 			my_server_data.Mechosoma.InitialCash = value;
 
 			//ArtefactsUsing [0-1]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_ARTEFACTS_USING);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_ARTEFACTS_USING); break;
 			}
 			my_server_data.Mechosoma.ArtefactsUsing = value;
 
 			//InEscaveTime [1-10]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_IN_ESCAVE_TIME);
 			switch (modID) {
 				case ID_MAMMOTH: value = 10; break;
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_IN_ESCAVE_TIME); break;
 			}
 			my_server_data.Mechosoma.InEscaveTime = value;
 
 			//TeamMode [?-?]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_TEAM_MODE);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_TEAM_MODE); break;
 			}
 			my_server_data.Mechosoma.TeamMode = value;
 
 			//World [?-?]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_WORLD);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_WORLD); break;
 			}
 			my_server_data.Mechosoma.World = value;
 
 			//ProductQuantity1 [0-?]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_QUANTITY1);
 			switch (modID) {
 				case ID_MAMMOTH: value = 1; break;
 				case ID_SKYSOMA: value = 2; break;
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_QUANTITY1); break;
 			}
 			my_server_data.Mechosoma.ProductQuantity1 = value;
 
 			//ProductQuantity2 [0-?]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_QUANTITY2);
 			switch (modID) {
 				case ID_MAMMOTH: value = 1; break;
 				case ID_SKYSOMA: value = 2; break;
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_QUANTITY2); break;
 			}
 			my_server_data.Mechosoma.ProductQuantity2 = value;
 
 			//One_at_a_time [0-32]
+			value = iGetMultiGameParameter(iMP_MECHOSOMA, iMP_ONE_AT_A_TIME);
 			switch (modID) {
 				case ID_SKYSOMA: value = 1; break;
 				case ID_MAMMOTH: value = 32; break;
-				default: value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_ONE_AT_A_TIME); break;
 			}
 			my_server_data.Mechosoma.One_at_a_time = value;
 			break;
 
 		case iMP_PASSEMBLOSS:
 			//InitialCash [0-999999]
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_INITIAL_CASH);
 			switch (modID) {
 				case ID_RAFFA_RUN: value = 4000; break;
 				case ID_WARM_UP:
 				case ID_FORMULA:
 				case ID_TRUCK_TRIAL:
 				case ID_KHOX_RUN: value = 999999; break;
-				default: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_INITIAL_CASH); break;
 			}
 			my_server_data.Passembloss.InitialCash = value;
 
 			//ArtefactsUsing [0-1]
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_ARTEFACTS_USING);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ARTEFACTS_USING); break;
 			}
 			my_server_data.Passembloss.ArtefactsUsing = value;
 
 			//InEscaveTime [1-10]
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_IN_ESCAVE_TIME);
 			switch (modID) {
-				default: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_IN_ESCAVE_TIME); break;
 			}
 			my_server_data.Passembloss.InEscaveTime = value;
 
 			//time(&tm);
 			//CheckpointsNumber [0(?)-?]
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM);
 			switch (modID) {
 				case ID_WARM_UP: value = 6; break;
 				case ID_KHOX_RUN: value = 12; break;
 				case ID_TRUCK_TRIAL: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM) * 2; break;
 				case ID_FORMULA: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM) * 4; break;
-				default: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM); break;
 			}
 			my_server_data.Passembloss.CheckpointsNumber = value;
 
 			//RandomEscave [1-RandomEscave]
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_ESCAVE);
 			switch (modID) {
 				case ID_WARM_UP:
 				case ID_FORMULA:
@@ -1884,7 +1885,6 @@ void iGetMultiGameParameters(void)
 				case ID_AVESLOM: value = 2; break;
 				case ID_TRUCK_TRIAL:
 				case ID_ZEEFICK: value = 3; break;
-				default: value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ESCAVE); break;
 			}
 			my_server_data.Passembloss.RandomEscave = value - 1;
 //			my_server_data.Passembloss.RandomEscave = tm % 3;
@@ -1981,35 +1981,36 @@ void iSetMultiGameParameters(void)
 	switch(iCurMultiGame){
 		case iMP_VAN_WAR:
 			//InitialCash [0-999999]
+			value = my_server_data.Van_War.InitialCash;
 			switch (modID) {
 				case ID_ARENA: value = 3000; break;
 				case ID_NEPTUNE: value = 999999; break;
-				default: value = my_server_data.Van_War.InitialCash; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_INITIAL_CASH,value);
 
 			//ArtefactsUsing [0-1]
+			value = my_server_data.Van_War.ArtefactsUsing;
 			switch (modID) {
-				default: value = my_server_data.Van_War.ArtefactsUsing; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_ARTEFACTS_USING,value);
 
 			//InEscaveTime [1-10]
+			value = my_server_data.Van_War.InEscaveTime;
 			switch (modID) {
 				case ID_ARENA:
 					if (my_server_data.Van_War.InEscaveTime < 1) value = 1;
 					break;
-				default: value = my_server_data.Van_War.InEscaveTime; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_IN_ESCAVE_TIME,value);
 
 			//TeamMode [?-?]
+			value = my_server_data.Van_War.TeamMode;			
 			switch (modID) {
-				default: value = my_server_data.Van_War.TeamMode; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_TEAM_MODE,value);
 
 			//Nascency [0-Nascency]
+			value = my_server_data.Van_War.Nascency + 1;
 			switch (modID) {
 				case ID_NEPTUNE:
 				case ID_WIRING: value = 1; break;
@@ -2019,125 +2020,125 @@ void iSetMultiGameParameters(void)
 				case ID_MECHOKVACH:
 					if (my_server_data.Van_War.Nascency < 0 || my_server_data.Van_War.Nascency > 2) value = 1;
 					break;
-				default: value = my_server_data.Van_War.Nascency + 1; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY,value);
 
 			//WorldAccess [0-1]
+			value = value = my_server_data.Van_War.WorldAccess;
 			switch (modID) {
 				case ID_NEPTUNE: value = 0; break;
 				case ID_MECHOKVACH: value = 1; break;
-				default: value = value = my_server_data.Van_War.WorldAccess; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_ACCESS,value);
 
 			//MaxKills [?-?]
+			value = my_server_data.Van_War.MaxKills;
 			switch (modID) {
 				case ID_NEPTUNE: value = 10; break;
-				default: value = my_server_data.Van_War.MaxKills; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_KILLS,value);
 
 			//MaxTime [?-?]
+			value = my_server_data.Van_War.MaxTime;
 			switch (modID) {
-				default: value = my_server_data.Van_War.MaxTime; break;
 			}
 			iSetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_TIME,value);
 			break;
 
 		case iMP_MECHOSOMA:
 			//InitialCash [0-999999]
+			value = my_server_data.Mechosoma.InitialCash;
 			switch (modID) {
 				case ID_MAMMOTH: value = 999999; break;
-				default: value = my_server_data.Mechosoma.InitialCash; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_INITIAL_CASH,value);
 
 			//ArtefactsUsing [0-1]
+			value = my_server_data.Mechosoma.ArtefactsUsing;
 			switch (modID) {
-				default: value = my_server_data.Mechosoma.ArtefactsUsing; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_ARTEFACTS_USING,value);
 
 			//InEscaveTime [1-10]
+			value = my_server_data.Mechosoma.InEscaveTime;
 			switch (modID) {
 				case ID_MAMMOTH: value = 10; break;
-				default: value = my_server_data.Mechosoma.InEscaveTime; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_IN_ESCAVE_TIME,value);
 
 			//TeamMode [?-?]
+			value = my_server_data.Mechosoma.TeamMode;
 			switch (modID) {
-				default: value = my_server_data.Mechosoma.TeamMode; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_TEAM_MODE,value);
 
 			//World [?-?]
+			value = my_server_data.Mechosoma.World;
 			switch (modID) {
-				default: value = my_server_data.Mechosoma.World; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_WORLD,value);
 
 			//ProductQuantity1 [0-?]
+			value = my_server_data.Mechosoma.ProductQuantity1;
 			switch (modID) {
 				case ID_MAMMOTH: value = 1; break;
 				case ID_SKYSOMA: value = 2; break;
-				default: value = my_server_data.Mechosoma.ProductQuantity1; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_QUANTITY1,value);
 
 			//ProductQuantity2 [0-?]
+			value = my_server_data.Mechosoma.ProductQuantity2;
 			switch (modID) {
 				case ID_MAMMOTH: value = 1; break;
 				case ID_SKYSOMA: value = 2; break;
-				default: value = my_server_data.Mechosoma.ProductQuantity2; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_QUANTITY2,value);
 
 			//One_at_a_time [0-32]
+			value = my_server_data.Mechosoma.One_at_a_time;
 			switch (modID) {
 				case ID_SKYSOMA: value = 1; break;
 				case ID_MAMMOTH: value = 32; break;
-				default: value = my_server_data.Mechosoma.One_at_a_time; break;
 			}
 			iSetMultiGameParameter(iMP_MECHOSOMA,iMP_ONE_AT_A_TIME,value);
 			break;
 
 		case iMP_PASSEMBLOSS:
 			//InitialCash [0-999999]
+			value = my_server_data.Passembloss.InitialCash;
 			switch (modID) {
 				case ID_RAFFA_RUN: value = 4000; break;
 				case ID_WARM_UP:
 				case ID_FORMULA:
 				case ID_TRUCK_TRIAL:
 				case ID_KHOX_RUN: value = 999999; break;
-				default: value = my_server_data.Passembloss.InitialCash; break;
 			}
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_INITIAL_CASH,value);
 
 			//ArtefactsUsing [0-1]
+			value = my_server_data.Passembloss.ArtefactsUsing;
 			switch (modID) {
-				default: value = my_server_data.Passembloss.ArtefactsUsing; break;
 			}
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ARTEFACTS_USING,value);
 
 			//InEscaveTime [1-10]
+			value = value = my_server_data.Passembloss.InEscaveTime;
 			switch (modID) {
-				default: value = value = my_server_data.Passembloss.InEscaveTime; break;
 			}
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_IN_ESCAVE_TIME,value);
 
 			//CheckpointsNumber [0(?)-?]
+			value = my_server_data.Passembloss.CheckpointsNumber;
 			switch (modID) {
 				case ID_WARM_UP: value = 6; break;
 				case ID_KHOX_RUN: value = 12; break;
 				case ID_TRUCK_TRIAL: value = my_server_data.Passembloss.CheckpointsNumber * 2; break;
 				case ID_FORMULA: value = my_server_data.Passembloss.CheckpointsNumber * 4; break;
-				default: value = my_server_data.Passembloss.CheckpointsNumber; break;
 			}
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM,value);
 
 			//RandomEscave [1-RandomEscave]
+			value = my_server_data.Passembloss.RandomEscave + 1;
 			switch (modID) {
 				case ID_WARM_UP:
 				case ID_FORMULA:
@@ -2147,7 +2148,6 @@ void iSetMultiGameParameters(void)
 				case ID_AVESLOM: value = 2; break;
 				case ID_TRUCK_TRIAL:
 				case ID_ZEEFICK: value = 3; break;
-				default: value = my_server_data.Passembloss.RandomEscave + 1; break;
 			}
 			if(value > 3) value = 0;
 			iSetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ESCAVE,value);
