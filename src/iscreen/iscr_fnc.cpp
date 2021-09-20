@@ -789,6 +789,10 @@ int iQuantSecond(void)
 					if((k->type == SDL_KEYDOWN && k->key.keysym.scancode == SDL_SCANCODE_ESCAPE) && actIntLog){
 						iPause ^= 1;
 						acsScreenID = 2;
+						if (iPause) {
+							XGR_Obj.fill(0, XGR_Obj.get_2d_render_buffer());
+							XGR_Obj.fill(0, XGR_Obj.get_2d_rgba_render_buffer());
+						}
 					}
 
 //					if(k->type == SDL_KEYDOWN && k->key.keysym.scancode == SDL_SCANCODE_F11) {
@@ -1505,8 +1509,6 @@ void aciSwapMatrices(void)
 	put_map(iScreenOffs,0,I_RES_X,I_RES_Y);
 	aScrDisp -> curMatrix -> redraw();
 
-	iScrDisp -> curScr -> show_avi();
-
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
 #else
@@ -1617,8 +1619,6 @@ void aciCancelMatrix(void)
 	if(aScrDisp -> curMatrix)
 		aScrDisp -> curMatrix -> redraw();
 
-	iScrDisp -> curScr -> show_avi();
-
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
 #else
@@ -1710,8 +1710,6 @@ void aciShowScMatrix(void)
 		aScrDisp -> curMatrix -> redraw();
 
 	aScrDisp -> secondMatrix -> redraw();
-
-	iScrDisp -> curScr -> show_avi();
 
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);

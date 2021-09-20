@@ -71,7 +71,7 @@ SET(vangers_SRCS
 	lang.cpp
 	ai.cpp
 	${WINDOWS_RES}
-)
+        actint/layout.h)
 
 ADD_EXECUTABLE(vangers ${vangers_SRCS})
 

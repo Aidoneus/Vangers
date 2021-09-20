@@ -1,6 +1,5 @@
 INCLUDE_DIRECTORIES(AFTER
 	"${PROJECT_SOURCE_DIR}/lib/xtool"
-	"${PROJECT_SOURCE_DIR}/lib/xgraph"
 	"${PROJECT_SOURCE_DIR}/src"
 )
 	
@@ -9,6 +8,7 @@ SET(server_SRCS
 	${PROJECT_SOURCE_DIR}/src/xsocket.cpp
 	${PROJECT_SOURCE_DIR}/src/lang.cpp
 	${PROJECT_SOURCE_DIR}/src/ai.cpp
+	${PROJECT_SOURCE_DIR}/lib/xgraph/xgraph_dummy.cpp
 	server.cpp
 #win32f.cpp -- candidat to remove
 )
@@ -27,5 +27,4 @@ TARGET_LINK_LIBRARIES(vangers_server
 	${SDL2_NET_LIBRARY}
 	${WIN_LIB}
 	xtool
-	xgraph
 )
