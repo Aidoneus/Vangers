@@ -377,9 +377,9 @@ int xtInitApplication(void) {
     std::cout<<"\""<<XGraphWndID<<": One For The Road\" Cover Demo by K-D Lab (SDL Version)\n";
 #else
     if (lang() == RUSSIAN) {
-        std::cout << "\"" << XGraphWndID << "\". ‚…‘ˆŸ 1.04, €’— 2 (19.03.2020)\n";
+        std::cout << "\"" << XGraphWndID << "\". ‚…‘ˆŸ 1.04, €’— 3 (26.10.2021)\n";
     } else {
-        std::cout << "\"" << XGraphWndID << "\". VERSION 1.04, PATCH 2 (03.19.2020)\n";
+        std::cout << "\"" << XGraphWndID << "\". VERSION 1.04, PATCH 3 (10.26.2021)\n";
     }
 #ifdef BETA_TESTING
     std::cout<<nVER<<"\n";
