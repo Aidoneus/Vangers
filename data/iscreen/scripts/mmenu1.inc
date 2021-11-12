@@ -8,6 +8,16 @@
 #define EXIT_X		$EXIT_X1
 #define EXIT_Y		$EXIT_Y1
 
+
+#define VERSION_NAZVA_X 		$VERSION_NAZVA_X1
+#define VERSION_NAZVA_Y 		$VERSION_NAZVA_Y1
+
+#define VERSION_CIFRA_X 		$VERSION_CIFRA_X1
+#define VERSION_CIFRA_Y 		$VERSION_CIFRA_Y1
+
+#define INet_Host_screen_Port_iOption_PosX		$INet_Host_screen_Port_iOption_PosX1
+
+
 #define DESTR_TRG_X	$DESTR_TRG_X1
 
 #define UP_LIST_X	$UP_LIST_X1

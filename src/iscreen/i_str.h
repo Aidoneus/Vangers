@@ -118,7 +118,7 @@
 #define iSTR_Camouflage2			"Камуфляж"
 
 #define iSTR_Patrol1			"Patrol"
-#define iSTR_Patrol2			"Патрульный"
+#define iSTR_Patrol2			"Патруль"
 
 // Some strings...
 #define iSTR_CleanUp1			"CLEAN UP!"

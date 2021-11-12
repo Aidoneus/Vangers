@@ -7,6 +7,10 @@
 
 #define DEFAULT_SERVER_PORT	2197
 
+extern int is_start;
+extern int isRollcall;
+extern char* rollcallNicknames;
+
 extern double zMod_cycle;
 extern double zMod_flood_level_delta;
 
@@ -121,6 +125,8 @@ struct MessageDispatcher : XList {
 	void send(char* message,int mode,int parameter);
 	void receive();
 	};
+	
+	const char bot_tag[6] = "[bot]";
 
 /*******************************************************************************
 			Top List

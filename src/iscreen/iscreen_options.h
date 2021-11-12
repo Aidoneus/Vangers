@@ -75,7 +75,9 @@ enum iScreenOptionID
 	iFULLSCREEN,			// 45
 
 	iAUTO_ACCELERATION,			// 46
-
+	
+	iCYCLE_DOBA,			// 47
+	
 	iMAX_OPTION_ID
 };
 

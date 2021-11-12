@@ -4,7 +4,7 @@
 #include "../lang.h"
 #include "hfont.h"
 #include "iscreen_options.h"
-#include <vector>
+
 //#define iMOVE_MOUSE_OBJECTS
 
 const int  iJOYSTICK_MASK		= ~0xFF;
@@ -103,7 +103,6 @@ struct bmlObject : public iListElement
 	int ID;
 
 	int flags;
-	unsigned int anchor;
 
 	short SizeX;
 	short SizeY;
@@ -149,18 +148,18 @@ struct ibsObject : public iListElement
 
 	int fontID;
 
-	int indPosX[4];
-	int indPosY[4];
+	char indPosX[4];
+	char indPosY[4];
 
-	std::vector<bmlObject*> backs;
-	std::vector<int> backObjIDs;
+	bmlObject* back;
+	int backObjID;
 
 	char* name;
 	int ImageSize;
 	unsigned char* image;
 
 	void load(char* fname = NULL);
-	void show(uint8_t* renderBuffer = NULL);
+	void show(void);
 	void show_bground(void);
 	void free(void);
 
@@ -411,6 +410,8 @@ struct iAVIElement : public iScreenElement
 	char* border_shape;
 
 	ibsObject* ibs;
+
+	unsigned char* palBuf;
 
 	short ShSizeX;
 	short ShSizeY;
@@ -708,6 +709,10 @@ struct iScreen : public iListElement
 	void load_palette(void);
 	void free_palette(void);
 
+	void show_avi(void);
+	void hide_avi(void);
+	void hide_avi_place(void);
+
 	void load_data(void);
 	void free_data(void);
 	void getfon(void);
@@ -951,7 +956,6 @@ extern iScreenDispatcher* iScrDisp;
 
 void iInit(void);
 void iQuantFirst(void);
-void iSetResolution(int state);
 void iQuantPrepare(void);
 int iQuantSecond(void);
 void iFinitQuant(void);
