@@ -26,9 +26,14 @@
 
 #include "../sound/hsound.h"
 #include "layout.h"
+
+#include "../iscreen/iscreen_options.h"
+#include "../iscreen/iscreen.h"
+#include "../network.h"
+
+extern iScreenOption** iScrOpt;
 /* ----------------------------- STRUCT SECTION ----------------------------- */
 /* ----------------------------- EXTERN SECTION ----------------------------- */
-extern iScreenOption** iScrOpt;
 
 template <> void layout(invMatrix* view, int width, int height){
 	unsigned int anchor = view->anchor;
@@ -152,7 +157,7 @@ extern char* aciSTR_PutThis;
 
 extern char* aciSTR_RESTRICTIONS;
 extern char* aciSTR_STATISTICS;
-+extern char* aciSTR_KILLS_NEED;
+extern char* aciSTR_KILLS_NEED;
 extern char* aciSTR_MINUTES;
 extern char* aciSTR_OAAT;
 
