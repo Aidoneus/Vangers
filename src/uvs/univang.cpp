@@ -1073,7 +1073,7 @@ void uvsContimer::Quant(void){
 			}
 		}
 	}
-	char *start_message = "[bot]> > > ‘’€’! > > >";
+	char *start_message = (char*)"[bot]> > > ‘’€’! > > >";
 		if (isRollcall >= players_list.size()) {
 			message_dispatcher.send(start_message, MESSAGE_FOR_PLAYER, 0);
 			is_start = 7;
