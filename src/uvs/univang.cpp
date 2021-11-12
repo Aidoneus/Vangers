@@ -45,8 +45,16 @@
 #include "diagen.h"
 #include "univang.h"
 
+#include "../iscreen/iscreen_options.h"
+#include "../iscreen/iscreen.h"
+#include "../network.h"
+
+extern iScreenOption** iScrOpt;
+
 const int TABUTASK_BAD = ACI_TABUTASK_FAILED;
 const int TABUTASK_GOOD = ACI_TABUTASK_SUCCESSFUL;
+
+int countFromCommand = 0;
 
 int RACE_WAIT =  300;
 int uvsKronActive = 0;
@@ -69,6 +77,13 @@ extern int NetworkON;
 extern NetRndType NetRnd;
 extern int ChangeArmor;
 extern int dgAbortStatus;
+
+extern int is_start;
+int rollcallTime = 0;
+int rollcallNum = 0;
+
+extern int isRollcall;
+extern char* rollcallNicknames;
 
 void LoadingMessage(int flush = 0);
 void ChangeVanger(void);
@@ -585,7 +600,8 @@ void uniVangPrepare(void){
 #else
 			if (i == UVS_ITEM_TYPE::MACHOTINE_GUN_LIGHT ||
 			    i == UVS_ITEM_TYPE::SPEETLE_SYSTEM_LIGHT ||
-			    i == UVS_ITEM_TYPE::GHORB_GEAR_LIGHT )
+			    i == UVS_ITEM_TYPE::GHORB_GEAR_LIGHT ||
+			   (NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"aibatr")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR()," ¨¡ âà")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"battle for hmok")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"¡¨â¢  §  å¬®ª")==0)))
 #endif
 				for( int j = 0; j < MAIN_WORLD_MAX; j++) WorldTable[j] -> generate_item( i );
 			else
@@ -596,21 +612,25 @@ void uniVangPrepare(void){
 #ifdef ALL_ITEM_IN_SHOP
 			for( int j = 0; j < MAIN_WORLD_MAX; j++) WorldTable[j] -> generate_item( i );
 #else
-
-			switch(i){
-			case UVS_ITEM_TYPE::COPTE_RIG:
-				WorldTable[2] -> generate_item( i );
-				break;
-			case UVS_ITEM_TYPE::CROT_RIG:
-				WorldTable[0] -> generate_item( i );
-				break;
-			case UVS_ITEM_TYPE::CUTTE_RIG:
-				WorldTable[1] -> generate_item( i );
-				break;
-			case UVS_ITEM_TYPE::RADAR_DEVICE:
-				WorldTable[RND(3)] -> generate_item( i );
-				break;
-			}//  end switch
+			if (NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"aibatr")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR()," ¨¡ âà")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"battle for hmok")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"¡¨â¢  §  å¬®ª")==0)) {
+                		for( int j = 0; j < MAIN_WORLD_MAX; j++) WorldTable[j] -> generate_item(i);
+			}
+			else {
+				switch(i){
+					case UVS_ITEM_TYPE::COPTE_RIG:
+						WorldTable[2] -> generate_item( i );
+						break;
+					case UVS_ITEM_TYPE::CROT_RIG:
+						WorldTable[0] -> generate_item( i );
+						break;
+					case UVS_ITEM_TYPE::CUTTE_RIG:
+						WorldTable[1] -> generate_item( i );
+						break;
+					case UVS_ITEM_TYPE::RADAR_DEVICE:
+						WorldTable[RND(3)] -> generate_item( i );
+						break;
+				}//  end switch
+			}
 #endif
 		} else
 			for( int j = 0; j < MAIN_WORLD_MAX; j++) WorldTable[j] -> generate_item( i );
@@ -793,12 +813,28 @@ void uniVangPrepare(void){
 	//zNfo  DEFAULT MECHOS 
 	// 16 = Ð¼Ð¾Ñ‚Ð¾Ðº
 	int MechosID = 0;
-	if (NetworkON) switch (z_my_server_data.mod_id) {
-		case Z_MODS_RAFARUN_ID:		{ MechosID = 16; break; } // Ð¼Ð¾Ñ‚Ð¾Ðº
-		case Z_MODS_TRAKTRIAL_ID:	{ MechosID =  7; break; } // Ð°Ñ‚Ñ‚Ñ€Ð°ÐºÑ‚Ð¾Ñ€
-		case Z_MODS_NEPTUN_ID:		{ MechosID = 21; break; } // Ð¶Ð°Ð±Ð°
-		case Z_MODS_TEST_ID:		{ MechosID =  5; break; } // Ð´Ñ€ÑÑ…Ð»Ñ‹Ð¹ Ð´ÑƒÑˆÐµÐ³ÑƒÐ±
-		default: MechosID = 5; // Ð´Ñ€ÑÑ…Ð»Ñ‹Ð¹ Ð´ÑƒÑˆÐµÐ³ÑƒÐ±
+	if (NetworkON) {
+		switch (z_my_server_data.mod_id) {
+			case Z_MODS_RAFARUN_ID:		{ MechosID = 16; break; } // Ð¼Ð¾Ñ‚Ð¾Ðº
+			case Z_MODS_TRAKTRIAL_ID:	{ MechosID =  7; break; } // Ð°Ñ‚Ñ‚Ñ€Ð°ÐºÑ‚Ð¾Ñ€
+			case Z_MODS_NEPTUN_ID:		{ MechosID = 21; break; } // Ð¶Ð°Ð±Ð°
+			case Z_MODS_TEST_ID:		{ MechosID =  5; break; } // Ð´Ñ€ÑÑ…Ð»Ñ‹Ð¹ Ð´ÑƒÑˆÐµÐ³ÑƒÐ±
+			default: MechosID = 5; // Ð´Ñ€ÑÑ…Ð»Ñ‹Ð¹ Ð´ÑƒÑˆÐµÐ³ÑƒÐ±
+		}
+		char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+		if (my_server_data.GameType == 2 && (strcmp(game_name,"travel")==0 || strcmp(game_name,"¯à¨ª«îç¥­¨¥")==0)) MechosID = 0;
+		else if (my_server_data.GameType == 0 && (strcmp(game_name,"aibatr")==0 || strcmp(game_name," ¨¡ âà")==0)) MechosID = 22;
+		else if (my_server_data.GameType == 1 && (strcmp(game_name,"mega mechosoma")==0 || strcmp(game_name,"¬¥£  ¬¥å®á®¬ ")==0)) MechosID = 20;
+		else if (my_server_data.GameType == 0 && (strcmp(game_name,"super van-war")==0 || strcmp(game_name,"áã¯¥à ¢ ­-¢ à")==0)) MechosID = 13;
+		else if (my_server_data.GameType == 1 && (strcmp(game_name,"progress")==0 || strcmp(game_name,"¯à®£à¥áá")==0)) MechosID = RND(MAX_MECHOS_RAFFA) + MAX_MECHOS_MAIN;
+		else if (my_server_data.GameType == 2 && (strcmp(game_name,"satinan")==0 || strcmp(game_name,"á â¨­ ­")==0)) MechosID = 19;
+		else if (strcmp(game_name,"speed konoval")==0) MechosID = 9;
+		else if (my_server_data.GameType == 0 && (strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"¬¥å®ªá¥á")==0)) MechosID = 0;
+		else if (my_server_data.GameType == 0 && (strcmp(game_name,"new soup")==0 || strcmp(game_name,"­®¢ë© áã¯")==0)) MechosID = 10;
+		else if (my_server_data.GameType == 2 && (strcmp(game_name,"vozvrat")==0 || strcmp(game_name,"¢®§¢à â")==0)) MechosID = 0;
+		else if (my_server_data.GameType == 2 && (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"¯® ¡®«®â ¬!")==0)) MechosID = 10;
+		else if (my_server_data.GameType == 2 && strcmp(game_name,"raffa-run-sim")==0) MechosID = RND(MAX_MECHOS_RAFFA) + MAX_MECHOS_MAIN;
+		else MechosID = 5;
 	}
 	v -> Pescave -> Pshop -> sellMechos(v -> Pmechos, MechosID);
 	v -> Pmechos -> type = MechosID;
@@ -1036,6 +1072,22 @@ void uvsContimer::Quant(void){
 					uvsRestoreTabuTask();
 			}
 		}
+	}
+	char *start_message = "[bot]> > > ‘’€’! > > >";
+		if (isRollcall >= players_list.size()) {
+			message_dispatcher.send(start_message, MESSAGE_FOR_PLAYER, 0);
+			is_start = 7;
+			isRollcall=-1;
+		}
+		else if (isRollcall >= rollcallNum) {
+			message_dispatcher.send(start_message, MESSAGE_FOR_PLAYER, 0);
+			isRollcall = -1;
+			rollcallNicknames = new char[10000]();
+		}
+	
+	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	if (NetworkON && is_start != 1 && is_start != 7 && countFromCommand != 0) {
+		countFromCommand=0;
 	}
 }
 
@@ -5336,12 +5388,12 @@ void uvsEscave::add_goods_to_shop( void ){ //znfo - Ð´Ð¾Ð±Ð°Ð²ÐºÐ° Ñ‚Ð¾Ð²Ð°Ñ€Ð¾Ð
 //#endif
 
 	if (Pbunch -> status == UVS_BUNCH_STATUS::UNABLE) return;
-
+	
 	if (NetworkON && uvsGoodsON) {
 		GamerResult.phlegma_buy *= (int)(GamerResult.phlegma_buy < 0);
 		GamerResult.toxick_buy *= (int)(GamerResult.toxick_buy < 0);
 	}
-	
+
 	while( pt ){
 		int k = 0;
 
@@ -5351,10 +5403,10 @@ void uvsEscave::add_goods_to_shop( void ){ //znfo - Ð´Ð¾Ð±Ð°Ð²ÐºÐ° Ñ‚Ð¾Ð²Ð°Ñ€Ð¾Ð
 			if (n > 32) n = 32;
 			
 			switch (pt->type) {
-				case UVS_ITEM_TYPE::NYMBOS: n -= GamerResult.nymbos_buy; break;
-				case UVS_ITEM_TYPE::HEROIN: n -= GamerResult.heroin_buy; break;
-				case UVS_ITEM_TYPE::SHRUB: n -= GamerResult.shrub_buy; break;
-				case UVS_ITEM_TYPE::POPONKA: n -= GamerResult.poponka_buy; break;
+				case 24: n -= GamerResult.nymbos_buy; break;
+				case 26: n -= GamerResult.heroin_buy; break;
+				case 27: n -= GamerResult.shrub_buy; break;
+				case 28: n -= GamerResult.poponka_buy; break;
 			}
 		} else {
 			n = 4 + RND(5) + 4;
@@ -5474,14 +5526,14 @@ void uvsSpot::add_goods_to_shop( void ){
 	uvsTradeItem *pt = (uvsTradeItem*)Ptrade;
 
 	if (Pworld -> escT[0] -> Pbunch -> status == UVS_BUNCH_STATUS::UNABLE) return;
-
+	
 	if (NetworkON && uvsGoodsON) {
 		GamerResult.nymbos_buy *= (int)(GamerResult.nymbos_buy < 0);
 		GamerResult.heroin_buy *= (int)(GamerResult.heroin_buy < 0);
 		GamerResult.shrub_buy *= (int)(GamerResult.shrub_buy < 0);
 		GamerResult.poponka_buy *= (int)(GamerResult.poponka_buy < 0);
 	}
-	
+
 	while( pt ){
 		int k = 0;
 
@@ -5490,8 +5542,8 @@ void uvsSpot::add_goods_to_shop( void ){
 			if (n > 32) n = 32;
 			
 			switch (pt->type) {
-				case UVS_ITEM_TYPE::PHLEGMA: n -= GamerResult.phlegma_buy; break;
-				case UVS_ITEM_TYPE::TOXICK: n -= GamerResult.toxick_buy; break;
+				case 25: n -= GamerResult.phlegma_buy; break;
+				case 29: n -= GamerResult.toxick_buy; break;
 			}
 		} else {
 			n = 4 + RND(5) + 4;
@@ -7936,7 +7988,7 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 
 		count = GamerResult.nymbos - ItemCount(Pitem,UVS_ITEM_TYPE::NYMBOS );
 		GamerResult.nymbos = ItemCount(Pitem,UVS_ITEM_TYPE::NYMBOS );
-		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "Podish") == 0) {
+		if (Pescave && strcmp(Pescave->name, "Podish") == 0) {
 			if (GamerResult.nymbos_buy - count > uvsQuantity) GamerResult.nymbos_buy = uvsQuantity;
 			else GamerResult.nymbos_buy -= count;
 		}
@@ -7951,15 +8003,17 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
 
-			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Incubator") == 0){
-				my_player_body.MechosomaStat.ItemCount1 += count;
-				send_player_body(my_player_body);
+			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+				if (Pspot && strcmp(Pspot->name, "Incubator") == 0) {
+					my_player_body.MechosomaStat.ItemCount1 += count;
+					send_player_body(my_player_body);
+				}
 			}
 		}
 		
 		count = GamerResult.phlegma - ItemCount(Pitem, UVS_ITEM_TYPE::PHLEGMA);
 		GamerResult.phlegma = ItemCount(Pitem, UVS_ITEM_TYPE::PHLEGMA);
-		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Incubator") == 0) {
+		if (Pspot && strcmp(Pspot->name, "Incubator") == 0) {
 			if (GamerResult.phlegma_buy - count > uvsQuantity) GamerResult.phlegma_buy = uvsQuantity;
 			else GamerResult.phlegma_buy -= count;
 		}
@@ -7973,15 +8027,17 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "Podish") == 0) {
-				my_player_body.MechosomaStat.ItemCount2 += count;
-				send_player_body(my_player_body);
+			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+				if (Pescave && strcmp(Pescave->name, "Podish") == 0) {
+					my_player_body.MechosomaStat.ItemCount2 += count;
+					send_player_body(my_player_body);
+				}
 			}
 		}
 		
 		count = GamerResult.heroin - ItemCount(Pitem,UVS_ITEM_TYPE::HEROIN );
 		GamerResult.heroin = ItemCount(Pitem,UVS_ITEM_TYPE::HEROIN );
-		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "VigBoo") == 0) {
+		if (Pescave && strcmp(Pescave->name, "VigBoo") == 0) {
 			if (GamerResult.heroin_buy - count > uvsQuantity) GamerResult.heroin_buy = uvsQuantity;
 			else GamerResult.heroin_buy -= count;
 		}
@@ -7995,15 +8051,17 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Lampasso") == 0) {
-				my_player_body.MechosomaStat.ItemCount1 += count;
-				send_player_body(my_player_body);
+			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+				if (Pspot && strcmp(Pspot->name, "Lampasso") == 0) {
+					my_player_body.MechosomaStat.ItemCount1 += count;
+					send_player_body(my_player_body);
+				}
 			}
 		}
 
 		count = GamerResult.shrub - ItemCount(Pitem,UVS_ITEM_TYPE::SHRUB );
 		GamerResult.shrub = ItemCount(Pitem,UVS_ITEM_TYPE::SHRUB );
-		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "VigBoo") == 0) {
+		if (Pescave && strcmp(Pescave->name, "VigBoo") == 0) {
 			if (GamerResult.shrub_buy - count > uvsQuantity) GamerResult.shrub_buy = uvsQuantity;
 			else GamerResult.shrub_buy -= count;
 		}
@@ -8017,15 +8075,17 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "Ogorod") == 0) {
-				my_player_body.MechosomaStat.ItemCount2 += count;
-				send_player_body(my_player_body);
+			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+				if (Pspot && strcmp(Pspot->name, "Ogorod") == 0) {
+					my_player_body.MechosomaStat.ItemCount2 += count;
+					send_player_body(my_player_body);
+				}
 			}
 		}
 
 		count = GamerResult.poponka - ItemCount(Pitem,UVS_ITEM_TYPE::POPONKA );
 		GamerResult.poponka = ItemCount(Pitem,UVS_ITEM_TYPE::POPONKA );
-		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "ZeePa") == 0) {
+		if (Pspot && strcmp(Pspot->name, "ZeePa") == 0) {
 			if (GamerResult.poponka_buy - count > uvsQuantity) GamerResult.poponka_buy = uvsQuantity;
 			else GamerResult.poponka_buy -= count;
 		}
@@ -8039,15 +8099,17 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "B-Zone") == 0) {
-				my_player_body.MechosomaStat.ItemCount1 += count;
-				send_player_body(my_player_body);
+			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+				if (Pescave && strcmp(Pescave->name, "B-Zone") == 0) {
+					my_player_body.MechosomaStat.ItemCount1 += count;
+					send_player_body(my_player_body);
+				}
 			}
 		}
 
 		count = GamerResult.toxick - ItemCount(Pitem,UVS_ITEM_TYPE::TOXICK );
 		GamerResult.toxick = ItemCount(Pitem,UVS_ITEM_TYPE::TOXICK );
-		if (NetworkON && my_server_data.GameType == MECHOSOMA && Pescave && strcmp(Pescave->name, "B-Zone") == 0) {
+		if (Pescave && strcmp(Pescave->name, "B-Zone") == 0) {
 			if (GamerResult.toxick_buy - count > uvsQuantity) GamerResult.toxick_buy = uvsQuantity;
 			else GamerResult.toxick_buy -= count;
 		}
@@ -8061,9 +8123,11 @@ stand < ConTimer.GetTime() < "BOORAWCHICK go home\n";
 				}
 				pl = (uvsTradeItem*)pl -> next;
 			}//  end while
-			if (NetworkON && my_server_data.GameType == MECHOSOMA && Pspot && strcmp(Pspot->name, "ZeePa") == 0) {
-				my_player_body.MechosomaStat.ItemCount2 += count;
-				send_player_body(my_player_body);
+			if (NetworkON && my_server_data.GameType == MECHOSOMA){
+				if (Pspot && strcmp(Pspot->name, "ZeePa") == 0) {
+					my_player_body.MechosomaStat.ItemCount2 += count;
+					send_player_body(my_player_body);
+				}
 			}
 		}
 
@@ -8644,6 +8708,7 @@ void uniVangLoad(XStream &pfile){
 		(v = new uvsVanger(pfile));
 		if( v -> shape == UVS_VANGER_SHAPE::GAMER  ){
 			Gamer = v;
+			v -> shape = UVS_VANGER_SHAPE::GAMER;
 		}
 		v -> elink(ETail);
 	}
@@ -10403,7 +10468,21 @@ uvsVanger* uvsMakeNewGamerInEscave(uvsEscave* pe, int what ){
 					pm -> prev -> next = pm -> next;
 				}
 
-				pm -> type = RND(MAX_MECHOS_RAFFA) + MAX_MECHOS_MAIN;
+				char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+				if (strcmp(game_name,"travel")==0 || strcmp(game_name,"¯à¨ª«îç¥­¨¥")==0) pm -> type = 0;
+				else if (strcmp(game_name,"aibatr")==0 || strcmp(game_name," ¨¡ âà")==0) pm -> type = 22;
+				else if (strcmp(game_name,"eleepod bath")==0 || strcmp(game_name,"¡ ­ï í«¨¯®¤ ")==0) pm -> type = 0;
+				else if (strcmp(game_name,"mega mechosoma")==0 || strcmp(game_name,"¬¥£  ¬¥å®á®¬ ")==0) pm -> type = 20;
+				else if (strcmp(game_name,"super van-war")==0 || strcmp(game_name,"áã¯¥à ¢ ­-¢ à")==0) pm -> type = 0;
+				else if (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"ç¥«­®ç­ë© ä®áâà «")==0) pm -> type = 0;
+				else if (strcmp(game_name,"razminka plus")==0) pm -> type = 5;
+				else if (strcmp(game_name,"satinan")==0 || strcmp(game_name,"á â¨­ ­")==0) pm -> type = 19;
+				else if (strcmp(game_name,"speed konoval")==0) pm -> type = 9;
+				else if (strcmp(game_name,"new soup")==0 || strcmp(game_name,"­®¢ë© áã¯")==0) pm -> type = 0;
+				else if (strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"¬¥å®ªá¥á")==0) pm -> type = 0;
+				else if (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"¯® ¡®«®â ¬!")==0) pm -> type = 10;
+				else if (strcmp(game_name,"tankacide-run")==0) pm -> type = 5;
+				else pm -> type = RND(MAX_MECHOS_RAFFA) + MAX_MECHOS_MAIN;
 				Gamer -> Pmechos = pm;
 				if (!Gamer -> Pmechos)
 					ErrH.Abort("uvsMakeNewGamer :: dont have any mechos in shop");

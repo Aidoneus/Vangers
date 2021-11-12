@@ -31,6 +31,8 @@
 
 template <> void layout(invMatrix* view, int width, int height){
 	unsigned int anchor = view->anchor;
+	
+	extern iScreenOption** iScrOpt;
 
 	if(anchor & WIDGET_ANCHOR_INITIALIZED){
 		std::cout<<"  WARNING: layout is already done"<<std::endl;
@@ -126,8 +128,8 @@ extern char* aciSTR_PRICE;
 extern char* aciSTR_EMPTY_SLOT;
 extern char* aciSTR_UNNAMED_SAVE;
 extern char* aciSTR_AUTOSAVE;
-extern char* aciSTR_WINS;
-extern char* aciSTR_LOSSES;
+extern char* aciSTR_KILLS;
+extern char* aciSTR_DEATHS;
 extern char* aciSTR_LUCK;
 extern char* aciSTR_DOMINANCE;
 extern char* aciSTR_BROKEN;
@@ -151,7 +153,9 @@ extern char* aciSTR_PutThis;
 
 extern char* aciSTR_RESTRICTIONS;
 extern char* aciSTR_STATISTICS;
++extern char* aciSTR_KILLS_NEED;
 extern char* aciSTR_MINUTES;
+extern char* aciSTR_OAAT;
 
 extern int aciItmTextQueueSize;
 
@@ -4313,6 +4317,29 @@ void actIntDispatcher::i_finit(void)
 
 	aciChangeWorld(CurrentWorld);
 	aciPrepareWorldsMenu();
+	
+	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	if (NetworkON && my_server_data.GameType == 2 && CurrentWorld != 3 && (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0)) {
+    		aScrDisp->send_event(EV_TELEPORT, 3);
+	}
+	else if (NetworkON && my_server_data.GameType == 0 && CurrentWorld != 12 && (strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0)) {
+    		aScrDisp->send_event(EV_TELEPORT, 12);
+	}
+	else if (NetworkON && my_server_data.GameType == 0 && CurrentWorld != 12 && strcmp(game_name,"speed konoval")==0) {
+    		aScrDisp->send_event(EV_TELEPORT, 12);
+	}
+	else if (NetworkON && my_server_data.GameType == 0 && CurrentWorld != 8 && (strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0)) {
+    		aScrDisp->send_event(EV_TELEPORT, 8);
+	}
+	else if (NetworkON && my_server_data.GameType == 0 && CurrentWorld != 11 && (strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0)) {
+    		aScrDisp->send_event(EV_TELEPORT, 11);
+	}
+	else if (NetworkON && my_server_data.GameType == 2 && CurrentWorld != 8 && strcmp(game_name,"tankacide-run")==0) {
+    		aScrDisp->send_event(EV_TELEPORT, 8);
+	}
+	else if (NetworkON && my_server_data.GameType == 0 && CurrentWorld != 7 && strcmp(game_name,"mountain king")==0) {
+    		aScrDisp->send_event(EV_TELEPORT, 7);
+	}
 
 	flags &= ~AS_ISCREEN;
 	if(iscr_iP) iscr_iP -> finit();
