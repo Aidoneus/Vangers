@@ -2486,7 +2486,10 @@ void Object::controls(int mode,int param)
 				}
 			break;
 		case CONTROLS::JUMP_USING_ACCUMULATED_POWER:
+			#ifndef _SURMAP_
 			if (NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0)) break;
+			#endif
+			
 			if(jump_power){
 				jump();
 				if(active)
@@ -2630,9 +2633,13 @@ void Object::direct_keyboard_control()
 
 	if(XKey.Pressed(VK_INSERT) | XKey.Pressed('A'))
 		controls(CONTROLS::JUMP_POWER_ACCUMULATION_ON);
-	else
-		if(jump_power && !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0)))
+	else {
+		#ifndef _SURMAP_
+		if(jump_power && !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))) {
 			controls(CONTROLS::JUMP_USING_ACCUMULATED_POWER);
+		}
+		#endif
+	}
 
 	if(XKey.Pressed('Z'))
 		controls(CONTROLS::VIRTUAL_UP);
@@ -2729,8 +2736,11 @@ void Object::direct_keyboard_control()
 	if(iKeyPressed(iKEY_ACTIVATE_KID))
 		controls(CONTROLS::JUMP_POWER_ACCUMULATION_ON);
 	else
-		if(jump_power && !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0)))
+		#ifndef _SURMAP_
+		if(jump_power && !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))) {
 			controls(CONTROLS::JUMP_USING_ACCUMULATED_POWER);
+		}
+		#endif
 
 	//if(iKeyPressed(iKEY_VERTICAL_THRUST))
 	//	controls(CONTROLS::HELICOPTER_UP);
@@ -2944,10 +2954,19 @@ void Object::mechous_analysis(double dt)
 	int i;
 	dt *= speed_correction_factor;
 	if(Status & SOBJ_AUTOMAT){
-		if(jump_power && ++jump_power > max_jump_power && !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0)))
+		if(jump_power && ++jump_power > max_jump_power && 
+		#ifndef _SURMAP_
+		!(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))
+		#endif
+		) {
 			jump();
+		}
 	} else {
-		if(jump_power && !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0)) && CheckStartJump(this)){
+		if(jump_power && CheckStartJump(this) &&
+		#ifndef _SURMAP_
+		!(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))
+		#endif
+		){
 			jump();
 			if(active)
 				SOUND_KIDPUSH();
