@@ -1996,7 +1996,7 @@ int aciGetScreenItem(int x,int y)
 	mp = NULL;
 	rz = -1;
 	S2G(x,y,tx,ty);
-
+	
 	if (ActD.Active) {
 		GeneralMousePoint = Vector(getDistX(tx, ActD.Active->R_curr.x), getDistY(ty, ActD.Active->R_curr.y), 0);
 	}
