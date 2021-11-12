@@ -5707,7 +5707,7 @@ void aciLoadUVSList(XStream& fh,uvsActInt** p,int list_type)
 	}
 	*p = (uvsActInt*)el;
 }
-
+#define	ACI_FRAG_ADDITIONAL_LINES_PASS	1
 #define ACI_FRAG_ADDITIONAL_LINES 	4
 #define ACI_FRAG_TIMER		375
 #define ACI_FRAG_FONT		0
