@@ -2196,7 +2196,7 @@ Registered signs of spectator elation: 22 cases of falling off the stands, 45 ca
 [Final 2]
 "СМЕНА 83.12.99 00:01:83 
 Бокс №13 - Линия 17 - Стенд EE-7855/3420.bis.  
-Задача U/VNG-3/8-M4D. Объект 442.090. Серия KD/CHSKRN+. 
+Задача U/VNG-3/8. Объект 442.090. Серия KD/CHSKRN+. 
 Системное сообщение. Событие: код X-01.  
 Аварийное завершение задачи. Категория 'Счастливчик'.\\ 
 Данные на мастер-консоли: нулевой уровень выходных сигналов, блокирование контуров обратной связи, Z-триггер в режиме авторезонанса, обнуление буферных модулей. 
@@ -2206,7 +2206,7 @@ Registered signs of spectator elation: 22 cases of falling off the stands, 45 ca
 Коды выявленных ошибок: 000, 001, 002, 003, 004, 023, 08338, 0293939."
 "SHIFT 83.12.99 00:01:83
 Section N13 - Line 17 - Stand EE-7855/3420.bis. 
-Task U/VNG-3/8-M4D. Object 442.090. Serial KD/CHSKRN+. 
+Task U/VNG-3/8. Object 442.090. Serial KD/CHSKRN+. 
 System message. Event: code X-01. 
 Abnormal termination. Category 'Lucky Fluke.'\\ 
 Data from master console: zero level for output signals, feedback circuit blocked, Z-trigger in auto-resonance mode, buffer modules cleared. 
@@ -2249,13 +2249,13 @@ Human, your vanger has begun moving independently. It has made the transition, a
 Инф-Реанимация Очнувшихся> Справка. Инф-Контроль Событий. Блок подглядывания за всеми явлениями. 
 Инф-Реанимация Очнувшихся> Справка. Инф-Реанимация Очнувшихся. Блок разъяснения терминов для проскальзывающих Монад. 
 Инф-Реанимация Очнувшихся> Справка. Монада. Присутствует. Детализация термина отложена.\\ 
-Инф-Стабилизатор Реальности> Статус. Вселенная Униванг-3/8 модификации M4D функционирует нормально. Протяженный слепок устойчив. Свободный резерв Монад в норме. Мощность выброса прошедших тестирование в зоне допустимого. Процент брака составляет запланированную величину, отклонения незначительны. 
+Инф-Стабилизатор Реальности> Статус. Вселенная Униванг-3/8 функционирует нормально. Протяженный слепок устойчив. Свободный резерв Монад в норме. Мощность выброса прошедших тестирование в зоне допустимого. Процент брака составляет запланированную величину, отклонения незначительны. 
 Инф-Реанимация Очнувшихся> Справка. Инф-Стабилизатор Реальности. Блок осуществления малых производственных вселенных.\\ 
 Инф-Контроль Событий> Обзор закончен. Монада была подвергнута тестированию на наличие разума второго порядка по схеме 'Человек-Вангер'. Декодирование результатов. 
-Инф-Реанимация Очнувшихся> Справка. Схема 'Человек-Вангер'. Цепная проверка новых Монад погружением в малую вселенную класса KxD, идентификатор U/VNG-3/8-M4D.\\ 
+Инф-Реанимация Очнувшихся> Справка. Схема 'Человек-Вангер'. Цепная проверка новых Монад погружением в малую вселенную класса KxD, идентификатор U/VNG-3/8.\\ 
 Инф-Контроль Событий> Уровень восприятия обрабатываемой Монады нулевой. Перегрузка категорий не завершена. Требуется вмешательство. 
 Инф-Реанимация Очнувшихся> Профилактика в остаточных терминах. Человек, ты не существуешь. Тестирование твоей структуры на целостность разума и прочность воли успешно закончено. Твоя Монада была полностью погружена в малую вселенную для анализа самостоятельного поведения в рамках конкретной вложенной реальности. Тип загруженной памяти: Земной Человек - протософти, предшествующий появлению Коридоров. Усложненный вариант: компьютерный игрок. Сценарий: двойное погружение в схематичное субпространство вангеров, отображающее позднюю стадию данной малой вселенной.\\ 
-Инф-Стабилизатор Реальности> Статус. Регулярная чистка Вселенной Униванг-3/8 модификации M4D завершена. Статистические данные. Уровень локальных ошибок в норме. Обнаружена устойчивая аномалия в зарезервированном слое реальности. Повторная проверка. Ошибка не найдена. 
+Инф-Стабилизатор Реальности> Статус. Регулярная чистка Вселенной Униванг-3/8 завершена. Статистические данные. Уровень локальных ошибок в норме. Обнаружена устойчивая аномалия в зарезервированном слое реальности. Повторная проверка. Ошибка не найдена. 
 Инф-Реанимация Очнувшихся> Справка. Чистка малой реальности. Контроль протяженного слепка на внутренние нарушения. В остаточных терминах: устранение чудес и явлений, выходящих за рамки моделируемого бытия.\\ 
 Инф-Контроль Событий> Анализ поведения выброшенной Монады завершен. Результат положительный. Волевые характеристики Монады и ее способность принимать решения удовлетворяют пропускной таблице. 
 Инф-Реанимация Очнувшихся> Профилактика в остаточных терминах. Все Монады, будучи вангерами выполнившие требования компоненты вселенной Карман, удовлетворяют требованиям конвейера. Остальные выпавшие Монады немедленно уничтожаются как бракованные.\\ 
@@ -2269,13 +2269,13 @@ Human, your vanger has begun moving independently. It has made the transition, a
 Inf-Resuscitation of the Exposed> Info. Inf-Event Control. Block for Observing Everything. 
 Inf-Resuscitation of the Exposed> Info. Inf-Resuscitation of the Exposed. Block for explaining the terms for the sliding-by Monads. 
 Inf-Resuscitation of the Exposed> Info. Monad. Present. Circumstantiation of the term postponed.\\ 
-Inf-Reality Stabilizer> Status. Universe UniVang-3/8-M4D online. Extended snapshot stable. Monad reserve normal. Outflow of the tested units normal. Spoilage rate within allowance, deviation insignificant. 
+Inf-Reality Stabilizer> Status. Universe UniVang-3/8 online. Extended snapshot stable. Monad reserve normal. Outflow of the tested units normal. Spoilage rate within allowance, deviation insignificant. 
 Inf-Resuscitation of the Exposed> Info. Inf-Reality Stabilizer. Block for implementation of small utility universes.\\ 
 Inf-Event Control> Analysis complete. The Monad has been tested for second-order mind in accordance with 'Human Vanger.' Decoding results. 
-Inf-Resuscitation of the Exposed> Info. 'Human Vanger.' Serial test of incoming Monads by submerging into class KxD small universe, ID U/VNG-3/8-M4D.\\ 
+Inf-Resuscitation of the Exposed> Info. 'Human Vanger.' Serial test of incoming Monads by submerging into class KxD small universe, ID U/VNG-3/8.\\ 
 Inf-Event Control> Sensory level of the Monad being processed is zero. Category overloading not complete. Interference required. 
 Inf-Resuscitation of the Exposed> Information in residual terms. Human, you do not exist. Testing your structure for mind integrity and strength of will was completed successfully. Your Monad was submerged into a small universe for analysis of autonomous behavior in a specific nested reality. Type of loaded memory: Human of Earth - proto-Softie, from the time before Passages. Advanced features: computer gamer. Scenario: double submerging into the schematic subspace of vangers reflecting the late stage of this small universe.\\ 
-Inf-Reality Stabilizer> Status. Routine purge of the universe UniVang-3/8-M4D complete. Summary: Level of local errors normal. Persistent anomaly detected in the reserved layer of reality. Secondary check-up. Error not found. 
+Inf-Reality Stabilizer> Status. Routine purge of the universe UniVang-3/8 complete. Summary: Level of local errors normal. Persistent anomaly detected in the reserved layer of reality. Secondary check-up. Error not found. 
 Inf-Resuscitation of the Exposed> Info. Purging the small reality. Checking consistency of extended snapshot. In residual terms: eliminating enigmas and phenomena exceeding the limitations of the simulated being.\\ 
 Inf-Event Control> Analysis of the exposed Monad complete. Result positive. Volitional characteristics of the Monad and its decision-making capabilities satisfy the standard. 
 Inf-Resuscitation of the Exposed> Information in residual terms. All Monads that fulfilled the requirements of the resident unit Carmane in their vanger stage satisfy the pipeline entry requirements. The rest of Monads are immediately destroyed as spoilage.\\ 
@@ -2306,20 +2306,20 @@ Infernal Distribution of Raw Material> Off..."
 Инф-Реанимация Очнувшихся> Справка. Инф-Контроль Событий. Блок подглядывания за всеми явлениями. 
 Инф-Реанимация Очнувшихся> Справка. Инф-Реанимация Очнувшихся. Блок разъяснения терминов для проскальзывающих Монад. 
 Инф-Реанимация Очнувшихся> Справка. Монада. Присутствует. Детализация термина отложена.\\ 
-Инф-Стабилизатор Реальности> Статус. Вселенная Униванг-3/8 модификации M4D функционирует нормально. Протяженный слепок устойчив. Свободный резерв Монад в норме. Мощность выброса прошедших тестирование в зоне допустимого. Процент брака составляет запланированную величину, отклонения незначительны. 
+Инф-Стабилизатор Реальности> Статус. Вселенная Униванг-3/8 функционирует нормально. Протяженный слепок устойчив. Свободный резерв Монад в норме. Мощность выброса прошедших тестирование в зоне допустимого. Процент брака составляет запланированную величину, отклонения незначительны. 
 Инф-Реанимация Очнувшихся> Справка. Инф-Стабилизатор Реальности. Блок осуществления малых производственных вселенных.\\ 
 Инф-Контроль Событий> Обзор закончен. Монада была подвергнута тестированию на наличие разума второго порядка по схеме 'Человек-Вангер'. Декодирование результатов. 
-Инф-Реанимация Очнувшихся> Справка. Схема 'Человек-Вангер'. Цепная проверка новых Монад погружением в малую вселенную класса KxD, идентификатор U/VNG-3/8-M4D.\\ 
+Инф-Реанимация Очнувшихся> Справка. Схема 'Человек-Вангер'. Цепная проверка новых Монад погружением в малую вселенную класса KxD, идентификатор U/VNG-3/8.\\ 
 Инф-Контроль Событий> Уровень восприятия обрабатываемой Монады нулевой. Перегрузка категорий не завершена. Требуется вмешательство. 
 Инф-Реанимация Очнувшихся> Профилактика в остаточных терминах. Человек, ты не существуешь. Тестирование твоей структуры на целостность разума и прочность воли успешно закончено. Твоя Монада была полностью погружена в малую вселенную для анализа самостоятельного поведения в рамках конкретной вложенной реальности. Тип загруженной памяти: Земной Человек - протософти, предшествующий появлению Коридоров. Усложненный вариант: компьютерный игрок. Сценарий: двойное погружение в схематичное субпространство вангеров, отображающее позднюю стадию данной малой вселенной.\\ 
-Инф-Стабилизатор Реальности> Статус. Регулярная чистка Вселенной Униванг-3/8 модификации M4D завершена. Статистические данные. Уровень локальных ошибок в норме. Обнаружена устойчивая аномалия в зарезервированном слое реальности. Повторная проверка. Ошибка не найдена. 
+Инф-Стабилизатор Реальности> Статус. Регулярная чистка Вселенной Униванг-3/8 завершена. Статистические данные. Уровень локальных ошибок в норме. Обнаружена устойчивая аномалия в зарезервированном слое реальности. Повторная проверка. Ошибка не найдена. 
 Инф-Реанимация Очнувшихся> Справка. Чистка малой реальности. Контроль протяженного слепка на внутренние нарушения. В остаточных терминах: устранение чудес и явлений, выходящих за рамки моделируемого бытия.\\ 
 Инф-Контроль Событий> Анализ поведения выброшенной Монады завершен. Результат положительный. Волевые характеристики Монады и ее способность принимать решения удовлетворяют пропускной таблице. 
 Инф-Реанимация Очнувшихся> Профилактика в остаточных терминах. Все Монады, будучи вангерами выполнившие требования компоненты вселенной Карман, удовлетворяют требованиям конвейера. Остальные выпавшие Монады немедленно уничтожаются как бракованные.\\ 
 Инф-Распределитель Материала> Протестированная на наличие разума второго порядка Монада поступает в хранилище зарезервированных автономных единиц воли. 
 Инф-Реанимация Очнувшихся> Справка. Инф-Распределитель Результатов. Блок фильтрации Монад. Второй уровень разума позволяет Монаде функционировать на параллельных постах свободы.\\ 
  
-Инф-Стабилизатор Реальности> ВНИМАНИЕ! Экстренное прерывание. В Униванге-3/8 модификации M4D обнаружены нарушения высшего класса. Внеочередная чистка реальности не устранила аномалию. В стерильной ТРЛ-зоне наблюдаются устойчивые признаки гипотетической Третьей воли. Согласно инструкции о Возможности Возникновения Аналогичного Разума, слепок вселенной законсервирован.\\ 
+Инф-Стабилизатор Реальности> ВНИМАНИЕ! Экстренное прерывание. В Униванге-3/8 обнаружены нарушения высшего класса. Внеочередная чистка реальности не устранила аномалию. В стерильной ТРЛ-зоне наблюдаются устойчивые признаки гипотетической Третьей воли. Согласно инструкции о Возможности Возникновения Аналогичного Разума, слепок вселенной законсервирован.\\ 
 Инф-Контроль Событий> Зарегистрирован сигнал категории А: 'Наблюдатели хотят говорить с вами'. Смысл сигнала выходит за рамки блока интерпретации конвейера. Тестирование Монад приостановлено. 
 Инф-Распределитель Материала> Согласно инструкциям, все Монады, прошедшие тестирование в аномальной вселенной, направлены в Экспертизу как возможные носители Феномена.\\ 
 Инф-Реанимация Очнувшихся> Инструкция по эксплуатации малых производственных вселенных. Существует бесконечно малая вероятность возникновения Разума во вложенных реальностях. Любые случаи обнаружения нарушений высшего класса, не поддающиеся чистке, должны вести к тщательному анализу ситуации Экспертами. Создатели конвейера Монад допускают возможность возникновения Третьей Воли...\\ 
@@ -2345,19 +2345,19 @@ Inf-Event Control> Activating advanced Monad. Analyzing.
 Inf-Resuscitation of the Exposed> Info. Inf-Event Control. Block for Observing Everything.
 Inf-Resuscitation of the Exposed> Info. Inf-Resuscitation of the Exposed. Block for explaining the terms for the sliding-by Monads.
 Inf-Resuscitation of the Exposed> Info. Monad. Present. Circumstantiation of the term postponed.\\
-Inf-Reality Stabilizer> Status. Universe UniVang-3/8-M4D online. Extended snapshot stable. Monad reserve normal. Outflow of the tested units normal. Spoilage rate within allowance, deviation insignificant.
+Inf-Reality Stabilizer> Status. Universe UniVang-3/8 online. Extended snapshot stable. Monad reserve normal. Outflow of the tested units normal. Spoilage rate within allowance, deviation insignificant.
 Inf-Resuscitation of the Exposed> Info. Inf-Reality Stabilizer. Block for implementation of small utility universes.\\
 Inf-Event Control> Analysis complete. The Monad has been tested for second-order mind in accordance with 'Human Vanger.' Decoding results.
-Inf-Resuscitation of the Exposed> Info. 'Human Vanger.' Serial test of incoming Monads by submerging into class KxD small universe, ID U/VNG-3/8-M4D.\\ 
+Inf-Resuscitation of the Exposed> Info. 'Human Vanger.' Serial test of incoming Monads by submerging into class KxD small universe, ID U/VNG-3/8.\\ 
 Inf-Event Control> Sensory level of the Monad being processed is zero. Category overloading not complete. Interference required.
 Inf-Resuscitation of the Exposed> Information in residual terms. Human, you do not exist. Testing your structure for mind integrity and strength of will completed successfully. Your Monad was submerged into a small universe for analysis of autonomous behavior in a specific nested reality. Type of loaded memory: Human of Earth - proto-Softie from the time before Passages. Advanced features: computer gamer. Scenario: double submerging into the schematic subspace of vangers reflecting the late stage of this small universe.\\
-Inf-Reality Stabilizer> Status. Routine purge of the universe UniVang-3/8-M4D complete. Summary: Level of local errors normal. A persistent anomaly detected in the reserved layer of reality. Secondary check-up. The error not found.
+Inf-Reality Stabilizer> Status. Routine purge of the universe UniVang-3/8 complete. Summary: Level of local errors normal. A persistent anomaly detected in the reserved layer of reality. Secondary check-up. The error not found.
 Inf-Resuscitation of the Exposed> Info. Purging the small reality. Checking consistency of extended snapshot. In residual terms: eliminating enigmas and phenomena exceeding the limitations of the simulated being.\\
 Inf-Event Control> Analysis of the exposed Monad complete. Result positive. Volitional characteristics of the Monad and its decision-making capabilities satisfy the standard.
 Inf-Resuscitation of the Exposed> Information in residual terms. All Monads that fulfilled the requirements of the resident unit Carmane in their vanger stage, satisfy the pipeline entry requirements. The rest of Monads are immediately destroyed as spoilage.\\
 Inf-Distribution of Raw Material> The Monad tested for presence of the mind of second order and is forwarded to the reserve storage of autonomous volition units.
 Inf-Resuscitation of the Exposed> Info. Inf-Distribution of Raw Material. Monad filter. Second order of mind allows the Monad to function on parallel posts of freedom.\\
-Inf-Reality Stabilizer> CAUTION! Emergency interrupt. Disturbances of the highest class of severity detected in UniVang-3/8-M4D. Emergency purge of the reality did not eliminate the anomaly. Persistent indications of the hypothetical Third Will are observed in the sterile TRL-zone. According to the instruction 'About the Possibility of the Emergence of Analogous Reason' a snapshot of the reality has been saved.\\
+Inf-Reality Stabilizer> CAUTION! Emergency interrupt. Disturbances of the highest class of severity detected in UniVang-3/8. Emergency purge of the reality did not eliminate the anomaly. Persistent indications of the hypothetical Third Will are observed in the sterile TRL-zone. According to the instruction 'About the Possibility of the Emergence of Analogous Reason' a snapshot of the reality has been saved.\\
 Inf-Event Control> Signal of category 'A' registered: 'The Spectors want to talk to you'. The semantics of the signal are beyond the scope of the parsing unit of the pipeline. Monad testing is suspended.
 Inf-Distribution of Raw Material> According to the instructions, all Monads tested in a universe with a discovered anomaly are forwarded to the Experts as potential carriers of the Phenomenon.\\
 Inf-Resuscitation of the Exposed> Operating instructions for small utility universes. There is an infinitesimal probability of an emergence of Reason in nested realities. Any cases of anomalies of the highest class of severity being discovered that are not eliminated by an emergency purge must be subjected to detailed analysis by the Experts. The creators of the Monad pipeline assume the possibility of the emergence of the Third Will...\\

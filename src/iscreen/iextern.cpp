@@ -298,6 +298,9 @@ void iUnlockMultiGameParameters(void);
 
 void iUpdateMultiGameName(void);
 
+
+void put_map(int x, int y, int sizeX, int sizeY);
+
 /* --------------------------- DEFINITION SECTION --------------------------- */
 
 int* AVI_index;
@@ -648,6 +651,19 @@ void iSetFullscreen(int state) {
 	XGR_Obj.set_fullscreen(state);
 }
 
+void iSetResolution(int state) {
+	switch(state){
+		case 0:
+			XGR_Obj.set_resolution(800, 600);
+			break;
+		case 1:
+			XGR_Obj.set_resolution(1280, 720);
+			break;
+
+	}
+	put_map(iScreenOffs,0,I_RES_X,I_RES_Y);
+}
+
 void iPrepareOptions(void)
 {
 	int i;
@@ -747,7 +763,7 @@ void iPrepareOptions(void)
 	iScrOpt[iPROXY_SERVER] = new iScreenOption(iSTRING,0,"INet Host screen","ProxyServerName");
 	iScrOpt[iPROXY_PORT] = new iScreenOption(iSTRING,0,"INet Host screen","ProxyPortNum");
 
-	iScrOpt[iSERVER_PORT] = new iScreenOption(iSTRING,0,"INet Host screen","PortStrID");
+	iScrOpt[iSERVER_PORT] = new iScreenOption(iSTRING,0,"Port screen","PortStrID");
 
 	iScrOpt[iPROXY_SERVER_STR] = new iScreenOption(iSTRING,0,"INet Host screen","ProxyServerStrID");
 	iScrOpt[iPROXY_SERVER_STR] -> flags |= iOPTION_NO_SAVE;
@@ -764,9 +780,11 @@ void iPrepareOptions(void)
 	
 	iScrOpt[iFULLSCREEN] = new iScreenOption(iTRIGGER,0,"Graphics screen","FullScreenTrig");
 	((iTriggerObject *)iScrOpt[iFULLSCREEN]->objPtr)->callback = &iSetFullscreen;
+	((iTriggerObject *)iScrOpt[iSCREEN_RESOLUTION]->objPtr)->callback = &iSetResolution;
 
-	iScrOpt[iCYCLE_DOBA] = new iScreenOption(iTRIGGER,0,"Graphics screen","CycleDobaTrig");
+
 	iScrOpt[iAUTO_ACCELERATION] = new iScreenOption(iTRIGGER,0,"Controls screen","AutoAccelerationTrig");
+	
 	iPrepareControls();
 }
 
@@ -1641,56 +1659,28 @@ void iGetMultiGameParameters(void)
 	time_t tm;
 
 	my_server_data.GameType = iCurMultiGame;
-	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
 
 	switch(iCurMultiGame){
 		case iMP_VAN_WAR:
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_INITIAL_CASH);
-			if(strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) value = 999999;
-			if(strcmp(game_name,"super van-war")==0 || strcmp(game_name,"супер ван-вар")==0) value = -35000;
-			if(strcmp(game_name,"speed konoval")==0) value = 12500;
-			if(strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) value = 999999;
-			if(strcmp(game_name,"new soup")==0 || strcmp(game_name,"новый суп")==0) value = 6500;
-			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 35700;
 			my_server_data.Van_War.InitialCash = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_ARTEFACTS_USING);
-			if(strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) value = 0;
-			if(strcmp(game_name,"super van-war")==0 || strcmp(game_name,"супер ван-вар")==0) value = 1;
 			my_server_data.Van_War.ArtefactsUsing = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_IN_ESCAVE_TIME);
-			if(strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) value = 2;
-			if(strcmp(game_name,"super van-war")==0 || strcmp(game_name,"супер ван-вар")==0) value = 2;
-			if(strcmp(game_name,"speed konoval")==0) value = 1;
-			if(strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) value = 2;
-			if(strcmp(game_name,"new soup")==0 || strcmp(game_name,"новый суп")==0) value = 1;
-			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 0;
 			my_server_data.Van_War.InEscaveTime = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_TEAM_MODE);
-			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 0;
 			my_server_data.Van_War.TeamMode = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_NASCENCY);
-			if(strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) value = 2;
-			if(strcmp(game_name,"speed konoval")==0) value = 2;
-			if(strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) value = 2;
-			if(strcmp(game_name,"new soup")==0 || strcmp(game_name,"новый суп")==0) value = 0;
-			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 1;
 			my_server_data.Van_War.Nascency = value - 1;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_ACCESS);
-			if(strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) value = 0;
-			if(strcmp(game_name,"super van-war")==0 || strcmp(game_name,"супер ван-вар")==0) value = 1;
-			if(strcmp(game_name,"speed konoval")==0) value = 0;
-			if(strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) value = 1;
-			if(strcmp(game_name,"new soup")==0 || strcmp(game_name,"новый суп")==0) value = 0;
-			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 1;
 			my_server_data.Van_War.WorldAccess = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_KILLS);
-			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 10;
 			my_server_data.Van_War.MaxKills = value;
 
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_MAX_TIME);
@@ -1698,164 +1688,46 @@ void iGetMultiGameParameters(void)
 			break;
 		case iMP_MECHOSOMA:
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_INITIAL_CASH);
-			if(strcmp(game_name,"eleepod bath")==0 || strcmp(game_name,"баня элипода")==0) value = 999999;
-			if(strcmp(game_name,"mega mechosoma")==0 || strcmp(game_name,"мега мехосома")==0) value = 999999;
-			if(strcmp(game_name,"progress")==0 || strcmp(game_name,"прогресс")==0) value = 400;
-			if(strcmp(game_name,"speed konoval")==0) value = 10000;
 			my_server_data.Mechosoma.InitialCash = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_ARTEFACTS_USING);
-			if(strcmp(game_name,"eleepod bath")==0 || strcmp(game_name,"баня элипода")==0) value = 0;
-			if(strcmp(game_name,"mega mechosoma")==0 || strcmp(game_name,"мега мехосома")==0) value = 0;
-			if(strcmp(game_name,"progress")==0 || strcmp(game_name,"прогресс")==0) value = 0;
-			if(strcmp(game_name,"speed konoval")==0) value = 0;
 			my_server_data.Mechosoma.ArtefactsUsing = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_IN_ESCAVE_TIME);
-			if(strcmp(game_name,"eleepod bath")==0 || strcmp(game_name,"баня элипода")==0) value = 1;
-			if(strcmp(game_name,"mega mechosoma")==0 || strcmp(game_name,"мега мехосома")==0) value = 3;
-			if(strcmp(game_name,"progress")==0 || strcmp(game_name,"прогресс")==0) value = 0;
-			if(strcmp(game_name,"speed konoval")==0) value = 1;
 			my_server_data.Mechosoma.InEscaveTime = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_TEAM_MODE);
 			my_server_data.Mechosoma.TeamMode = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_WORLD);
-			if(strcmp(game_name,"eleepod bath")==0 || strcmp(game_name,"баня элипода")==0) value = 0;
-			if(strcmp(game_name,"progress")==0 || strcmp(game_name,"прогресс")==0) value = 1;
 			my_server_data.Mechosoma.World = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_QUANTITY1);
-			if(strcmp(game_name,"eleepod bath")==0 || strcmp(game_name,"баня элипода")==0) value = 0;
 			my_server_data.Mechosoma.ProductQuantity1 = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_QUANTITY2);
 			my_server_data.Mechosoma.ProductQuantity2 = value;
 
 			value = iGetMultiGameParameter(iMP_MECHOSOMA,iMP_ONE_AT_A_TIME);
-			if(strcmp(game_name,"mega mechosoma")==0 || strcmp(game_name,"мега мехосома")==0) value = 17;
-			if(strcmp(game_name,"progress")==0 || strcmp(game_name,"прогресс")==0) value = 1;
-			if(strcmp(game_name,"speed konoval")==0) value = 2;
 			my_server_data.Mechosoma.One_at_a_time = value;
 			break;
 		case iMP_PASSEMBLOSS:
-		    	value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_INITIAL_CASH);
-		    if (strcmp(game_name,"travel")==0 || strcmp(game_name,"приключение")==0) value = 999999;
-		    if (strcmp(game_name,"aveslom")==0) value = 999999;
-		    if (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) value = 999999;
-			if (strcmp(game_name,"traincross")==0) value = 999999;
-			if (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) value = 500000;
-			if (strcmp(game_name,"stad3la")==0) value = 999999;
-			if (strcmp(game_name,"ultra pass")==0 || strcmp(game_name,"ультра пасс")==0) value = 999999;
-			if (strcmp(game_name,"xivepass")==0 || strcmp(game_name,"ксивипасс")==0) value = 999999;
-			if (strcmp(game_name,"razminka plus")==0) value = 999999;
-			if (strcmp(game_name,"huntage-sim")==0 || strcmp(game_name,"хантаж-сим")==0) value = 999999;
-			if (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) value = 999999;
-			if (strcmp(game_name,"speed konoval")==0) value = 10000;
-			if (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) value = 999999;
-			if (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) value = 999999;
-			if (strcmp(game_name,"vozvrat")==0 || strcmp(game_name,"возврат")==0) value = 999999;
-			if (strcmp(game_name,"among vangers")==0) value = 999999;
-			if (strcmp(game_name,"eleerection-sim")==0 || strcmp(game_name,"элирекция-сим")==0) value = 999999;
-			if (strcmp(game_name,"escape")==0 || strcmp(game_name,"побег")==0) value = 999999;
-			if (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"по болотам!")==0) value = 999999;
-			if (strcmp(game_name,"raffa-run-sim")==0) value = 4000;
-			if (strcmp(game_name,"tankacide-run")==0) value = 999999;
-			if (strcmp(game_name,"passave")==0 || strcmp(game_name,"пассейв")==0) value = 999999;
-			if (strcmp(game_name,"triacxlon")==0 || strcmp(game_name,"триацхлон")==0) value = 999999;
-            		my_server_data.Passembloss.InitialCash = value;
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_INITIAL_CASH);
+			my_server_data.Passembloss.InitialCash = value;
 
-            		value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ARTEFACTS_USING);
-            if (strcmp(game_name,"aveslom")==0) value = 0;
-            if (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) value = 0;
-			if (strcmp(game_name,"traincross")==0) value = 0;
-			if (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) value = 0;
-			if (strcmp(game_name,"stad3la")==0) value = 0;
-			if (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) value = 0;
-			if (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) value = 0;
-			if (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) value = 0;
-			if (strcmp(game_name,"vozvrat")==0 || strcmp(game_name,"возврат")==0) value = 0;
-			if (strcmp(game_name,"among vangers")==0) value = 1;
-			if (strcmp(game_name,"escape")==0 || strcmp(game_name,"побег")==0) value = 1;
-			if (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"по болотам!")==0) value = 0;
-			if (strcmp(game_name,"tankacide-run")==0) value = 1;
-			if (strcmp(game_name,"passave")==0 || strcmp(game_name,"пассейв")==0) value = 0;
-			if (strcmp(game_name,"triacxlon")==0 || strcmp(game_name,"триацхлон")==0) value = 0;
-		    	my_server_data.Passembloss.ArtefactsUsing = value;
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ARTEFACTS_USING);
+			my_server_data.Passembloss.ArtefactsUsing = value;
 
-		    	value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_IN_ESCAVE_TIME);
-		    if (strcmp(game_name,"travel")==0 || strcmp(game_name,"приключение")==0) value = 2;
-		    if (strcmp(game_name,"aveslom")==0) value = 2;
-		    if (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) value = 2;
-			if (strcmp(game_name,"traincross")==0) value = 2;
-			if (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) value = 1;
-			if (strcmp(game_name,"stad3la")==0) value = 1;
-			if (strcmp(game_name,"ultra pass")==0 || strcmp(game_name,"ультра пасс")==0) value = 3;
-			if (strcmp(game_name,"xivepass")==0 || strcmp(game_name,"ксивипасс")==0) value = 2;
-			if (strcmp(game_name,"razminka plus")==0) value = 3;
-			if (strcmp(game_name,"huntage-sim")==0 || strcmp(game_name,"хантаж-сим")==0) value = 3;
-			if (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) value = 2;
-			if (strcmp(game_name,"speed konoval")==0) value = 1;
-			if (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) value = 1;
-			if (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) value = 1;
-			if (strcmp(game_name,"vozvrat")==0 || strcmp(game_name,"возврат")==0) value = 0;
-			if (strcmp(game_name,"among vangers")==0) value = 0;
-			if (strcmp(game_name,"escape")==0 || strcmp(game_name,"побег")==0) value = 1;
-			if (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"по болотам!")==0) value = 1;
-			if (strcmp(game_name,"raffa-run-sim")==0) value = 0;
-			if (strcmp(game_name,"tankacide-run")==0) value = 0;
-			if (strcmp(game_name,"passave")==0 || strcmp(game_name,"пассейв")==0) value = 0;
-            		my_server_data.Passembloss.InEscaveTime = value;
-      
-            		value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM);
-            if (strcmp(game_name,"travel")==0 || strcmp(game_name,"приключение")==0) value = 17;
-            if (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) value = 51;
-            if (strcmp(game_name,"aveslom")==0) value = (iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM)*10) + 1;
-			if (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) value = (iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM) * 2) + 1;
-			if (strcmp(game_name,"stad3la")==0) value = (iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM)*3) + 1;
-			if (strcmp(game_name,"ultra pass")==0 || strcmp(game_name,"ультра пасс")==0) value = 999;
-			if (strcmp(game_name,"xivepass")==0 || strcmp(game_name,"ксивипасс")==0) value = 8;
-			if (strcmp(game_name,"razminka plus")==0) value = 10;
-			if (strcmp(game_name,"huntage-sim")==0 || strcmp(game_name,"хантаж-сим")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM) + 1;
-			if (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM)*22;
-			if (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM) + 1;
-			if (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM) + 1;
-			if (strcmp(game_name,"vozvrat")==0 || strcmp(game_name,"возврат")==0) value = 1;
-			if (strcmp(game_name,"among vangers")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM) + 1;
-			if (strcmp(game_name,"eleerection-sim")==0 || strcmp(game_name,"элирекция-сим")==0) value = 1;
-			if (strcmp(game_name,"escape")==0 || strcmp(game_name,"побег")==0) value = 1;
-			if (strcmp(game_name,"ishod")==0) value = 1;
-			if (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"по болотам!")==0) value = 34;
-			if (strcmp(game_name,"triacxlon")==0 || strcmp(game_name,"триацхлон")==0) value = 36;
-			if (strcmp(game_name,"tankacide-run")==0) value = iGetMultiGameParameter(iMP_PASSEMBLOSS, iMP_CHECKPOINTS_NUM) + 1;
-            		my_server_data.Passembloss.CheckpointsNumber = value;
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_IN_ESCAVE_TIME);
+			my_server_data.Passembloss.InEscaveTime = value;
 
-            		time(&tm);
+			time(&tm);
 
-            		value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ESCAVE);
-			if (strcmp(game_name,"speed konoval")==0) value = 2;
-            if (strcmp(game_name,"travel")==0 || strcmp(game_name,"приключение")==0) value = 1;
-            if (strcmp(game_name,"aveslom")==0) value = 2;
-            if (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) value = 3;
-			if (strcmp(game_name,"traincross")==0) value = 3;
-			if (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) value = 2;
-			if (strcmp(game_name,"stad3la")==0) value = 2;
-			if (strcmp(game_name,"ultra pass")==0 || strcmp(game_name,"ультра пасс")==0) value = 2;
-			if (strcmp(game_name,"xivepass")==0 || strcmp(game_name,"ксивипасс")==0) value = 2;
-			if (strcmp(game_name,"razminka plus")==0) value = 2;
-			if (strcmp(game_name,"huntage-sim")==0 || strcmp(game_name,"хантаж-сим")==0) value = 2;
-			if (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) value = 1;
-			if (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) value = 1;
-			if (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) value = 1;
-			if (strcmp(game_name,"vozvrat")==0 || strcmp(game_name,"возврат")==0) value = 3;
-			if (strcmp(game_name,"among vangers")==0) value = 2;
-			if (strcmp(game_name,"eleerection-sim")==0 || strcmp(game_name,"элирекция-сим")==0) value = 1;
-			if (strcmp(game_name,"escape")==0 || strcmp(game_name,"побег")==0) value = 3;
-			if (strcmp(game_name,"bullet run")==0 || strcmp(game_name,"по болотам!")==0) value = 3;
-			if (strcmp(game_name,"tankacide-run")==0) value = 2;
-			if (strcmp(game_name,"triacxlon")==0 || strcmp(game_name,"триацхлон")==0) value = 2;
-            		my_server_data.Passembloss.RandomEscave = value - 1;
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_CHECKPOINTS_NUM);
+			my_server_data.Passembloss.CheckpointsNumber = value;
+
+			value = iGetMultiGameParameter(iMP_PASSEMBLOSS,iMP_ESCAVE);
+			my_server_data.Passembloss.RandomEscave = value - 1;
 //			my_server_data.Passembloss.RandomEscave = tm % 3;
 			break;
 		case iMP_HUNTAGE:

@@ -34,11 +34,11 @@
 #define aciSTR_AUTOSAVE2	"Автозапись"
 
 // Multiplayer statistics...
-#define aciSTR_KILLS1		"kills"
-#define aciSTR_KILLS2		"убито"
+#define aciSTR_WINS1		"wins"
+#define aciSTR_WINS2		"побед"
 
-#define aciSTR_DEATHS1		"deaths"
-#define aciSTR_DEATHS2		"смертей"
+#define aciSTR_LOSSES1		"losses"
+#define aciSTR_LOSSES2		"поражений"
 
 #define aciSTR_Ware11		"Ware #1"
 #define aciSTR_Ware12		"Товар #1"
@@ -112,22 +112,15 @@
 #define aciSTR_PutThis1 		"Put this"
 #define aciSTR_PutThis2 		"Положить"
 
+
 //Van-War game restrictions
-#define aciSTR_RESTRICTIONS1	"GAME RESTRICTIONS"
-#define aciSTR_RESTRICTIONS2	"ОГРАНИЧЕНИЯ ИГРЫ"
+#define aciSTR_RESTRICTIONS1	"Game restrictions:"
+#define aciSTR_RESTRICTIONS2	"Ограничения игры:"
 
 //Van-War statistics
-#define aciSTR_STATISTICS1		"INF-STATISTICS"
-#define aciSTR_STATISTICS2		"ИНФ-СТАТИСТИКА"
-
-//Van-War kills for statistics 
-#define aciSTR_KILLS_NEED1		"kills:"
-#define aciSTR_KILLS_NEED2		"убийств:"
+#define aciSTR_STATISTICS1		"Statistics:"
+#define aciSTR_STATISTICS2		"Статистика:"
 
 //Van-War time for statistics 
-#define aciSTR_MINUTES1		"minutes:"
-#define aciSTR_MINUTES2		"минут:"
-
-//Mechosoma one at a time for statistics 
-#define aciSTR_OAAT1		"one at a time:"
-#define aciSTR_OAAT2		"максимум товара за раз:"
+#define aciSTR_MINUTES1		"minutes"
+#define aciSTR_MINUTES2		"минут"

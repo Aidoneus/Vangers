@@ -20,8 +20,8 @@
 #define PICKUP_WEAPONS_BUTTON_TEXT1	"Pick-up weapons ON"
 #define PICKUP_WEAPONS_BUTTON_TEXT2	"Подбирать оружие"
 
-#define ESCAVE_BUTTON_TEXT1		"Open"
-#define ESCAVE_BUTTON_TEXT2		"Инф-Открытие"
+#define ESCAVE_BUTTON_TEXT1		"Open..."
+#define ESCAVE_BUTTON_TEXT2		"Открыть..."
 
 #define ENERGY_IND_TEXT1		"Energy Shield/Armor"
 #define ENERGY_IND_TEXT2		"Энергия/Броня"

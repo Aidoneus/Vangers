@@ -1,4 +1,4 @@
-name: Vangers[M4D] Linux
+name: Vangers Linux Build
 
 on: [push, pull_request]
 
@@ -20,5 +20,5 @@ jobs:
     - name: configure
       run: mkdir build && cd build && cmake -DCMAKE_C_COMPILER=/usr/bin/gcc-9 -DCMAKE_CXX_COMPILER=/usr/bin/g++-9 ..
     - name: make
-      run: make vangers
+      run: make
       working-directory: build

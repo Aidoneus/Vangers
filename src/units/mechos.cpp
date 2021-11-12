@@ -1,12 +1,6 @@
 #include "../global.h"
 #include "../lang.h"
 
-#include "../iscreen/iscreen_options.h"
-#include "../iscreen/iscreen.h"
-#include "../network.h"
-
-extern iScreenOption** iScrOpt;
-
 #include "../zmod_client.h"
 
 //#include "..\win32f.h"
@@ -55,8 +49,6 @@ extern iScreenOption** iScrOpt;
 #include "magnum.h"
 
 #include "../actint/credits.h"
-#include "../actint/actint.h"
-extern actIntDispatcher* aScrDisp;
 
 #define INSECTOIDS
 
@@ -754,7 +746,7 @@ void VangerUnit::BulletCollision(int pow,GeneralObject* p)
 				if(PowerFlag & VANGER_POWER_RUFFA_GUN)
 					s |= UVS_KRON_FLAG::RAFFA;
 
-				if(uvsPoint->Pmechos->color != uvsPoint->Pmechos->color)
+				if(((VangerUnit*)(p))->uvsPoint->Pmechos->color != uvsPoint->Pmechos->color)
 					s |= UVS_KRON_FLAG::ALIEN;
 
 				switch(uvsPoint->Pmechos->color){
@@ -3234,15 +3226,8 @@ void camera_quant(int X,int Y,int Turn,double V_abs) {
 	int t,dx,dy;
 
 	if(!camera_moving_xy_enable) {
-		dx = getDistX(X,camera_X_prev);
-		dy = getDistY(Y,camera_Y_prev);
-		if(dx < 400 && dy < 400) {
-			ViewX += dx;
-			ViewY += dy;
-		} else {
-			ViewX = X;
-			ViewY = Y;
-		}
+		ViewX = X;
+		ViewY = Y;
 	}
 	dx = getDistX(X,ViewX);
 	dy = getDistY(Y,ViewY);
@@ -3278,8 +3263,16 @@ void camera_quant(int X,int Y,int Turn,double V_abs) {
 	camera_Y_prev = Y;
 
 	int TurnSecX_old = TurnSecX;
-	int z = camera_moving_z_enable ? (V_abs < camera_vmax ? camera_zmin + ((curGMap -> xsize*MAX_ZOOM >> 8) - camera_zmin)*V_abs/camera_vmax : camera_zmax)
-					: camera_zmin;
+	int z;
+	if (camera_moving_z_enable) {
+		auto v = V_abs < camera_vmax ? V_abs : camera_vmax;
+		auto z_max = curGMap->xsize * 1.38;
+
+		z = camera_zmin + (z_max - camera_zmin) * v / camera_vmax;
+	} else {
+		z = camera_zmin;
+	}
+
 	camera_vz += (double)(z - TurnSecX)*camera_miz * XTCORE_FRAME_NORMAL;
 	//camera_vz -= camera_vz*camera_dragz;
 	camera_vz *= camera_dragz*pow(0.97,camera_vz_min/(fabs(camera_vz) + 1e-10));
@@ -4376,6 +4369,7 @@ void VangerUnit::InitEnvironment(void)
 			};		
 		};
 	};
+
 	if(!NetworkON || (Status & SOBJ_ACTIVE)){
 		ExternalLastSensor = ExternalSensor;
 		ExternalSensor = NULL;
@@ -8267,10 +8261,10 @@ int VangerUnit::CheckStartJump(void)
 	return 1;
 };
 
-const int COMPAS_RIGHT = 80;
-const int COMPAS_LEFT = 60;
-const int COMPAS_UP = 60;
-const int COMPAS_DOWN = 80;
+extern int COMPAS_RIGHT;
+constexpr int COMPAS_LEFT = 60;
+constexpr int COMPAS_UP = 60;
+constexpr int COMPAS_DOWN = 80;
 
 const int MAX_COMPAS_DELTA = 7;
 const int MAX_COMPAS_SPEED = 10;
@@ -8340,7 +8334,8 @@ void CompasObject::Open(void)
 				p->Data.SensorT = FindSensor(p->Name);
 				break;
 		};
-		//if(!p->Data.SensorT) ErrH.Abort("Error in Compas Target Open");
+		if(!p->Data.SensorT)
+			ErrH.Abort("Error in Compas Target Open");
 		p = p->Next;
 	};
 };
@@ -8640,9 +8635,8 @@ void CompasObject::Quant(void)
 	v = Vector(ActD.Active->Speed,0,0)*ActD.Active->RotMat;
 	x = XCYCL(x + vMove.x + v.x);
 	y = YCYCL(y + vMove.y + v.y);
-	if(AdvancedView) G2LQ(Vector(x,y,0),tx,ty);
-	else G2LS(Vector(x,y,0),tx,ty);
 
+	G2LQ(Vector(x,y,0), tx, ty);
 	if(tx < UcutLeft + COMPAS_LEFT){
 		tx = UcutLeft + COMPAS_LEFT;
 		vMove.x = 0;
@@ -9440,7 +9434,7 @@ void ActionDispatcher::FunctionQuant(void)
 						FunctionThreallDestroyActive = GAME_OVER_EVENT_TIME;
 					break;
 			};
-			
+
 			if(NetworkON && pfActive == Active){
 				NetFunctionProtractor &= ~7;
 				if(p_new) NetFunctionProtractor |= 64;
@@ -9466,7 +9460,7 @@ void ActionDispatcher::FunctionQuant(void)
 					};
 					break;
 				case ACI_MECH_MESSIAH_EVENT2:
-					if(NewFunction(MECHANIC_BEEB_NATION,MECHANIC_GAME_OVER))
+					if(!NetworkON && NewFunction(MECHANIC_BEEB_NATION,MECHANIC_GAME_OVER))
 						XpeditionOFF(GAME_OVER_LUCKY);
 					break;
 				case ACI_MECH_MESSIAH_EVENT3:
@@ -13735,113 +13729,7 @@ void NetworkGetStart(char* name,int& x,int& y)
 	int i,j,t;
 	SensorSortedData = new SensorDataType*[SnsTableSize];
 	StaticSort(SnsTableSize,(StaticObject**)SensorObjectData,(StaticObject**)SensorSortedData);
-	
-	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
-	if (NetworkON && (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) && my_server_data.GameType == 2) {
-		x = 1650;
-		y = 815;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) && my_server_data.GameType == 2) {
-		x = 1795;
-		y = 515;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) && my_server_data.GameType == 0) {
-		x = 485;
-		y = 1310;
-		return;
-	}
-	else if (NetworkON && strcmp(game_name,"stad3la")==0 && my_server_data.GameType == 2) {
-		x = 1410;
-		y = 3255;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) && my_server_data.GameType == 2) {
-		x = 1835;
-		y = 1365;
-		return;
-	}
-	else if (NetworkON && strcmp(game_name,"speed konoval")==0 && my_server_data.GameType == 0) {
-		x = 485;
-		y = 1310;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) && my_server_data.GameType == 2) {
-		x = 625;
-		y = 2275;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) && my_server_data.GameType == 2) {
-		x = 625;
-		y = 2275;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) && my_server_data.GameType == 0) {
-		x = 945;
-		y = 1760;
-		return;
-	}
-	else if (NetworkON && strcmp(game_name,"tankacide-run")==0 && my_server_data.GameType == 2) {
-		x = 945;
-		y = 1760;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"eleerection-sim")==0 || strcmp(game_name,"элирекция-сим")==0) && my_server_data.GameType == 2) {
-		x = 1960;
-		y = 1505;
-		return;
-	}
-	else if (NetworkON && (strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) && my_server_data.GameType == 0) {
-		x = 1870;
-		y = 1055;
-		return;
-	}
-	else if (NetworkON && strcmp(game_name,"mountain king")==0 && my_server_data.GameType == 0) {
-		x =  283;
-		y = 1186;
-		return;
-	}
-	
-if(NetworkON && (strcmp(game_name,"passave")==0 || strcmp(game_name,"пассейв")==0) && my_server_data.GameType == 2) {
-    if (strcmp(name, "Podish") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 0);
-      x = 1385;
-      y = 1568;
-    }
-    else if (strcmp(name, "Incubator") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 12);
-      x = 1735;
-      y = 404;
-    }
-    else if (strcmp(name, "VigBoo") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 2);
-      x = 1976;
-      y = 10069;
-    }
-    else if (strcmp(name, "Lampasso") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 7);
-      x = 1991;
-      y =  958;
-    }
-    else if (strcmp(name, "Ogorod") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 6);
-      x = 1402;
-      y = 1812;
-    }
-    else if (strcmp(name, "ZeePa") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 1);
-      x = 1257;
-      y =  976;
-    }
-    else if (strcmp(name, "B-Zone") == 0) {
-      aScrDisp->send_event(EV_TELEPORT, 11);
-      x = 1976;
-      y = 1069;
-    }
-    return;
-  }
-	
+
 	for(i = 0;i < NETWORK_NUM_ESCAVE;i++){
 		if(!strcmp(name,NetworkEscaveName[i])){
 			t = -1;
