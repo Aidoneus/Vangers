@@ -675,8 +675,8 @@ void vrtMap::analyzeINI(const char* name)
 			buf >= ENDCOLOR[i];
 	}
 	
-	#ifndef _SURMAP_
 	std::string palette_name = "Dynamic Palette";
+	#ifndef _SURMAP_
 	if ((iGetOptionValue(iCYCLE_DOBA)) && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "баня элипода")==0)) {
 		palette_name = "Doba (eleepod bath) Cycle " + palette_name;
 	}
