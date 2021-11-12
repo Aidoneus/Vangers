@@ -1507,7 +1507,8 @@ void aciSwapMatrices(void)
 
 	put_map(iScreenOffs,0,I_RES_X,I_RES_Y);
 	aScrDisp -> curMatrix -> redraw();
-	
+
+
 
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
@@ -1620,6 +1621,7 @@ void aciCancelMatrix(void)
 		aScrDisp -> curMatrix -> redraw();
 
 
+
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
 #else
@@ -1711,6 +1713,7 @@ void aciShowScMatrix(void)
 		aScrDisp -> curMatrix -> redraw();
 
 	aScrDisp -> secondMatrix -> redraw();
+
 
 
 #ifdef _ACI_NO_SHOP_ANIMATION_

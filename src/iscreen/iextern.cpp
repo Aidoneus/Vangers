@@ -298,6 +298,8 @@ void iUnlockMultiGameParameters(void);
 
 void iUpdateMultiGameName(void);
 
+
+
 void put_map(int x, int y, int sizeX, int sizeY);
 
 /* --------------------------- DEFINITION SECTION --------------------------- */
@@ -780,6 +782,8 @@ void iPrepareOptions(void)
 	iScrOpt[iFULLSCREEN] = new iScreenOption(iTRIGGER,0,"Graphics screen","FullScreenTrig");
 	((iTriggerObject *)iScrOpt[iFULLSCREEN]->objPtr)->callback = &iSetFullscreen;
 	((iTriggerObject *)iScrOpt[iSCREEN_RESOLUTION]->objPtr)->callback = &iSetResolution;
+
+
 
 	iScrOpt[iCYCLE_DOBA] = new iScreenOption(iTRIGGER,0,"Graphics screen","CycleDobaTrig");
 	iScrOpt[iAUTO_ACCELERATION] = new iScreenOption(iTRIGGER,0,"Controls screen","AutoAccelerationTrig");

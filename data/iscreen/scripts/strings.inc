@@ -681,7 +681,8 @@
 #define iSTR_CreditsPathG1		"resource/iscreen/text/eng/credits7.txt"
 #define iSTR_CreditsPathG2		"resource/iscreen/text/rus/credits7.txt"
 
--#define iSTR_CreditsPathH1		"resource/iscreen/text/eng/credits8.txt"
+
+#define iSTR_CreditsPathH1		"resource/iscreen/text/eng/credits8.txt"
 #define iSTR_CreditsPathH2		"resource/iscreen/text/rus/credits8.txt"
 
 #define iSTR_CreditsPathIA1		"resource/iscreen/text/eng/credits91.txt"
@@ -689,7 +690,6 @@
 
 #define iSTR_CreditsPathIB1		"resource/iscreen/text/eng/credits92.txt"
 #define iSTR_CreditsPathIB2		"resource/iscreen/text/rus/credits92.txt"
-
 
 #define iSTR_TITLE_AVTORS1		"MOD AUTHORS"
 #define iSTR_TITLE_AVTORS2		"ÄÇíéêõ ëãÖèäÄ"

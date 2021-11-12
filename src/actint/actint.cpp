@@ -28,12 +28,11 @@
 #include "layout.h"
 /* ----------------------------- STRUCT SECTION ----------------------------- */
 /* ----------------------------- EXTERN SECTION ----------------------------- */
+extern iScreenOption** iScrOpt;
 
 template <> void layout(invMatrix* view, int width, int height){
 	unsigned int anchor = view->anchor;
 	
-	extern iScreenOption** iScrOpt;
-
 	if(anchor & WIDGET_ANCHOR_INITIALIZED){
 		std::cout<<"  WARNING: layout is already done"<<std::endl;
 		return;

@@ -286,3 +286,17 @@
 
 #define iSTR_GameInfo			$iSTR_GameInfo1
 
+#define iSTR_CreditsPathA		$iSTR_CreditsPathA1
+#define iSTR_CreditsPathB		$iSTR_CreditsPathB1
+#define iSTR_CreditsPathCA		$iSTR_CreditsPathCA1
+#define iSTR_CreditsPathCB		$iSTR_CreditsPathCB1
+#define iSTR_CreditsPathDA		$iSTR_CreditsPathDA1
+#define iSTR_CreditsPathDB		$iSTR_CreditsPathDB1
+#define iSTR_CreditsPathEA		$iSTR_CreditsPathEA1
+#define iSTR_CreditsPathEB		$iSTR_CreditsPathEB1
+#define iSTR_CreditsPathF		$iSTR_CreditsPathF1
+#define iSTR_CreditsPathG		$iSTR_CreditsPathG1
+#define iSTR_CreditsPathH		$iSTR_CreditsPathH1
+#define iSTR_CreditsPathIA		$iSTR_CreditsPathIA1
+#define iSTR_CreditsPathIB		$iSTR_CreditsPathIB1
+
