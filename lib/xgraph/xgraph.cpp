@@ -151,19 +151,19 @@ int XGR_Screen::init(int x,int y,int flags_in)
 		}
 	}
 	std::cout<<"SDL_SetWindowTitle"<<std::endl;
-	SDL_SetWindowTitle(sdlWindow, "Vangers");
+	SDL_SetWindowTitle(sdlWindow, "Vangers: M4D");
 	
 	std::cout<<"Load and set icon"<<std::endl;
 #ifdef __APPLE__
 	IconSurface = SDL_LoadBMP("vangers_mac.bmp");
 #else
-	IconSurface = SDL_LoadBMP("vangers.bmp");
+	IconSurface = SDL_LoadBMP("vangers_M4D.bmp");
 #endif
 	if (IconSurface) {
 		SDL_SetWindowIcon(sdlWindow, IconSurface); 
 		SDL_FreeSurface(IconSurface);
 	} else {
-		std::cout<<"Can't load icon vangers.bmp"<<std::endl;
+		std::cout<<"Can't load icon vangers_M4D.bmp"<<std::endl;
 	}
 	std::cout<<"SDL_SetRenderDrawColor"<<std::endl;
 	SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);

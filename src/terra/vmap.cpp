@@ -4,11 +4,6 @@
 //#include <io.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <vector>
-
-#ifdef DEBUG_MAP_REQUESTS
-#include <cassert>
-#endif
 
 
 
@@ -25,7 +20,8 @@
 #include "../zmod_common.h"
 
 #include <iostream>
-
+#include "../iscreen/iscreen_options.h"
+#include "../iscreen/iscreen.h"
 
 #ifdef _ROAD_
 //#define FILEMAPPING
@@ -57,11 +53,13 @@ extern int NOISE_AMPL;
 extern int DEFAULT_TERRAIN;
 
 extern int TotalDrawFlag;
+extern int RAM16;
 extern const char* mapFName;
 
 extern int NetworkON;
 extern int zGameBirthTime;
 extern int CurrentWorld;
+extern iScreenOption** iScrOpt;
 
 /* --------------------------- PROTOTYPE SECTION --------------------------- */
 void restore(void);
@@ -107,11 +105,14 @@ uint PART_MAX;
 vrtMap* vMap;
 int KeepON = 0;
 
-extern constexpr int MAX_MAP_IN_MEMORY_POWER = 12; // 4096
 #ifdef _SURMAP_
-constexpr int MAX_LINE = MAX(2 << (MAX_MAP_IN_MEMORY_POWER - 1), 2 << 14);
+#if defined(EXTSCREEN) || defined(POSTER) || defined(ACTINT)
+int MAX_LINE = V_SIZE + 8;
 #else
-constexpr int MAX_LINE = MAX(2 << (MAX_MAP_IN_MEMORY_POWER - 1), 5000);
+int MAX_LINE = 3000;
+#endif
+#else
+int MAX_LINE = 3000; // 2050;
 #endif
 
 #ifdef SESSION
@@ -231,6 +232,8 @@ void YSetup(void)
 	TOR_YSIZE = TOR_POWER*map_size_y;
 	V_POWER = MAP_POWER_Y;
 	V_SIZE = map_size_y;
+	// if(V_POWER <= 11 && !RAM16)
+		MAX_LINE = V_SIZE + 2;
 
 	QUANT = 1 << POWER;
 	part_map_size_y = 1 << WPART_POWER;
@@ -250,6 +253,8 @@ void YSetup(void)
 
 void vMapInit(void)
 {
+	if(RAM16) MAX_LINE = 900;
+
 	vMap -> init();
 	Verbose = 0;
 
@@ -482,14 +487,14 @@ void vrtMap::sssReserve(void)
 {
 	int max = YCYCL(downLine + 1);
 	int i = upLine;
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) i = max = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) i = max = 0;
 	do {
 		changedT[i] = 1;
 		i = YCYCL(i + 1);
 	} while(i != max);
 	flush();
 	i = upLine;
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) i = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) i = 0;
 	do {
 		changedT[i] = 1;
 		i = YCYCL(i + 1);
@@ -500,7 +505,7 @@ void vrtMap::sssRestore(void)
 {
 	int max = YCYCL(downLine + 1);
 	int i = upLine;
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) i = max = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) i = max = 0;
 	do {
 		readLine(i,lineT[i]);
 		LINE_render(i);
@@ -620,6 +625,8 @@ void vrtMap::analyzeINI(const char* name)
 	const char* secStorage = "Storage";
 	const char* secRender = "Rendering Parameters";
 	const char* secPalette = "Dynamic Palette";
+	const char* secPaletteDoba = "Doba Cycle Dynamic Palette";
+	const char* secPaletteDobaEP = "Doba (eleepod bath) Cycle Dynamic Palette";
 	const char* secCreation = "Creation Parameters";
 
 	
@@ -670,43 +677,51 @@ void vrtMap::analyzeINI(const char* name)
 		for(i = 0;i < TERRAIN_MAX;i++)
 			buf >= ENDCOLOR[i];
 	}
+	
+	std::string palette_name = "Dynamic Palette";
+	if ((iGetOptionValue(iCYCLE_DOBA)) && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "баня элипода")==0)) {
+		palette_name = "Doba (eleepod bath) Cycle " + palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)) {
+		palette_name = "Doba Cycle " + palette_name;
+	}
 
 	pal_iter_init();
-	PAL_MAX = iniparser_getint(dict_name,"Dynamic Palette:Terrain Number", 0);
-	PAL_WAVE_TERRAIN = atoi(iniparser_getstring(dict_name,"Dynamic Palette:Wave Terrain", NULL));
+	PAL_MAX = iniparser_getint(dict_name,(palette_name + ":Terrain Number").c_str(), 0);
+	PAL_WAVE_TERRAIN = atoi(iniparser_getstring(dict_name,(palette_name + ":Wave Terrain").c_str(), NULL));
 	if(PAL_MAX > 0){
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Terrains", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Terrains").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_TERRAIN[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Speeds", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Speeds").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_SPEED[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Amplitudes", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Amplitudes").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_AMPL[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Red", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Red").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_RED[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Green", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Green").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++) 
 				b >= PAL_GREEN[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Blue", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Blue").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++) 
 				b >= PAL_BLUE[i];
@@ -988,16 +1003,24 @@ void vrtMap::reload(int nWorld)
 	LoadVPR();
 	RenderPrepare();
 
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) {
+#ifdef _ROAD_
+	if(MAP_POWER_Y <= 11)
 		accept(0, V_SIZE - 1);
-	} else {
+	else
 		accept(ViewY - 100, ViewY + 100);
-	}
+#else
+	if(MAP_POWER_Y <= 11)
+		accept(0,V_SIZE - 1);
+	else {
+		upLine = 1;
+		downLine = 0;
+		}
+#endif
 }
 
 void vrtMap::increase(int up,int down)
 {
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) return;
+	if(MAP_POWER_Y <= 11 && !RAM16) return;
 
 	up = YCYCL(up);
 	down = YCYCL(down);
@@ -1167,181 +1190,76 @@ void vrtMap::lockMem(void)
 		}
 }
 
+void vrtMap::another(int up,int down)
+{
+	up = YCYCL(up);
+	down = YCYCL(down);
+
+	delink(upLine,downLine);
+	if(isCompressed) linkC(up,down,1);
+	else link(up,down,1);
+
+	upLine = up;
+	downLine = down;
+	preViewY = ViewY;
+}
+
 void vrtMap::change(int up,int down)
 {
-	if (MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) {
-		// small word - keep it all time
-		// it's data is set using accept call
-		return;
-	}
-
+	int du,dd,req;
 	up = YCYCL(up);
 	down = YCYCL(down);
 
 #ifdef _SURMAP_
 	lastUpRq = up;
 	lastDownRq = down;
+
+	if(getDistY(up,downLine) > 0 || getDistY(upLine,down) > 0){
+		another(up,down);
+		return;
+		}
 #endif
-
-	unsigned int unlinkBorders[4];
-	unsigned int linkBorders[4];
-
-	if (upLine < downLine) {
-		unlinkBorders[0] = upLine;
-		unlinkBorders[1] = downLine;
-		unlinkBorders[2] = map_size_y;
-		unlinkBorders[3] = map_size_y;
-	} else {
-		unlinkBorders[0] = 0;
-		unlinkBorders[1] = downLine;
-		unlinkBorders[2] = upLine;
-		unlinkBorders[3] = map_size_y - 1;
+	du = getDistY(upLine, up);
+	dd = getDistY(downLine, down);
+	req = MAX(du, -dd);
+	// std::cout<<"vrtMap::change du:"<<du<<" dd:"<<dd<<" req:"<<req<<" up:"<<up<<" down:"<<down<<" upLine:"<<upLine<<" downLine:"<<downLine<<std::endl;
+	if (up > down) {
+		std::cout<<"vrtMap::change oposite order for request terrain"<<std::endl;
 	}
-
-	if (up < down) {
-		linkBorders[0] = up;
-		linkBorders[1] = down;
-		linkBorders[2] = map_size_y;
-		linkBorders[3] = map_size_y;
-	} else {
-		linkBorders[0] = 0;
-		linkBorders[1] = down;
-		linkBorders[2] = up;
-		linkBorders[3] = map_size_y - 1;
+	if (req > 0 && freeMax <= req + 1) {
+		if (du < 0) {
+			delink(upLine, upLine + req - 1);
+			upLine = YCYCL(upLine + req);
+		}
+		if (dd > 0) {
+			delink(downLine - req + 1, downLine);
+			downLine = YCYCL(downLine - req);
+		}
 	}
-
-	enum BorderType {
-		SKIP,
-		UNLINK,
-		LINK,
-	};
-
-	std::vector<std::pair<int, BorderType>> borders;
-	borders.reserve(9);
-	borders.emplace_back(-1, SKIP);
-
-	int unlinkIndex = 0;
-	int linkIndex = 0;
-	bool unlinkOpened = false;
-	bool linkOpened = false;
-	while (unlinkIndex < 4 || linkIndex < 4) {
-		unsigned int unlinkBorder = unlinkIndex < 4 ? unlinkBorders[unlinkIndex] : map_size_y;
-		unsigned int linkBorder = linkIndex < 4 ? linkBorders[linkIndex] : map_size_y;
-
-		unsigned int border;
-		unsigned int borderOpening;
-
-		if (linkBorder == unlinkBorder) {
-			border = unlinkBorder;
-			unlinkOpened = unlinkIndex % 2 == 0;
-			linkOpened = linkIndex % 2 == 0;
-			unlinkIndex++;
-			linkIndex++;
-		} else if (linkBorder < unlinkBorder) {
-			border = linkBorder;
-			linkOpened = linkIndex % 2 == 0;
-			linkIndex++;
+	if (req < 0 && du < 0 && freeMax <= abs(du) + 1) {
+		delink(upLine, up - 1);
+		upLine = YCYCL(up);
+	}
+	if (req < 0 && dd > 0 && freeMax <= abs(dd) + 1) {
+		delink(down + 1, downLine);
+		downLine = YCYCL(down);
+	}
+	if (du > 0) {
+		if (isCompressed) {
+			linkC(up, upLine - 1, 1);
 		} else {
-			border = unlinkBorder;
-			unlinkOpened = unlinkIndex % 2 == 0;
-			unlinkIndex++;
+			link(up, upLine - 1, 1);
 		}
-
-		BorderType borderType = linkOpened == unlinkOpened ? SKIP :
-								(linkOpened ? LINK : UNLINK);
-
-		if (borderType != borders[borders.size() - 1].second) {
-			borders.emplace_back(border, borderType);
-		}
+		upLine = up;
 	}
-
-#ifdef DEBUG_MAP_REQUESTS
-	std::cout << "map request [" << up << " .. " << down << "] current [" << upLine << " .. " << downLine << "]" << std::endl;
-#endif
-
-	// starting from 2, because 1st is always SKIP type
-	// first run for unlink, second for link
-	for (int run = 0; run < 2; ++run) {
-		for (int i = 2; i < borders.size(); ++i) {
-			unsigned int up = borders[i - 1].first;
-			unsigned int down = borders[i].first;
-#ifdef DEBUG_MAP_REQUESTS
-			assert(up <= down);
-#endif
-
-			switch (borders[i - 1].second) {
-			case SKIP: {
-#ifdef DEBUG_MAP_REQUESTS
-				if (run == 0) {
-					std::cout << "skip [" << up << " .. " << down << "]" << std::endl;
-				}
-#endif
-			}
-				break;
-			case LINK: {
-				if (run == 0) {
-#ifdef DEBUG_MAP_REQUESTS
-					std::cout << "link [" << up << " .. " << down << "]" << std::endl;
-#endif
-					continue;
-				}
-				if (isCompressed) {
-					linkC(up, down, 1);
-				} else {
-					link(up, down, 1);
-				}
-			}
-				break;
-			case UNLINK: {
-				if (run != 0) {
-					continue;
-				}
-
-				// check the corner cases
-				if ((up >= linkBorders[0] && up <= linkBorders[1]) ||
-					(up >= linkBorders[2] && up <= linkBorders[3])) {
-					up++;
-				}
-				if ((down >= linkBorders[0] && down <= linkBorders[1]) ||
-					(down >= linkBorders[2] && down <= linkBorders[3])) {
-					down--;
-				}
-
-				if (up <= down) {
-#ifdef DEBUG_MAP_REQUESTS
-					auto prevMax = freeMax;
-					std::cout << "unlink [" << up << " .. " << down << "] free nodes before: " << freeMax;
-#endif
-					delink(up, down);
-#ifdef DEBUG_MAP_REQUESTS
-					std::cout << " after: " << freeMax << std::endl;
-					if (prevMax == freeMax) {
-						std::cout << "err! unlink memory leak" << std::endl;
-						delink(up, down); // for debug
-					}
-#endif
-				}
-			}
-				break;
-			}
+	if (dd < 0) {
+		if (isCompressed) {
+			linkC(downLine + 1, down, 1);
+		} else {
+			link(downLine + 1, down, 1);
 		}
+		downLine = down;
 	}
-
-#ifdef DEBUG_MAP_REQUESTS
-	std::cout << "validating..." << std::endl;
-	for (int i = 0; i < map_size_y; ++i) {
-		bool shouldExists = (i >= linkBorders[0] && i <= linkBorders[1]) ||
-							(i >= linkBorders[2] && i <= linkBorders[3]);
-		if (shouldExists != (lineTcolor[i] != nullptr)) {
-			std::cout << "map error line [" << i << "] " << (shouldExists ? " should be loaded " : " should be unloaded") << " but NOT!" << std::endl;
-			assert(false);
-		}
-	}
-	std::cout << "map updated, free nodes " << freeMax << std::endl;
-#endif
-
-	upLine = up;
-	downLine = down;
 }
 
 void vrtMap::updownSetup(void)
@@ -1357,7 +1275,10 @@ void vrtMap::updownSetup(void)
 
 void vrtMap::request(int up,int down,int left, int right)
 {
-	change(up,down);
+#ifdef _SURMAP_
+	if(MAP_POWER_Y > 10)
+#endif
+		change(up,down);
 }
 
 void vrtMap::quant(void)
@@ -1421,6 +1342,9 @@ inline void vrtMap::unuse_c(int i)
 
 void vrtMap::link(int up, int down, int d)
 {
+	//std::cout<<"vrtMap::link"<<std::endl;
+	if(MAP_POWER_Y <= 11 && !RAM16) return;
+
 	up = YCYCL(up);
 	down = YCYCL(down);
 	std::cout<<"vrtMap::link up:"<<up<<" down:"<<down<<std::endl;
@@ -1476,6 +1400,10 @@ void vrtMap::link(int up, int down, int d)
 
 void vrtMap::linkC(int up,int down,int d)
 {
+	if(MAP_POWER_Y <= 11 && !RAM16) {
+		std::cout<<"vrtMap::linkC MAP_POWER_Y <= 11"<<std::endl;
+		return;
+	}
 	up = YCYCL(up);
 	down = YCYCL(down);
 	if (up > down) {
@@ -1557,6 +1485,7 @@ if (NetworkON && zMod_flood_level_delta!=0) {
 void vrtMap::delink(int up, int down)
 {
 	static int keeped = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) return;
 	up = YCYCL(up);
 	down = YCYCL(down);
 	// std::cout<<"vrtMap::delink up:"<<up<<" down:"<<down<<std::endl;
@@ -1627,7 +1556,7 @@ void vrtMap::refresh(void)
 	int off;
 	int max = YCYCL(downLine + 1);
 	int i = upLine;
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) i = max = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) i = max = 0;
 	do {
 		if(lineT[i]){
 #ifdef SESSION
@@ -1660,7 +1589,7 @@ void vrtMap::flush(void)
 	int max = YCYCL(downLine + 1);
 	int m;
 	int i = upLine;
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) i = max = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) i = max = 0;
 	do {
 		if(lineT[i] && changedT[i]){
 			changedT[i] = 0;
@@ -1697,13 +1626,13 @@ void vrtMap::screenRender(void)
 	//std::cout<<"vrtMap::screenRender"<<std::endl;
 	int max = YCYCL(downLine + 1);
 	int i = upLine;
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER) i = max = 0;
+	if(MAP_POWER_Y <= 11 && !RAM16) i = max = 0;
 	do {
 		changedT[i] = 1;
 		i = YCYCL(i + 1);
 	} while(i != max);
 
-	if(MAP_POWER_Y <= MAX_MAP_IN_MEMORY_POWER)
+	if(MAP_POWER_Y <= 11 && !RAM16)
 		WORLD_colcalc(0,V_SIZE - 1);
 	else
 		WORLD_colcalc(YCYCL(upLine + 1),downLine);
@@ -1969,11 +1898,9 @@ void vrtMap::scaling(int XSrcSize,int cx,int cy,int xc,int yc,int xside,int ysid
 				fx = tfx;
 				fy = tfy;
 				data = ltc[YCYCL(fy >> 16)];
-				if (data) {
-					for (j = 0; j < xsize; j++, vp++) {
-						*vp = *(data + XCYCL(fx >> 16));
-						fx += k_xscr_x;
-					}
+				for(j = 0;j < xsize;j++,vp++) {
+					*vp = *(data + XCYCL(fx >> 16));
+					fx += k_xscr_x;
 				}
 				tfy += k_yscr_y;
 				vp += XADD;

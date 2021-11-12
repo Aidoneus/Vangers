@@ -373,21 +373,16 @@ void showModal(char* fname, float reelW, float reelH, float screenW, float scree
 
 
 int xtInitApplication(void) {
-    XGraphWndID = "VANGERS";
+    XGraphWndID = "VANGERS: MORE FOR DEATH";
     char *tmp;
 
 #ifdef _DEMO_
     std::cout<<"\""<<XGraphWndID<<": One For The Road\" Cover Demo by K-D Lab (SDL Version)\n";
 #else
-    if (lang() == GERMAN) {
-        std::cout << "\"" << XGraphWndID << "\" by K-D Lab (SDL Version)\n";
-        std::cout << "Release (DE)\n";
-    } else if (lang() == RUSSIAN) {
-        std::cout << "\"" << XGraphWndID << "\" by K-D Lab (SDL Version)\n";
-        std::cout << "Release (RUS)\n";
+    if (lang() == RUSSIAN) {
+        std::cout << "\"" << XGraphWndID << "\". ‚…‘ˆŸ 1.04, €’— 3 (12.11.2021)\n";
     } else {
-        std::cout << "\"" << XGraphWndID << ": One For The Road\" by K-D Lab (SDL Version)\n";
-        std::cout << "Release (ENG)\n";
+		std::cout << "\"" << XGraphWndID << "\". VERSION 1.04, PATCH 3 (11.12.2021)\n";
     }
 #ifdef BETA_TESTING
     std::cout<<nVER<<"\n";
