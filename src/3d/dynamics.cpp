@@ -2954,19 +2954,19 @@ void Object::mechous_analysis(double dt)
 	int i;
 	dt *= speed_correction_factor;
 	if(Status & SOBJ_AUTOMAT){
-		if(jump_power && ++jump_power > max_jump_power && 
+		if(jump_power && ++jump_power > max_jump_power 
 		#ifndef _SURMAP_
-		!(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))
+		&& !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))
 		#endif
 		) {
 			jump();
 		}
 	} else {
-		if(jump_power && CheckStartJump(this) &&
+		if(jump_power && CheckStartJump(this) 
 		#ifndef _SURMAP_
-		!(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))
+		&& !(NetworkON && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(),"баня элипода")==0))
 		#endif
-		){
+		) {
 			jump();
 			if(active)
 				SOUND_KIDPUSH();
