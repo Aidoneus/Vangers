@@ -1075,7 +1075,7 @@ void uvsContimer::Quant(void){
 		}
 	}
 	char *start_message = (char*)"[bot]> > > ‘’€’! > > >";
-		if (extern int isRollcall; rollcallNum == players_list.size()) {
+		if (rollcallNum == players_list.size()) {
 			message_dispatcher.send(start_message, MESSAGE_FOR_PLAYER, 0);
 			isRollcall=-1;
 			rollcallNum=0;

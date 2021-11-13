@@ -1353,8 +1353,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 	}  
 	else if ((strcmp(msg, "ï")==0 || strcmp(msg, "z")==0 || strcmp(msg, "Ÿ")==0 || strcmp(msg, "Z")==0) && isRollcall>-1) {
 		name = (char*)player_name;
-		char *ReadyPlayer = (char*)"(ƒŽ’Ž‚)";
-        actual_msg = msg, ReadyPlayer;
+        actual_msg = msg;
         actual_col = 5;
 		rollcallNum += 1;
 	}
