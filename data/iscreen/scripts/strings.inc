@@ -218,7 +218,7 @@
 #define iSTR_Searching_Servers2 	"ПОИСК СЕРВЕРОВ ЧЕРЕЗ ЛИНЗУ"
 
 #define iSTR_Please_wait1		"Please wait"
-#define iSTR_Please_wait2		"Ждите соеднинения"
+#define iSTR_Please_wait2		"Ждите соединения"
 
 
 #define iSTR_Player_Settings1		"Player Settings"
@@ -406,8 +406,8 @@
 #define iSTR_HOST_NAME1 		"SERVER NAME:"
 #define iSTR_HOST_NAME2 		"АДРЕС СЕРВЕРА:"
 
-#define iSTR_Internet_Servers1		"Available servers"
-#define iSTR_Internet_Servers2		"Доступные сервера"
+#define iSTR_Internet_Servers1		"List Available Games"
+#define iSTR_Internet_Servers2		"Список Доступных Игр"
 
 
 #define iSTR_Game_Results1		"Game Results"

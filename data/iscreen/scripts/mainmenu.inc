@@ -1,23 +1,29 @@
 
 // MainMenu...
-#define EXIT_X1 		476
-#define EXIT_Y1 		385
+#define EXIT_X1 		520
+#define EXIT_Y1 		417
 
 #define VERSION_NAZVA_X1 		525
 #define VERSION_NAZVA_Y1 		540
 
-#define VERSION_CIFRA_X1 		620
+#define VERSION_CIFRA_X1 		630
 #define VERSION_CIFRA_Y1 		540
 
+#define CREDITS_X1		240
+#define CREDITS_Y1		337
+
 //426
-#define EXIT_X2 		476
-#define EXIT_Y2 		385
+#define EXIT_X2 		530
+#define EXIT_Y2 		417
 
 #define VERSION_NAZVA_X2 		115
 #define VERSION_NAZVA_Y2 		395
 
 #define VERSION_CIFRA_X2 		215
 #define VERSION_CIFRA_Y2 		405
+
+#define CREDITS_X2		80
+#define CREDITS_Y2		337
 
 // Graphics options...
 #define KEEP_STR_X1		90
