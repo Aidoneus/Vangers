@@ -781,6 +781,7 @@ void iPrepareOptions(void)
 	
 	iScrOpt[iFULLSCREEN] = new iScreenOption(iTRIGGER,0,"Graphics screen","FullScreenTrig");
 	((iTriggerObject *)iScrOpt[iFULLSCREEN]->objPtr)->callback = &iSetFullscreen;
+	iScrOpt[iSCREEN_RESOLUTION] = new iScreenOption(iTRIGGER,0,"Graphics screen","ResTrig");
 	((iTriggerObject *)iScrOpt[iSCREEN_RESOLUTION]->objPtr)->callback = &iSetResolution;
 
 
