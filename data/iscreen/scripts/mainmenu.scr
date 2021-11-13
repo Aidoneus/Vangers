@@ -2423,7 +2423,7 @@ Screen "Graphics screen"
 		}
 	}
 	Trigger "CycleDobaTrig" {
-		x	{ $KEEP_TRG_X - 40 }
+		x	{ $KEEP_TRG_X - 55 }
 		y	{ $GRAPHICS_SCR_START_Y + $GRAPHICS_SCR_DELTA_Y * 6 }
 
 		num_state	4
