@@ -78,14 +78,6 @@ extern NetRndType NetRnd;
 extern int ChangeArmor;
 extern int dgAbortStatus;
 
-extern int is_start;
-int rollcallTime = 0;
-int rollcallNum = 0;
-
-extern int isRollcall;
-extern int rollcallNum;
-extern char* rollcallNicknames;
-
 void LoadingMessage(int flush = 0);
 void ChangeVanger(void);
 /* --------------------------- PROTOTYPE SECTION --------------------------- */
@@ -1074,18 +1066,6 @@ void uvsContimer::Quant(void){
 			}
 		}
 	}
-	char *start_message = (char*)"[bot]> > > ‘’€’! > > >";
-		if (isRollcall==0 && (rollcallNum == players_list.size())) {
-			message_dispatcher.send(start_message, MESSAGE_FOR_PLAYER, 0);
-			isRollcall=-1;
-			rollcallNum=0;
-		}
-	
-// IDK for what this needed
-//	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
-//	if (NetworkON && is_start != 1 && is_start != 7 && countFromCommand != 0) {
-//		countFromCommand=0;
-//	}
 }
 
 char* uvsContimer::GetTime(void){
