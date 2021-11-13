@@ -593,7 +593,7 @@ void iQuantFirst(void)
         iSetOptionValueCHR(iPLAYER_NAME2, (lang() == RUSSIAN ? "ВанГер" : "Vanger"));
         iSetOptionValueCHR(iPLAYER_PASSWORD, iSTR_DefaultPassword);
         iSetOptionValueCHR(iHOST_NAME, "vangers.net");
-        iSetOptionValueCHR(iSERVER_NAME, iSTR_NONE);
+        iSetOptionValueCHR(iSERVER_NAME, (lang() == RUSSIAN ? "Моя первая игра!" : "My first game!"));
         iSetOptionValueCHR(iPROXY_SERVER, "192.1.1.1");
         iSetOptionValueCHR(iPROXY_PORT, "1080");
         iSetOptionValueCHR(iSERVER_PORT, "2197");

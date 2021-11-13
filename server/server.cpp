@@ -1807,7 +1807,7 @@ int Server::quant() {
 			g = g->next;
 		}
 		consoleReport(n_players);
-		if (time_to_live && !(transferring | games.size() | n_players | clients.size())) {
+		if (time_to_live && !(transferring | (games.size() == 0) | n_players | clients.size())) {
 			if (!time_to_destroy)
 				time_to_destroy = SDL_GetTicks() + time_to_live * 1000;
 		} else
