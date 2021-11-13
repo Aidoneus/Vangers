@@ -1395,7 +1395,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
     time = SDL_GetTicks();
 }
 
-void MessageDispatcher::send(char* message,int mode,int parameter,int color=-1)
+void MessageDispatcher::send(char* message,int mode,int parameter,int color)
 {
 	unsigned int cors;
 	switch(mode){
