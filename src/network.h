@@ -119,7 +119,7 @@ struct MessageDispatcher : XList {
 	MessageDispatcher(int max_num_messages = 15) : XList() { max_number_of_messages = max_num_messages; }
 	MessageElement* first(){ return (MessageElement*)fPtr; }
 	MessageElement* last(){ return (MessageElement*)lPtr; }
-	void send(char* message,int mode,int parameter,int color=-1);
+	void send(char* message,int mode,int parameter,int color;
 	void receive();
 	};
 	
