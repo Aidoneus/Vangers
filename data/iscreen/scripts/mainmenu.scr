@@ -1111,7 +1111,7 @@ Object "Multiplayer Option"
 
 			font		0
 			null_level	$DEFAULT_NULL
-			string		"1.04"
+			string		"1.05  Beta"
 		}
 		Event {
 			key $VK_LBUTTON
@@ -2423,13 +2423,36 @@ Screen "Graphics screen"
 		}
 	}
 	Trigger "CycleDobaTrig" {
-		x	$KEEP_TRG_X
+		x	{ $KEEP_TRG_X - 40 }
 		y	{ $GRAPHICS_SCR_START_Y + $GRAPHICS_SCR_DELTA_Y * 6 }
 
-		num_state	2
+		num_state	4
 
 		null_level	$DEFAULT_NULL
+		
+		State 3 "STRING"{
+			align_x center
+			align_y center
 
+			font		$GRAPHICS_FONT
+			space		$OPTION_SPACE
+			terrain_num	$TERRAIN4
+
+			string		$iSTR_OFF
+			null_level	$DEFAULT_NULL
+		}
+
+		State 2 "STRING"{
+			align_x center
+			align_y center
+
+			font		$GRAPHICS_FONT
+			space		$OPTION_SPACE
+			terrain_num	$TERRAIN4
+
+			string		$iSTR_CYCLE_DOBA_OLD
+			null_level	$DEFAULT_NULL
+		}
 		State 1 "STRING"{
 			align_x center
 			align_y center
@@ -2438,7 +2461,7 @@ Screen "Graphics screen"
 			space		$OPTION_SPACE
 			terrain_num	$TERRAIN4
 
-			string		$iSTR_ON
+			string		$iSTR_CYCLE_DOBA_CLASSIC	
 			null_level	$DEFAULT_NULL
 		}
 		State 0 "STRING"{
@@ -2449,7 +2472,7 @@ Screen "Graphics screen"
 			space		$OPTION_SPACE
 			terrain_num	$TERRAIN4
 
-			string		$iSTR_OFF
+			string		$iSTR_CYCLE_DOBA_NEW
 			null_level	$DEFAULT_NULL
 		}
 		Event {
@@ -2463,7 +2486,7 @@ Screen "Graphics screen"
 			}
 			EvComm {
 				ext_event	$iEXT_INIT_KEEP_OPTIONS 0
-				start_time	{ $TRIGGER_TIME / 2 }
+				start_time	{ $TRIGGER_TIME / 4 }
 			}
 		}
 	}

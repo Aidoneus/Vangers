@@ -623,6 +623,7 @@ void vrtMap::analyzeINI(const char* name)
 	const char* secRender = "Rendering Parameters";
 	const char* secPalette = "Dynamic Palette";
 	const char* secPaletteDoba = "Doba Cycle Dynamic Palette";
+	const char* secPaletteDobaOld = "Doba Cycle (Old) Dynamic Palette";
 	const char* secPaletteDobaEP = "Doba (eleepod bath) Cycle Dynamic Palette";
 	const char* secCreation = "Creation Parameters";
 
@@ -680,8 +681,17 @@ void vrtMap::analyzeINI(const char* name)
 	if ((iGetOptionValue(iCYCLE_DOBA)) && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "баня элипода")==0)) {
 		palette_name = "Doba (eleepod bath) Cycle " + palette_name;
 	}
-	else if (iGetOptionValue(iCYCLE_DOBA)) {
+	else if (iGetOptionValue(iCYCLE_DOBA)==0) {
 		palette_name = "Doba Cycle " + palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==1) {
+		palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==2) {
+		palette_name = "Doba Cycle (Old) " + palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==3) {
+		palette_name = " " + palette_name;
 	}
 	#endif
 

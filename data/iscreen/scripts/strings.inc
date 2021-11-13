@@ -119,8 +119,19 @@
 #define iSTR_CLEAN_UP1			"CLEAN UP!"
 #define iSTR_CLEAN_UP2			"‘‚„’!"
 
+
 #define iSTR_CYCLE_DOBA1				"DOBA CYCLES:"
 #define iSTR_CYCLE_DOBA2				"–‹› „›:"
+
+#define iSTR_CYCLE_DOBA_NEW1				"NEW"
+#define iSTR_CYCLE_DOBA_NEW2				"‚›…"
+
+#define iSTR_CYCLE_DOBA_OLD1				"OLD"
+#define iSTR_CYCLE_DOBA_OLD2				"‘’€›…"
+
+#define iSTR_CYCLE_DOBA_CLASSIC1				"VANILLA"
+#define iSTR_CYCLE_DOBA_CLASSIC2				"‚€‹›…"
+
 
 #define iSTR_Sound_Options1		"Sound Options"
 #define iSTR_Sound_Options2		" αβΰ®©ª  §Άγª "
