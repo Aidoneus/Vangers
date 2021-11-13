@@ -22,7 +22,7 @@
 #include <algorithm>
 
 bool isRollcall = false;
-std::vector rollcallNicknames;
+std::vector<char*> rollcallNicknames;
 int rollcall_players;
 
 /*****************************************************************
@@ -1366,10 +1366,10 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
         actual_col = 5;
 
 		if (std::find(rollcallNicknames.begin(), rollcallNicknames.end(), player_name) == rollcallNicknames.end()) {
-			rollcallNicknames.push_back(player_name);
+			rollcallNicknames.push_back((char*)player_name);
 		}
 
-		if (rollcallNicknames.length() == rollcall_players) {
+		if (rollcallNicknames.size() == rollcall_players) {
 			char* start_msg = (char*)"> > > ‘’€’! > > >";
 			message_dispatcher.send(start_msg, MESSAGE_FOR_PLAYER, 0);
 			
