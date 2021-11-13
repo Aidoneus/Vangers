@@ -1370,12 +1370,11 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		}
 
 		if (rollcallNicknames.size() == rollcall_players) {
-			char* start_msg = (char*)"> > > ‘’€’! > > >";
-			message_dispatcher.send(start_msg, MESSAGE_FOR_PLAYER, 0);
+			message_dispatcher.send(actual_msg, MESSAGE_FOR_PLAYER, 0, actual_col);
 			
-			name = (char*)player_name;
-			actual_msg = msg;
-			actual_col = 5;
+			name = (char*)"$";
+			actual_msg = (char*)"> > > ‘’€’! > > >";
+			actual_col = 1;
 
 			isRollcall = false;
 			rollcallNicknames.clear();
@@ -1396,7 +1395,7 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
     time = SDL_GetTicks();
 }
 
-void MessageDispatcher::send(char* message,int mode,int parameter)
+void MessageDispatcher::send(char* message,int mode,int parameter,int color=-1)
 {
 	unsigned int cors;
 	switch(mode){
@@ -1415,7 +1414,14 @@ void MessageDispatcher::send(char* message,int mode,int parameter)
 	events_out.end_body();
 	events_out.send(1);
 
-	MessageElement* p = new MessageElement(CurPlayerName, message, my_player_body.color);
+	MessageElement* p;
+	if (color != -1) {
+		p = new MessageElement(CurPlayerName, message, color);
+	}
+	else {
+		p = new MessageElement(CurPlayerName, message, my_player_body.color);
+	}
+
 	AddElement(p);
 	if(ListSize > max_number_of_messages){
 		RemoveElement(p = first());
