@@ -1111,7 +1111,7 @@ Object "Multiplayer Option"
 
 			font		0
 			null_level	$DEFAULT_NULL
-			string		"1.05  Beta"
+			string		"1.05"
 		}
 		Event {
 			key $VK_LBUTTON
@@ -2423,7 +2423,7 @@ Screen "Graphics screen"
 		}
 	}
 	Trigger "CycleDobaTrig" {
-		x	{ $KEEP_TRG_X - 55 }
+		x	$DOBA_TRIG_X
 		y	{ $GRAPHICS_SCR_START_Y + $GRAPHICS_SCR_DELTA_Y * 6 }
 
 		num_state	4

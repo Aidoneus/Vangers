@@ -3,6 +3,9 @@
 #define EXIT_X1 		520
 #define EXIT_Y1 		417
 
+#define DOBA_TRIG_X1		565
+#define DOBA_TRIG_X2		555
+
 #define VERSION_NAZVA_X1 		525
 #define VERSION_NAZVA_Y1 		540
 

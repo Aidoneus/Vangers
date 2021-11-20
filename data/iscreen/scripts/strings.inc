@@ -712,17 +712,17 @@
 #define iSTR_2_AVTORS2		"xiada[kiv]"
 
 #define iSTR_3_AVTORS1		"Haedes[kiv]"
-#define iSTR_3_AVTORS2		"АИД[kiv]"
+#define iSTR_3_AVTORS2		"Аид[kiv]"
 
 
 #define iSTR_1b_AVTORS1		"Creator"
 #define iSTR_1b_AVTORS2		"Инф-Создатель"
 
-#define iSTR_2b_AVTORS1		"help with coding"
-#define iSTR_2b_AVTORS2		"Огромная помощь в работе с инф-кодом"
+#define iSTR_2b_AVTORS1		"Junior author"
+#define iSTR_2b_AVTORS2		"Инф-Соавтор"
 
-#define iSTR_3b_AVTORS1		"help with coding"
-#define iSTR_3b_AVTORS2		"Не менее огромная помощь в инф-коде"
+#define iSTR_3b_AVTORS1		"Just a Haedes"
+#define iSTR_3b_AVTORS2		"Просто Инф-Аид"
 
 #define iSTR_PROMOD01		"resource/iscreen/text/eng/promod0.txt"
 #define iSTR_PROMOD02		"resource/iscreen/text/rus/promod0.txt"

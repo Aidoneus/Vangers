@@ -5,6 +5,8 @@
 #define Graphics_screen_CleanUpObj_PosX 	$Graphics_screen_CleanUpObj_PosX1
 #define Graphics_screen_InUseObj_PosX		$Graphics_screen_InUseObj_PosX1
 
+#define DOBA_TRIG_X		$DOBA_TRIG_X1
+
 #define EXIT_X		$EXIT_X1
 #define EXIT_Y		$EXIT_Y1
 
