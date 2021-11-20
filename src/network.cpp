@@ -195,7 +195,17 @@ ServerFindChain::ServerFindChain(int IP,int port,char* domain_name,int game_ID,c
 	list = 0;
 	XBuffer str_buf;
 	if(!game_ID) {
-	    if (lang() == RUSSIAN) {
+		if (RND(100) == 99) {
+				str_buf < " ¦¨¬ î ­  ­®¢ ï ¨£à ,   ®­  ­¥ ¨£à ¥â        ";
+			}
+		else if (RND(10) == 1) {
+			if (lang() == RUSSIAN) {
+				str_buf < "‘â à ï ¨£à  ­  ";
+			} else {
+				str_buf < "Old Game on ";
+			}
+		}
+	    else if (lang() == RUSSIAN) {
 			//CP866 ÐÐ¾Ð²Ð°Ñ Ð¸Ð³Ñ€Ð° Ð½Ð°
 			const unsigned char new_game_on[] = {0x8D, 0xAE, 0xA2, 0xA0, 0xEF, 0x20, 0xA8, 0xA3, 0xE0, 0xA0, 0x20, 0xAD, 0xA0, 0x20, 0x00};
 			str_buf < (const char *)new_game_on;
@@ -205,6 +215,9 @@ ServerFindChain::ServerFindChain(int IP,int port,char* domain_name,int game_ID,c
 	}
 	if(!game_name)
 		if(domain_name)
+			if (RND(100) == 98) {
+			str_buf < domain_name < " ­¥ à ¡®â ¥â";
+			} else
 			str_buf < domain_name;
 		else
 			str_buf <= (IP & 0xff) < "." <= ((IP >> 8) & 0xff) < "." <= ((IP >> 16) & 0xff) < "." <= ((IP >> 24) & 0xff);
@@ -1370,14 +1383,14 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		}
 
 		if (rollcallNicknames.size() == rollcall_players) {
-			isRollcall = false;
-			rollcallNicknames.clear();
-
 			message_dispatcher.send(actual_msg, MESSAGE_FOR_PLAYER, 0, actual_col);
 			
 			name = (char*)"$";
 			actual_msg = (char*)"> > > ‘’€’! > > >";
 			actual_col = 1;
+
+			isRollcall = false;
+			rollcallNicknames.clear();
 		}
 	}
 	else {
@@ -1414,10 +1427,13 @@ void MessageDispatcher::send(char* message,int mode,int parameter,int color)
 	events_out.end_body();
 	events_out.send(1);
 
-	if (color == -1) {
-		color = my_player_body.color;
+	MessageElement* p;
+	if (color != -1) {
+		p = new MessageElement(CurPlayerName, message, color);
 	}
-	MessageElement* p = new MessageElement(CurPlayerName, message, color);
+	else {
+		p = new MessageElement(CurPlayerName, message, my_player_body.color);
+	}
 
 	AddElement(p);
 	if(ListSize > max_number_of_messages){
