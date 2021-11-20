@@ -2325,7 +2325,7 @@ void iHandleExtEvent(int code,int data)
 			iServersListDown();
 			break;
 		case iEXT_SAVE_GAME:
-			if(actIntLog && !iPause && !NetworkON){
+			if(actIntLog && !iPause){
 				if(!(aScrDisp -> flags & AS_INV_MOVE_ITEM)){
 					iPause = 1;
 					acsScreenID = aScrDisp -> curLocData -> SaveScreenID;
