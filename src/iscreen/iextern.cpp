@@ -1667,10 +1667,8 @@ void iGetMultiGameParameters(void)
 	switch(iCurMultiGame){
 		case iMP_VAN_WAR:
 			value = iGetMultiGameParameter(iMP_VAN_WAR,iMP_INITIAL_CASH);
-			if(strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) value = 999999;
 			if(strcmp(game_name,"super van-war")==0 || strcmp(game_name,"супер ван-вар")==0) value = -35000;
 			if(strcmp(game_name,"speed konoval")==0) value = 12500;
-			if(strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) value = 999999;
 			if(strcmp(game_name,"new soup")==0 || strcmp(game_name,"новый суп")==0) value = 6500;
 			if(strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) value = 35700;
 			my_server_data.Van_War.InitialCash = value;
