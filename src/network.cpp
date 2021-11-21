@@ -1383,14 +1383,14 @@ MessageElement::MessageElement(const char* player_name, char* msg,int col)
 		}
 
 		if (rollcallNicknames.size() == rollcall_players) {
+			isRollcall = false;
+			rollcallNicknames.clear();
 			message_dispatcher.send(actual_msg, MESSAGE_FOR_PLAYER, 0, actual_col);
 			
 			name = (char*)"$";
 			actual_msg = (char*)"> > > ‘’€’! > > >";
 			actual_col = 1;
 
-			isRollcall = false;
-			rollcallNicknames.clear();
 		}
 	}
 	else {
@@ -1427,13 +1427,10 @@ void MessageDispatcher::send(char* message,int mode,int parameter,int color)
 	events_out.end_body();
 	events_out.send(1);
 
-	MessageElement* p;
-	if (color != -1) {
-		p = new MessageElement(CurPlayerName, message, color);
+	if (color == -1) {
+		color = my_player_body.color;
 	}
-	else {
-		p = new MessageElement(CurPlayerName, message, my_player_body.color);
-	}
+	MessageElement* p = new MessageElement(CurPlayerName, message, color);
 
 	AddElement(p);
 	if(ListSize > max_number_of_messages){
