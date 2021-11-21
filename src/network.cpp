@@ -1427,7 +1427,6 @@ void MessageDispatcher::send(char* message,int mode,int parameter,int color)
 	events_out.end_body();
 	events_out.send(1);
 
-	MessageElement* p;
 	if (color == -1) {
 		color = my_player_body.color;
 	}
