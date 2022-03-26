@@ -14,6 +14,18 @@
 #define iSTR_MAIN_MENU		$iSTR_MAIN_MENU2
 #define iSTR_HALL_OF_FAME	$iSTR_HALL_OF_FAME2
 
+#define iSTR_TITLE_AVTORS	$iSTR_TITLE_AVTORS2
+#define iSTR_1_AVTORS		$iSTR_1_AVTORS2
+#define iSTR_2_AVTORS		$iSTR_2_AVTORS2
+#define iSTR_3_AVTORS		$iSTR_3_AVTORS2
+#define iSTR_1b_AVTORS		$iSTR_1b_AVTORS2
+#define iSTR_2b_AVTORS		$iSTR_2b_AVTORS2
+#define iSTR_3b_AVTORS		$iSTR_3b_AVTORS2
+
+#define iSTR_PROMOD0		$iSTR_PROMOD02	
+#define iSTR_PROMOD1		$iSTR_PROMOD12
+#define iSTR_MOREA		$iSTR_MOREA2
+
 #define iSTR_Options		$iSTR_Options2
 #define iSTR_GRAPHICS		$iSTR_GRAPHICS2
 #define iSTR_SOUND		$iSTR_SOUND2
@@ -38,6 +50,11 @@
 #define iSTR_FULL_SCREEN	$iSTR_FULL_SCREEN2
 #define iSTR_DISK_SPACE_IN_USE		$iSTR_DISK_SPACE_IN_USE2
 #define iSTR_CLEAN_UP			$iSTR_CLEAN_UP2
+
+#define iSTR_CYCLE_DOBA			$iSTR_CYCLE_DOBA2
+#define iSTR_CYCLE_DOBA_NEW				$iSTR_CYCLE_DOBA_NEW2
+#define iSTR_CYCLE_DOBA_OLD				$iSTR_CYCLE_DOBA_OLD2
+#define iSTR_CYCLE_DOBA_CLASSIC				$iSTR_CYCLE_DOBA_CLASSIC2
 
 #define iSTR_Sound_Options		$iSTR_Sound_Options2
 #define iSTR_SOUND_EFFECTS		$iSTR_SOUND_EFFECTS2
@@ -242,6 +259,19 @@
 #define iSTR_JoystickSteeringWheel	$iSTR_JoystickSteeringWheel2
 #define iSTR_JoystickAlternFnc		$iSTR_JoystickAlternFnc2
 #define iSTR_JoystickBUTTON1		$iSTR_JoystickBUTTON12
+#define iSTR_CreditsPathA		$iSTR_CreditsPathA2
+#define iSTR_CreditsPathB		$iSTR_CreditsPathB2
+#define iSTR_CreditsPathCA		$iSTR_CreditsPathCA2
+#define iSTR_CreditsPathCB		$iSTR_CreditsPathCB2
+#define iSTR_CreditsPathDA		$iSTR_CreditsPathDA2
+#define iSTR_CreditsPathDB		$iSTR_CreditsPathDB2
+#define iSTR_CreditsPathEA		$iSTR_CreditsPathEA2
+#define iSTR_CreditsPathEB		$iSTR_CreditsPathEB2
+#define iSTR_CreditsPathF		$iSTR_CreditsPathF2
+#define iSTR_CreditsPathG		$iSTR_CreditsPathG2
+#define iSTR_CreditsPathH		$iSTR_CreditsPathH2
+#define iSTR_CreditsPathIA		$iSTR_CreditsPathIA2
+#define iSTR_CreditsPathIB		$iSTR_CreditsPathIB2
 #define iSTR_JoystickBUTTON2		$iSTR_JoystickBUTTON22
 #define iSTR_JoystickBUTTON3		$iSTR_JoystickBUTTON32
 #define iSTR_JoystickBUTTON4		$iSTR_JoystickBUTTON42

@@ -5,8 +5,22 @@
 #define Graphics_screen_CleanUpObj_PosX 	$Graphics_screen_CleanUpObj_PosX1
 #define Graphics_screen_InUseObj_PosX		$Graphics_screen_InUseObj_PosX1
 
+#define DOBA_TRIG_X		$DOBA_TRIG_X1
+
 #define EXIT_X		$EXIT_X1
 #define EXIT_Y		$EXIT_Y1
+
+#define CREDITS_X		$CREDITS_X1
+#define CREDITS_Y		$CREDITS_Y1
+
+#define VERSION_NAZVA_X 		$VERSION_NAZVA_X1
+#define VERSION_NAZVA_Y 		$VERSION_NAZVA_Y1
+
+#define VERSION_CIFRA_X 		$VERSION_CIFRA_X1
+#define VERSION_CIFRA_Y 		$VERSION_CIFRA_Y1
+
+#define INet_Host_screen_Port_iOption_PosX		$INet_Host_screen_Port_iOption_PosX1
+
 
 #define DESTR_TRG_X	$DESTR_TRG_X1
 

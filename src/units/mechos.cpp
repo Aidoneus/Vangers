@@ -1,6 +1,12 @@
 #include "../global.h"
 #include "../lang.h"
 
+#include "../iscreen/iscreen_options.h"
+#include "../iscreen/iscreen.h"
+#include "../network.h"
+
+extern iScreenOption** iScrOpt;
+
 #include "../zmod_client.h"
 
 //#include "..\win32f.h"
@@ -49,6 +55,8 @@
 #include "magnum.h"
 
 #include "../actint/credits.h"
+#include "../actint/actint.h"
+extern actIntDispatcher* aScrDisp;
 
 #define INSECTOIDS
 
@@ -4369,7 +4377,6 @@ void VangerUnit::InitEnvironment(void)
 			};		
 		};
 	};
-
 	if(!NetworkON || (Status & SOBJ_ACTIVE)){
 		ExternalLastSensor = ExternalSensor;
 		ExternalSensor = NULL;
@@ -8334,8 +8341,7 @@ void CompasObject::Open(void)
 				p->Data.SensorT = FindSensor(p->Name);
 				break;
 		};
-		if(!p->Data.SensorT)
-			ErrH.Abort("Error in Compas Target Open");
+		//if(!p->Data.SensorT) ErrH.Abort("Error in Compas Target Open");
 		p = p->Next;
 	};
 };
@@ -9434,7 +9440,7 @@ void ActionDispatcher::FunctionQuant(void)
 						FunctionThreallDestroyActive = GAME_OVER_EVENT_TIME;
 					break;
 			};
-
+			
 			if(NetworkON && pfActive == Active){
 				NetFunctionProtractor &= ~7;
 				if(p_new) NetFunctionProtractor |= 64;
@@ -9460,7 +9466,7 @@ void ActionDispatcher::FunctionQuant(void)
 					};
 					break;
 				case ACI_MECH_MESSIAH_EVENT2:
-					if(!NetworkON && NewFunction(MECHANIC_BEEB_NATION,MECHANIC_GAME_OVER))
+					if(NewFunction(MECHANIC_BEEB_NATION,MECHANIC_GAME_OVER))
 						XpeditionOFF(GAME_OVER_LUCKY);
 					break;
 				case ACI_MECH_MESSIAH_EVENT3:
@@ -13729,7 +13735,113 @@ void NetworkGetStart(char* name,int& x,int& y)
 	int i,j,t;
 	SensorSortedData = new SensorDataType*[SnsTableSize];
 	StaticSort(SnsTableSize,(StaticObject**)SensorObjectData,(StaticObject**)SensorSortedData);
-
+	
+	char *game_name = iScrOpt[iSERVER_NAME]->GetValueCHR();
+	if (NetworkON && (strcmp(game_name,"satinan")==0 || strcmp(game_name,"сатинан")==0) && my_server_data.GameType == 2) {
+		x = 1650;
+		y = 815;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"necrally")==0 || strcmp(game_name,"некралли")==0) && my_server_data.GameType == 2) {
+		x = 1795;
+		y = 515;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"aibatr")==0 || strcmp(game_name,"аибатр")==0) && my_server_data.GameType == 0) {
+		x = 485;
+		y = 1310;
+		return;
+	}
+	else if (NetworkON && strcmp(game_name,"stad3la")==0 && my_server_data.GameType == 2) {
+		x = 1410;
+		y = 3255;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"shutle fostral")==0 || strcmp(game_name,"челночный фострал")==0) && my_server_data.GameType == 2) {
+		x = 1835;
+		y = 1365;
+		return;
+	}
+	else if (NetworkON && strcmp(game_name,"speed konoval")==0 && my_server_data.GameType == 0) {
+		x = 485;
+		y = 1310;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"lens-one")==0 || strcmp(game_name,"линза одиночная")==0) && my_server_data.GameType == 2) {
+		x = 625;
+		y = 2275;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"lens-team")==0 || strcmp(game_name,"линза командная")==0) && my_server_data.GameType == 2) {
+		x = 625;
+		y = 2275;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"battle for hmok")==0 || strcmp(game_name,"битва за хмок")==0) && my_server_data.GameType == 0) {
+		x = 945;
+		y = 1760;
+		return;
+	}
+	else if (NetworkON && strcmp(game_name,"tankacide-run")==0 && my_server_data.GameType == 2) {
+		x = 945;
+		y = 1760;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"eleerection-sim")==0 || strcmp(game_name,"элирекция-сим")==0) && my_server_data.GameType == 2) {
+		x = 1960;
+		y = 1505;
+		return;
+	}
+	else if (NetworkON && (strcmp(game_name,"mechoxes")==0 || strcmp(game_name,"мехоксес")==0) && my_server_data.GameType == 0) {
+		x = 1870;
+		y = 1055;
+		return;
+	}
+	else if (NetworkON && strcmp(game_name,"mountain king")==0 && my_server_data.GameType == 0) {
+		x =  283;
+		y = 1186;
+		return;
+	}
+	
+if(NetworkON && (strcmp(game_name,"passave")==0 || strcmp(game_name,"пассейв")==0) && my_server_data.GameType == 2) {
+    if (strcmp(name, "Podish") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 0);
+      x = 1385;
+      y = 1568;
+    }
+    else if (strcmp(name, "Incubator") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 12);
+      x = 1735;
+      y = 404;
+    }
+    else if (strcmp(name, "VigBoo") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 2);
+      x = 1976;
+      y = 10069;
+    }
+    else if (strcmp(name, "Lampasso") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 7);
+      x = 1991;
+      y =  958;
+    }
+    else if (strcmp(name, "Ogorod") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 6);
+      x = 1402;
+      y = 1812;
+    }
+    else if (strcmp(name, "ZeePa") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 1);
+      x = 1257;
+      y =  976;
+    }
+    else if (strcmp(name, "B-Zone") == 0) {
+      aScrDisp->send_event(EV_TELEPORT, 11);
+      x = 1976;
+      y = 1069;
+    }
+    return;
+  }
+	
 	for(i = 0;i < NETWORK_NUM_ESCAVE;i++){
 		if(!strcmp(name,NetworkEscaveName[i])){
 			t = -1;

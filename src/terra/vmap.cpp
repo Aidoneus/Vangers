@@ -25,7 +25,8 @@
 #include "../zmod_common.h"
 
 #include <iostream>
-
+#include "../iscreen/iscreen_options.h"
+#include "../iscreen/iscreen.h"
 
 #ifdef _ROAD_
 //#define FILEMAPPING
@@ -62,6 +63,7 @@ extern const char* mapFName;
 extern int NetworkON;
 extern int zGameBirthTime;
 extern int CurrentWorld;
+extern iScreenOption** iScrOpt;
 
 /* --------------------------- PROTOTYPE SECTION --------------------------- */
 void restore(void);
@@ -620,6 +622,9 @@ void vrtMap::analyzeINI(const char* name)
 	const char* secStorage = "Storage";
 	const char* secRender = "Rendering Parameters";
 	const char* secPalette = "Dynamic Palette";
+	const char* secPaletteDoba = "Doba Cycle Dynamic Palette";
+	const char* secPaletteDobaOld = "Doba Cycle (Old) Dynamic Palette";
+	const char* secPaletteDobaEP = "Doba (eleepod bath) Cycle Dynamic Palette";
 	const char* secCreation = "Creation Parameters";
 
 	
@@ -670,43 +675,62 @@ void vrtMap::analyzeINI(const char* name)
 		for(i = 0;i < TERRAIN_MAX;i++)
 			buf >= ENDCOLOR[i];
 	}
+	
+	std::string palette_name = "Dynamic Palette";
+	#ifndef _SURMAP_
+	if ((iGetOptionValue(iCYCLE_DOBA)) && (strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "eleepod bath")==0 || strcmp(iScrOpt[iSERVER_NAME]->GetValueCHR(), "баня элипода")==0)) {
+		palette_name = "Doba (eleepod bath) Cycle " + palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==0) {
+		palette_name = "Doba Cycle " + palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==1) {
+		palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==2) {
+		palette_name = "Doba Cycle (Old) " + palette_name;
+	}
+	else if (iGetOptionValue(iCYCLE_DOBA)==3) {
+		palette_name = " " + palette_name;
+	}
+	#endif
 
 	pal_iter_init();
-	PAL_MAX = iniparser_getint(dict_name,"Dynamic Palette:Terrain Number", 0);
-	PAL_WAVE_TERRAIN = atoi(iniparser_getstring(dict_name,"Dynamic Palette:Wave Terrain", NULL));
+	PAL_MAX = iniparser_getint(dict_name,(palette_name + ":Terrain Number").c_str(), 0);
+	PAL_WAVE_TERRAIN = atoi(iniparser_getstring(dict_name,(palette_name + ":Wave Terrain").c_str(), NULL));
 	if(PAL_MAX > 0){
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Terrains", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Terrains").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_TERRAIN[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Speeds", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Speeds").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_SPEED[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Amplitudes", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Amplitudes").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_AMPL[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Red", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Red").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++)
 				b >= PAL_RED[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Green", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Green").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++) 
 				b >= PAL_GREEN[i];
 		}
 		{
-			char* pp = iniparser_getstring(dict_name,"Dynamic Palette:Blue", NULL);
+			char* pp = iniparser_getstring(dict_name,(palette_name + ":Blue").c_str(), NULL);
 			XBuffer b(pp,128);
 			for(i = 0;i < PAL_MAX;i++) 
 				b >= PAL_BLUE[i];

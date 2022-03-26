@@ -1,11 +1,32 @@
 
 // MainMenu...
-#define EXIT_X1 		426
-#define EXIT_Y1 		380
+#define EXIT_X1 		520
+#define EXIT_Y1 		417
+
+#define DOBA_TRIG_X1		567
+#define DOBA_TRIG_X2		557
+
+#define VERSION_NAZVA_X1 		525
+#define VERSION_NAZVA_Y1 		540
+
+#define VERSION_CIFRA_X1 		630
+#define VERSION_CIFRA_Y1 		540
+
+#define CREDITS_X1		240
+#define CREDITS_Y1		337
 
 //426
-#define EXIT_X2 		426
-#define EXIT_Y2 		380
+#define EXIT_X2 		530
+#define EXIT_Y2 		417
+
+#define VERSION_NAZVA_X2 		115
+#define VERSION_NAZVA_Y2 		395
+
+#define VERSION_CIFRA_X2 		215
+#define VERSION_CIFRA_Y2 		405
+
+#define CREDITS_X2		80
+#define CREDITS_Y2		337
 
 // Graphics options...
 #define KEEP_STR_X1		90
@@ -156,22 +177,22 @@
 #define Game_Params_0_ArtefactsStr_PosX1	 240
 #define Game_Params_0_BeebosNumberStr_PosX1	 391
 #define Game_Params_0_BeebosStr_PosX1		 520
-#define Game_Params_0_CashStr_PosX1		 180
+#define Game_Params_0_CashStr_PosX1		 210
 #define Game_Params_0_Ok_Option_PosX1		 249
 #define Game_Params_0_Back_Option_PosX1 	 367
-#define Game_Params_0_MaxKillsNumberStr_PosX1	 440
-#define Game_Params_0_MaxKillsStr_PosX1 	 280
+#define Game_Params_0_MaxKillsNumberStr_PosX1	 409
+#define Game_Params_0_MaxKillsStr_PosX1 	 270
 #define Game_Params_0_MaxTimeNumberStr_PosX1	 380
-#define Game_Params_0_MaxTimeMinStr_PosX1	 470
-#define Game_Params_0_MaxTimeStr_PosX1		 270
+#define Game_Params_0_MaxTimeMinStr_PosX1	 445
+#define Game_Params_0_MaxTimeStr_PosX1		 285
 
 // ------------ Screen: "Game Params 0" LOC ------------
 
-#define Game_Params_0_MaxKillsNumberStr_PosX2	 509
-#define Game_Params_0_MaxKillsStr_PosX2  246
+#define Game_Params_0_MaxKillsNumberStr_PosX2	 539
+#define Game_Params_0_MaxKillsStr_PosX2  226
 #define Game_Params_0_MaxTimeNumberStr_PosX2	 391
-#define Game_Params_0_MaxTimeMinStr_PosX2	 480
-#define Game_Params_0_MaxTimeStr_PosX2	 272
+#define Game_Params_0_MaxTimeMinStr_PosX2	 456
+#define Game_Params_0_MaxTimeStr_PosX2	 267
 #define Game_Params_0_AccessTrig_PosX2	 400
 #define Game_Params_0_AccessStr_PosX2	 263
 #define Game_Params_0_TeamTrig_PosX2	 499
@@ -179,9 +200,9 @@
 #define Game_Params_0_EscaveTrig_PosX2	 418
 #define Game_Params_0_BirthTrig_PosX2	 418
 #define Game_Params_0_BirthStr_PosX2	 235
-#define Game_Params_0_EscaveMinStr_PosX2 571
-#define Game_Params_0_EscaveTimeStr_PosX2	 188
-#define Game_Params_0_TimeTrig_PosX2	 535
+#define Game_Params_0_EscaveMinStr_PosX2 561
+#define Game_Params_0_EscaveTimeStr_PosX2	 181
+#define Game_Params_0_TimeTrig_PosX2	 520
 #define Game_Params_0_ArtefactsTrig_PosX2	 591
 #define Game_Params_0_ArtefactsStr_PosX2 168
 #define Game_Params_0_BeebosNumberStr_PosX2	 481
@@ -192,8 +213,8 @@
 
 // ------------ Screen: "Game Params 1" ENG ------------
 
-#define Game_Params_1_OneTimeNum_PosX1		 510
-#define Game_Params_1_OneTimeStr_PosX1		 220
+#define Game_Params_1_OneTimeNum_PosX1		 470
+#define Game_Params_1_OneTimeStr_PosX1		 245
 #define Game_Params_1_ItemsNumber2_PosX1	 550
 #define Game_Params_1_ItemsNumber1_PosX1	 350
 #define Game_Params_1_ItemStrTrig2_PosX1	 410
@@ -205,8 +226,8 @@
 
 // ------------ Screen: "Game Params 1" LOC ------------
 
-#define Game_Params_1_OneTimeNum_PosX2	 552
-#define Game_Params_1_OneTimeStr_PosX2	 227
+#define Game_Params_1_OneTimeNum_PosX2	 562
+#define Game_Params_1_OneTimeStr_PosX2	 192
 #define Game_Params_1_ItemsNumber2_PosX2 560
 #define Game_Params_1_ItemsNumber1_PosX2 360
 #define Game_Params_1_ItemStrTrig2_PosX2 420
@@ -248,9 +269,10 @@
 #define INet_Host_screen_ProxyServerStr_PosX1	 160
 #define INet_Host_screen_ProxyTrg_PosX1  470
 #define INet_Host_screen_ProxyStr_PosX1  242
-#define INet_Host_screen_Ok_Option_PosX1 294
+#define INet_Host_screen_Ok_Option_PosX1 244
+#define INet_Host_screen_Port_iOption_PosX1	419
 #define INet_Host_screen_Back_Option_PosX1	 400
-#define INet_Host_screen_IP_Str_PosX1	270
+#define INet_Host_screen_IP_Str_PosX1	280
 #define INet_Host_screen_IP_Addr_PosX1	420
 
 // ------------ Screen: "INet Host screen" LOC ------------
@@ -261,8 +283,9 @@
 #define INet_Host_screen_ProxyServerStr_PosX2	 160
 #define INet_Host_screen_ProxyTrg_PosX2  490
 #define INet_Host_screen_ProxyStr_PosX2  241
-#define INet_Host_screen_Ok_Option_PosX2 234
-#define INet_Host_screen_Back_Option_PosX2	 420
+#define INet_Host_screen_Ok_Option_PosX2 244
+#define INet_Host_screen_Port_iOption_PosX2	414
+#define INet_Host_screen_Back_Option_PosX2	 400
 #define INet_Host_screen_IP_Str_PosX2	270
 #define INet_Host_screen_IP_Addr_PosX2	420
 

@@ -4238,4 +4238,3 @@ void iScreenDispatcher::end_event(void)
 		ActiveEv = NULL;
 	}
 }
-

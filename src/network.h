@@ -7,6 +7,7 @@
 
 #define DEFAULT_SERVER_PORT	2197
 
+
 extern double zMod_cycle;
 extern double zMod_flood_level_delta;
 
@@ -118,9 +119,11 @@ struct MessageDispatcher : XList {
 	MessageDispatcher(int max_num_messages = 15) : XList() { max_number_of_messages = max_num_messages; }
 	MessageElement* first(){ return (MessageElement*)fPtr; }
 	MessageElement* last(){ return (MessageElement*)lPtr; }
-	void send(char* message,int mode,int parameter);
+	void send(char* message,int mode,int parameter,int color=-1);
 	void receive();
 	};
+	
+	const char bot_tag[6] = "[bot]";
 
 /*******************************************************************************
 			Top List

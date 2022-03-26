@@ -23,7 +23,7 @@
 #define iSTR_OPTIONS2			"НАСТРОЙКИ"
 
 #define iSTR_CREDITS1			"CREDITS"
-#define iSTR_CREDITS2			"АВТОРЫ"
+#define iSTR_CREDITS2			"О СОЗДАТЕЛЯХ"
 
 #define iSTR_EXIT1			"EXIT"
 #define iSTR_EXIT2			"ВЫХОД"
@@ -120,6 +120,19 @@
 #define iSTR_CLEAN_UP2			"ОСВОБОДИТЬ!"
 
 
+#define iSTR_CYCLE_DOBA1				"DOBA CYCLES:"
+#define iSTR_CYCLE_DOBA2				"ЦИКЛЫ ДОБЫ:"
+
+#define iSTR_CYCLE_DOBA_NEW1				"NEW"
+#define iSTR_CYCLE_DOBA_NEW2				"НОВЫЕ"
+
+#define iSTR_CYCLE_DOBA_OLD1				"OLD"
+#define iSTR_CYCLE_DOBA_OLD2				"СТАРЫЕ"
+
+#define iSTR_CYCLE_DOBA_CLASSIC1				"VANILLA"
+#define iSTR_CYCLE_DOBA_CLASSIC2				"ВАНИЛЬНЫЕ"
+
+
 #define iSTR_Sound_Options1		"Sound Options"
 #define iSTR_Sound_Options2		"Настройка звука"
 
@@ -160,7 +173,7 @@
 #define iSTR_Camera2			"Камера"
 
 #define iSTR_MultiplayerAndMisc1			"Multiplayer and misc."
-#define iSTR_MultiplayerAndMisc2			"Сетевая игра и другое"
+#define iSTR_MultiplayerAndMisc2			"Сетевая игра и Иное"
 
 #define iSTR_TO_MENU1			"TO MENU"
 #define iSTR_TO_MENU2			"В МЕНЮ"
@@ -172,16 +185,16 @@
 #define iSTR_JOIN_SERVER2		"НАЙТИ СЕРВЕР"
 
 #define iSTR_CREATE_SERVER1		"CREATE SERVER"
-#define iSTR_CREATE_SERVER2		"СОЗДАТЬ СЕРВЕР"
+#define iSTR_CREATE_SERVER2		"ХОСТ"
 
 #define iSTR_PLAYER_SETUP1		"PLAYER SETUP"
 #define iSTR_PLAYER_SETUP2		"НАСТРОИТЬ ИГРОКА"
 
-#define iSTR_SERVER_PORT1		"SET SERVER PORT"
-#define iSTR_SERVER_PORT2		"ПОРТ СЕРВЕРА"
+#define iSTR_SERVER_PORT1		"PORT:"
+#define iSTR_SERVER_PORT2		"ПОРТ:"
 
 #define iSTR_Default1			"RESTORE"
-#define iSTR_Default2			"ВОСТАНОВИТЬ"
+#define iSTR_Default2			"ВЕРНУТЬ"
 
 #define iSTR_Server_Port1		"Server Port:"
 #define iSTR_Server_Port2		"Порт сервера:"
@@ -193,11 +206,11 @@
 #define iSTR_LAN1			"LAN"
 #define iSTR_LAN2			"ЛОКАЛЬНАЯ СЕТЬ"
 
-#define iSTR_INTERNET1			"INTERNET"
-#define iSTR_INTERNET2			"ИНТЕРНЕТ"
+#define iSTR_INTERNET1			"Search"
+#define iSTR_INTERNET2			"Поиск серверов"
 
 #define iSTR_CANT_CREATE1		"Can't create server..."
-#define iSTR_CANT_CREATE2		"Невозможно создать сервер..."
+#define iSTR_CANT_CREATE2		"Ошибка, слепок повреждён..."
 
 
 #define iSTR_LAN_Servers1		"LAN Servers"
@@ -210,13 +223,13 @@
 #define iSTR_DOWN2			"ВНИЗ"
 
 #define iSTR_Update_List1		"Update List"
-#define iSTR_Update_List2		"Обновить Список"
+#define iSTR_Update_List2		"Обновить список"
 
 #define iSTR_Searching_Servers1 	"Searching Servers"
-#define iSTR_Searching_Servers2 	"Поиск Серверов"
+#define iSTR_Searching_Servers2 	"ПОИСК СЕРВЕРОВ ЧЕРЕЗ ЛИНЗУ"
 
 #define iSTR_Please_wait1		"Please wait"
-#define iSTR_Please_wait2		"Ждите"
+#define iSTR_Please_wait2		"Ждите соединения"
 
 
 #define iSTR_Player_Settings1		"Player Settings"
@@ -238,7 +251,7 @@
 #define iSTR_BLUE2			"СИНИЙ"
 
 #define iSTR_GREEN1			"GREEN"
-#define iSTR_GREEN2			"ЗЕЛЕНЫЙ"
+#define iSTR_GREEN2			"ЗЕЛЁНЫЙ"
 
 #define iSTR_RED1			"RED"
 #define iSTR_RED2			"КРАСНЫЙ"
@@ -256,11 +269,11 @@
 #define iSTR_CAMOUFLAGE2			"КАМУФЛЯЖ"
 
 #define iSTR_PATROL1			"PATROL"
-#define iSTR_PATROL2			"ПАТРУЛЬНЫЙ"
+#define iSTR_PATROL2			"ПАТРУЛЬ"
 
 
 #define iSTR_Connection_failed1 	"Connection failed"
-#define iSTR_Connection_failed2 	"Сбой подключения"
+#define iSTR_Connection_failed2 	"Сбой соединения"
 
 #define iSTR_OK1			"OK"
 #define iSTR_OK2			"ОК"
@@ -278,8 +291,8 @@
 #define iSTR_RESTORE_ALL2		"СБРОСИТЬ ВСЁ"
 
 
-#define iSTR_SELECT_GAME1		"SELECT GAME"
-#define iSTR_SELECT_GAME2		"Список Доступных Игр"
+#define iSTR_SELECT_GAME1		"SELECT MODE"
+#define iSTR_SELECT_GAME2		"Список Доступных Режимов"
 
 #define iSTR_Nascency1			"Nascency:"
 #define iSTR_Nascency2			"Рождение:"             // whats that? An artificial word -
@@ -313,28 +326,28 @@
 #define iSTR_World1			"World:"
 #define iSTR_World2			"Мир:"
 
-#define iSTR_Nymbos1			"Nymbos"
-#define iSTR_Nymbos2			"Нимбос"
+#define iSTR_Nymbos1			"Nymbos:"
+#define iSTR_Nymbos2			"Нимбос:"
 
-#define iSTR_Heroin1			"Heroin"
-#define iSTR_Heroin2			"Героин"
+#define iSTR_Heroin1			"Heroin:"
+#define iSTR_Heroin2			"Героин:"
 
-#define iSTR_Toxick1			"Toxick"
-#define iSTR_Toxick2			"Токсик"
+#define iSTR_Toxick1			"Toxick:"
+#define iSTR_Toxick2			"Токсик:"
 
 #define iSTR_Phlegma1			"Phlegma"
-#define iSTR_Phlegma2			"Флегма"
+#define iSTR_Phlegma2			"Флегма:"
 
-#define iSTR_Shrub1			"Shrub"
-#define iSTR_Shrub2			"Куст"
+#define iSTR_Shrub1			"Shrub:"
+#define iSTR_Shrub2			"Куст:"
 
-#define iSTR_Poponka1			"Poponka"
-#define iSTR_Poponka2			"Попонка"
+#define iSTR_Poponka1			"Poponka:"
+#define iSTR_Poponka2			"Попонка:"
 
 #define iSTR_One_at_a_time1		"One at a time:"
-#define iSTR_One_at_a_time2		"Сколько штук за раз:"
+#define iSTR_One_at_a_time2		"Максимум товара за раз:"
 
-#define iSTR_Checkpoints_Number1	"Checkpoints Number:"
+#define iSTR_Checkpoints_Number1	"Checkpoints:"
 #define iSTR_Checkpoints_Number2	"Число этапов:"
 
 #define iSTR_Unique_Mechos1		"Unique Mechos:"
@@ -357,7 +370,7 @@
 
 
 #define iSTR_IDENTIFICATION1		"IDENTIFICATION"
-#define iSTR_IDENTIFICATION2		"ИНДЕНТИФИКАЦИЯ"
+#define iSTR_IDENTIFICATION2		"ИДЕНТИФИКАЦИЯ"
 
 #define iSTR_PASSWORD1			"PASSWORD"
 #define iSTR_PASSWORD2			"ПАРОЛЬ"
@@ -372,7 +385,7 @@
 #define iSTR_NAME22			"ИМЯ:"
 
 #define iSTR_GAME1			"GAME:"
-#define iSTR_GAME2			"ИГРА:"
+#define iSTR_GAME2			"РЕЖИМ:"
 
 
 #define iSTR_THE_SERVER_HAS_ALREADY1	"THE SERVER HAS ALREADY"
@@ -382,7 +395,7 @@
 #define iSTR_BEEN_CONFIGURED_BY2	"УЖЕ СКОНФИГУРИРОВАН"
 
 #define iSTR_ANOTHER_PLAYER1		"ANOTHER PLAYER!"
-#define iSTR_ANOTHER_PLAYER2		"ДРУГИМ ИГРОКОМ!"
+#define iSTR_ANOTHER_PLAYER2		"ДРУГИМ КОЛЕСНИКОМ!"
 
 #define iSTR_Server_Info1		"Server Info"
 #define iSTR_Server_Info2		"Текущая Игра"
@@ -397,15 +410,15 @@
 #define iSTR_Chat_Room1 		"Chat Room"
 #define iSTR_Chat_Room2 		"Чат"
 
-#define iSTR_SERVER_INFO1		"SERVER INFO"
-#define iSTR_SERVER_INFO2		"ТЕКУЩАЯ ИГРА"
+#define iSTR_SERVER_INFO1		"BACK"
+#define iSTR_SERVER_INFO2		"НАЗАД"
 
 
-#define iSTR_HOST_NAME1 		"HOST NAME:"
-#define iSTR_HOST_NAME2 		"ИМЯ СЕРВЕРА:"
+#define iSTR_HOST_NAME1 		"SERVER NAME:"
+#define iSTR_HOST_NAME2 		"АДРЕС СЕРВЕРА:"
 
-#define iSTR_Internet_Servers1		"Internet Servers"
-#define iSTR_Internet_Servers2		"Серверы Интернет"
+#define iSTR_Internet_Servers1		"List Available Games"
+#define iSTR_Internet_Servers2		"Список Доступных Игр"
 
 
 #define iSTR_Game_Results1		"Game Results"
@@ -440,7 +453,7 @@
 #define iSTR_ACHTUNG2			"ВНИМАНИЕ"
 
 #define iSTR_VANGERS_APPROACHING1	"VANGERS APPROACHING"
-#define iSTR_VANGERS_APPROACHING2	"СОЕДИНЯЕМ С ВАШИМ ВАНГЕРОМ"
+#define iSTR_VANGERS_APPROACHING2	"Соеденяем с Вашим Вангером"
 
 
 #define iSTR_Genesis1			"Genesis"
@@ -514,7 +527,7 @@
 #define iSTR_Fire_weapon_42		"Запуск терминатора"
 
 #define iSTR_Full_screen1		"Toggle UI"
-#define iSTR_Full_screen2		"Откл./вкл. интерфейс"
+#define iSTR_Full_screen2		"Показ интерфейса"
 
 #define iSTR_Reduce_view1		"Reduce View"
 #define iSTR_Reduce_view2		"Уменьшить обзор"
@@ -565,7 +578,7 @@
 #define iSTR_MECHOSOMA2 		"МЕХОСОМА"
 
 #define iSTR_PASSEMBLOSS1		"PASSEMBLOSS"
-#define iSTR_PASSEMBLOSS2		"ПАССЕМБЛОС"
+#define iSTR_PASSEMBLOSS2		"ПАССЕМБЛОСС"
 
 #define iSTR_HUNTAGE1			"HUNTAGE"
 #define iSTR_HUNTAGE2			"ХАНТЭЙДЖ"
@@ -641,7 +654,7 @@
 #define iSTR_MaxTime2			"Время:"
 
 #define iSTR_MaxKills1			"Max Kills:"
-#define iSTR_MaxKills2			"Максимум побед:"
+#define iSTR_MaxKills2			"Убийств для победы:"
 
 #define iSTR_GameInfo1		"CURRENT GAME"
 #define iSTR_GameInfo2		"ТЕКУЩАЯ ИГРА"
@@ -679,6 +692,7 @@
 #define iSTR_CreditsPathG1		"resource/iscreen/text/eng/credits7.txt"
 #define iSTR_CreditsPathG2		"resource/iscreen/text/rus/credits7.txt"
 
+
 #define iSTR_CreditsPathH1		"resource/iscreen/text/eng/credits8.txt"
 #define iSTR_CreditsPathH2		"resource/iscreen/text/rus/credits8.txt"
 
@@ -688,3 +702,33 @@
 #define iSTR_CreditsPathIB1		"resource/iscreen/text/eng/credits92.txt"
 #define iSTR_CreditsPathIB2		"resource/iscreen/text/rus/credits92.txt"
 
+#define iSTR_TITLE_AVTORS1		"MOD AUTHORS"
+#define iSTR_TITLE_AVTORS2		"АВТОРЫ СЛЕПКА"
+
+#define iSTR_1_AVTORS1		"Tstis[kiv]"
+#define iSTR_1_AVTORS2		"Tstis[kiv]"
+
+#define iSTR_2_AVTORS1		"xiada[kiv]"
+#define iSTR_2_AVTORS2		"xiada[kiv]"
+
+#define iSTR_3_AVTORS1		"Haedes[kiv]"
+#define iSTR_3_AVTORS2		"Аид[kiv]"
+
+
+#define iSTR_1b_AVTORS1		"Creator"
+#define iSTR_1b_AVTORS2		"Инф-Создатель"
+
+#define iSTR_2b_AVTORS1		"Junior author"
+#define iSTR_2b_AVTORS2		"Инф-Соавтор"
+
+#define iSTR_3b_AVTORS1		"Just a Haedes"
+#define iSTR_3b_AVTORS2		"Просто Инф-Аид"
+
+#define iSTR_PROMOD01		"resource/iscreen/text/eng/promod0.txt"
+#define iSTR_PROMOD02		"resource/iscreen/text/rus/promod0.txt"
+
+#define iSTR_PROMOD11		"resource/iscreen/text/eng/promod1.txt"
+#define iSTR_PROMOD12		"resource/iscreen/text/rus/promod1.txt"
+
+#define iSTR_MOREA1		"MORE"
+#define iSTR_MOREA2		"ПОДРОБНЕЕ"

@@ -590,10 +590,10 @@ void iQuantFirst(void)
         iPrepareOptions();
 
 #ifndef _ACI_SKIP_MAINMENU_
-        iSetOptionValueCHR(iPLAYER_NAME2, (lang() == RUSSIAN ? "â€š Â­ÐˆÒÐ°" : "Vanger"));
+        iSetOptionValueCHR(iPLAYER_NAME2, (lang() == RUSSIAN ? "‚ ­ƒ¥à" : "Vanger"));
         iSetOptionValueCHR(iPLAYER_PASSWORD, iSTR_DefaultPassword);
         iSetOptionValueCHR(iHOST_NAME, "vangers.net");
-        iSetOptionValueCHR(iSERVER_NAME, iSTR_NONE);
+        iSetOptionValueCHR(iSERVER_NAME, (lang() == RUSSIAN ? "Œ®ï ¯¥à¢ ï ¨£à !" : "My first game!"));
         iSetOptionValueCHR(iPROXY_SERVER, "192.1.1.1");
         iSetOptionValueCHR(iPROXY_PORT, "1080");
         iSetOptionValueCHR(iSERVER_PORT, "2197");
@@ -1508,6 +1508,8 @@ void aciSwapMatrices(void)
 	put_map(iScreenOffs,0,I_RES_X,I_RES_Y);
 	aScrDisp -> curMatrix -> redraw();
 
+
+
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
 #else
@@ -1618,6 +1620,8 @@ void aciCancelMatrix(void)
 	if(aScrDisp -> curMatrix)
 		aScrDisp -> curMatrix -> redraw();
 
+
+
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
 #else
@@ -1709,6 +1713,8 @@ void aciShowScMatrix(void)
 		aScrDisp -> curMatrix -> redraw();
 
 	aScrDisp -> secondMatrix -> redraw();
+
+
 
 #ifdef _ACI_NO_SHOP_ANIMATION_
 	XGR_Flush(0,0,XGR_MAXX,XGR_MAXY);
@@ -2319,7 +2325,7 @@ void iHandleExtEvent(int code,int data)
 			iServersListDown();
 			break;
 		case iEXT_SAVE_GAME:
-			if(actIntLog && !iPause && !NetworkON){
+			if(actIntLog && !iPause){
 				if(!(aScrDisp -> flags & AS_INV_MOVE_ITEM)){
 					iPause = 1;
 					acsScreenID = aScrDisp -> curLocData -> SaveScreenID;

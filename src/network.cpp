@@ -15,6 +15,19 @@
 #endif
 #include "network.h"
 
+/*****************************************************************
+				M4D Init
+*****************************************************************/
+#include <vector>
+#include <algorithm>
+
+bool isRollcall = false;
+std::vector<char*> rollcallNicknames;
+int rollcall_players;
+
+/*****************************************************************
+				Vangers Init
+*****************************************************************/
 extern int MP_GAME;
 extern XStream fout;
 extern int frame;
@@ -182,7 +195,17 @@ ServerFindChain::ServerFindChain(int IP,int port,char* domain_name,int game_ID,c
 	list = 0;
 	XBuffer str_buf;
 	if(!game_ID) {
-	    if (lang() == RUSSIAN) {
+		if (RND(100) == 99) {
+				str_buf < "Нажимаю на новая игра, а она не играет        ";
+			}
+		else if (RND(10) == 1) {
+			if (lang() == RUSSIAN) {
+				str_buf < "Старая игра на ";
+			} else {
+				str_buf < "Old Game on ";
+			}
+		}
+	    else if (lang() == RUSSIAN) {
 			//CP866 ╨Э╨╛╨▓╨░╤П ╨╕╨│╤А╨░ ╨╜╨░
 			const unsigned char new_game_on[] = {0x8D, 0xAE, 0xA2, 0xA0, 0xEF, 0x20, 0xA8, 0xA3, 0xE0, 0xA0, 0x20, 0xAD, 0xA0, 0x20, 0x00};
 			str_buf < (const char *)new_game_on;
@@ -192,6 +215,9 @@ ServerFindChain::ServerFindChain(int IP,int port,char* domain_name,int game_ID,c
 	}
 	if(!game_name)
 		if(domain_name)
+			if (RND(100) == 98) {
+			str_buf < domain_name < " не работает";
+			} else
 			str_buf < domain_name;
 		else
 			str_buf <= (IP & 0xff) < "." <= ((IP >> 8) & 0xff) < "." <= ((IP >> 16) & 0xff) < "." <= ((IP >> 24) & 0xff);
@@ -1314,16 +1340,75 @@ void PlayersList::parsing_total_body_query()
 *******************************************************************************/
 MessageElement::MessageElement(const char* player_name, char* msg,int col)
 {
-	message = new char[strlen(player_name) + strlen(msg) + 3];
-	strcpy(message,player_name);
+    char *name, *actual_msg;
+    int actual_col;
+	
+	const char bot_tag[6] = "[bot]";
+    if (strncmp(msg, bot_tag, 5)==0) {
+        name = (char*)"$";
+        actual_msg = msg + 5;
+        actual_col = 1;
+    }
+	
+	else if (strcmp(msg, "/s")==0) {
+		name = (char*)"$";
+		actual_msg = (char*)"> > > СТАРТ! > > >";
+		actual_col = 1;
+	} 
+	else if (strcmp(msg, "/z")==0 && !isRollcall) {
+		name = (char*)"$";
+		actual_msg = (char*)"> > > Перекличка! > > >";
+		actual_col = 1;
+		
+		isRollcall = true;
+		rollcallNicknames.clear();
+
+		rollcall_players = players_list.size();
+	} 
+	else if ((strcmp(msg, "/rcancel")==0 || strcmp(msg, "/zc")==0) && isRollcall) {
+		name = (char*)"$";
+		actual_msg = (char*)"> > > Перекличка отменена! > > >";
+		actual_col = 1;
+		
+		isRollcall = false;
+		rollcallNicknames.clear();
+	}  
+	else if ((strcmp(msg, "я")==0 || strcmp(msg, "z")==0 || strcmp(msg, "Я")==0 || strcmp(msg, "Z")==0) && isRollcall) {
+		name = (char*)player_name;
+        actual_msg = msg;
+        actual_col = 5;
+
+		if (std::find(rollcallNicknames.begin(), rollcallNicknames.end(), player_name) == rollcallNicknames.end()) {
+			rollcallNicknames.push_back((char*)player_name);
+		}
+
+		if (rollcallNicknames.size() == rollcall_players) {
+			isRollcall = false;
+			rollcallNicknames.clear();
+			message_dispatcher.send(actual_msg, MESSAGE_FOR_PLAYER, 0, actual_col);
+			
+			name = (char*)"$";
+			actual_msg = (char*)"> > > СТАРТ! > > >";
+			actual_col = 1;
+
+		}
+	}
+	else {
+        name = (char*)player_name;
+        actual_msg = msg;
+        actual_col = col;
+    }
+
+	message = new char[strlen(name) + strlen(actual_msg) + 3];
+	strcpy(message,name);
 	strcat(message,": ");
-	strcat(message,msg);
-	color = col;
+	strcat(message,actual_msg);
+	color = actual_col;
 	//zmod
     time = SDL_GetTicks();
 }
 
-void MessageDispatcher::send(char* message,int mode,int parameter)
+void MessageDispatcher::send(char* message,int mode,int parameter,int color)
 {
 	unsigned int cors;
 	switch(mode){
@@ -1342,7 +1427,11 @@ void MessageDispatcher::send(char* message,int mode,int parameter)
 	events_out.end_body();
 	events_out.send(1);
 
-	MessageElement* p = new MessageElement(CurPlayerName, message, my_player_body.color);
+	if (color == -1) {
+		color = my_player_body.color;
+	}
+	MessageElement* p = new MessageElement(CurPlayerName, message, color);
+
 	AddElement(p);
 	if(ListSize > max_number_of_messages){
 		RemoveElement(p = first());
