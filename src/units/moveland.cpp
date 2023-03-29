@@ -523,8 +523,8 @@ LightPoint* LocalMapProcess::CreateLight(int x,int y,int z, int r,int e,int mode
 
 void LocalMapProcess::CreateLandSlide(int* x,int* y,int time)
 {
-//zmod 1.17
-//	if(NetworkON) return;
+  // zMod ice 1.17
+	if (NetworkON && CurrentWorld == WORLD_WEEXOW) return;
 	LandSlideType* p;
 	p = (LandSlideType*)(UnitStorage[MAP_LANDSLIDE_TYPE].Active());
 	if(p){

@@ -2360,8 +2360,8 @@ void Object::brake_on()
 void Object::steer(int dir)
 {
 	int delta = rudder_step << 1;
-	//zmod 1.17
-	//if (!hand_brake && traction>0 && abs(rudder)<delta) delta = delta/2;
+	// zMod ice 1.17
+	if (NetworkON && CurrentWorld == WORLD_WEEXOW && !hand_brake && traction>0 && abs(rudder)<delta) delta = delta/2;
 	if(dir == LEFT_SIDE)
 		if((rudder += delta) > rudder_max)
 			rudder = rudder_max;
@@ -3446,8 +3446,9 @@ void Object::basic_mechous_analysis(double dt,int last)
 					u0 = normal*(u0*normal);
 					DBV P = -(calc_collision_matrix(r,J_inv).inverse()*u0)*k_wheel;
 
-					V += P				;// * (c_world == WORLD_WEEXOW ? 0.02:1);//ZMOD ICE. world now is unknown
-					W += J_inv*(r % P)	;// * (c_world == WORLD_WEEXOW ? 0.02:1);//ZMOD ICE
+					// zMod ice 1.17
+					V += P * (NetworkON && CurrentWorld == WORLD_WEEXOW ? 0.02 : 1);
+					W += J_inv*(r % P) * (NetworkON && CurrentWorld == WORLD_WEEXOW ? 0.02 : 1);
 					}
 
 wheel_continue :

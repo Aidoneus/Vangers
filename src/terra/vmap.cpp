@@ -1157,6 +1157,25 @@ void vrtMap::accept(int up,int down)
 				}
 			}
 
+			// zMod ice 1.17 over water (there is one more in lower)
+			if (NetworkON && CurrentWorld == WORLD_WEEXOW) {
+				uchar* pa,*pc,*pf,*pa0,*pc0,*pf0;
+				uchar type,lxVal,rxVal;
+
+				pa0 = pa = p;
+				pf0 = pf = pa0 + H_SIZE;
+				for(int x = 0;x < H_SIZE; x++, pa++, pf++){
+					*pf |= DOUBLE_LEVEL;
+					if(GET_TERRAIN(*pf) == WATER_TERRAIN_INDEX){
+						x++; pc++; pf++; pa++;
+						*pf |= DOUBLE_LEVEL;
+						*(pa0 + XCYCL(x + 2)) = FloodLEVEL+3+RND(5);
+					} else {
+						x++; pc++; pf++; pa++;
+					}
+				}
+			}
+
 			lineT[i] = p; //znfo lineT compressed //загрузка
 			lineTcolor[i] = use_c();
 #endif
@@ -1555,6 +1574,24 @@ void vrtMap::linkC(int up,int down,int d)
 				}
 			}
 
+			// zMod ice 1.17 over water (there is one more in upper)
+			if (NetworkON && CurrentWorld == WORLD_WEEXOW) {
+				uchar* pa,*pc,*pf,*pa0,*pc0,*pf0;
+				uchar type,lxVal,rxVal;
+
+				pa0 = pa = p;
+				pf0 = pf = pa0 + H_SIZE;
+				for(int x = 0;x < H_SIZE; x++, pa++, pf++){
+					*pf |= DOUBLE_LEVEL;
+					if(GET_TERRAIN(*pf) == WATER_TERRAIN_INDEX){
+						x++; pc++; pf++; pa++;
+						*pf |= DOUBLE_LEVEL;
+						*(pa0 + XCYCL(x + 2)) = FloodLEVEL+3+RND(5);
+					} else {
+						x++; pc++; pf++; pa++;
+					}
+				}
+			}
 /*
 	//znfo ficha DRY (there is one more in upper)
 	uchar* pf = p + H_SIZE;
