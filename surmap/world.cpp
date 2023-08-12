@@ -32,7 +32,7 @@ void RenderPrepare(void);
 void ExpandBuffer(unsigned char* InBuffer,unsigned char* OutBuffer);
 void InitSplay(XStream&);
 /* --------------------------- DEFINITION SECTION -------------------------- */
-const int MAX_POWER_Y = 15;
+const int MAX_POWER_Y = 30;
 const int MAX_POWER = 10;
 const int WPART_POWER_MAX = 7;
 

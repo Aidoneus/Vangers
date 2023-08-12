@@ -823,7 +823,7 @@ void vrtMap::load(const char* name,int nWorld)
 		InitSplay(fmap);
 	}
 	else {
-		if(fmap.size() != (int)map_size_x*(int)map_size_y*2) {
+		if(fmap.size() != (long long)map_size_x*(long long)map_size_y*2) {
 			ErrH.Abort("Incorrect vmp-file size");
 		}
 	}
@@ -959,7 +959,7 @@ void vrtMap::reload(int nWorld)
 		InitSplay(fmap);
 		}
 	else
-		if(fmap.size() != (int)map_size_x*(int)map_size_y*2) ErrH.Abort("Incorrect vmp-file size");
+		if(fmap.size() != (long long)map_size_x*(long long)map_size_y*2) ErrH.Abort("Incorrect vmp-file size");
 
 	offset = 0;
 	foffset = fmap.tell();

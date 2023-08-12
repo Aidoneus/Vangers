@@ -58,7 +58,7 @@ struct XStream
 	long	tell() const { return pos; }
 	char*	getline(char* buf, unsigned len);
 	int	eof(){ return eofFlag || pos >= size(); }
-	long	size();
+	long long	size();
 
 	XSHANDLE gethandler(){ return handler; }
 

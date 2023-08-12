@@ -117,10 +117,10 @@ void XStream::flush()
 	((std::fstream *)handler)->flush();
 }
 
-long XStream::size()
+long long XStream::size()
 {
 //std::cout<<"XStream::size()"<<std::endl;
-	long tmp = extSize;
+	long long tmp = extSize;
 	long int tmp2;
 	if(tmp == -1){
 		//tmp=GetFileSize(handler,0);
