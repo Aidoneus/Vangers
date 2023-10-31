@@ -8276,6 +8276,7 @@ void uvsQuant(void){
 		ConTimer.sec = 1;
 	}
 
+	//todo [Cx] uvsNetworkChangeWorld is 0 in Passemblos and in single-world Van-Wars; which causes infinite loop
 	if (!RND(1024) && NetworkON && uvsNetworkChangeWorld){
 		if (Gamer -> Pworld -> gIndex < 3){
 			uvsBunch *pb = Gamer -> Pworld -> escT[0] -> Pbunch;

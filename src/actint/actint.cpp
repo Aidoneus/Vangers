@@ -4305,9 +4305,6 @@ void actIntDispatcher::i_finit(void)
 	aciChangeWorld(CurrentWorld);
 	aciPrepareWorldsMenu();
 
-	// [for-testing] Teleport to hMok
-	aScrDisp->send_event(EV_TELEPORT, 8);
-
 	flags &= ~AS_ISCREEN;
 	if(iscr_iP) iscr_iP -> finit();
 

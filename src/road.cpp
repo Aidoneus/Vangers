@@ -813,6 +813,9 @@ void LoadingRTO1::Init(int id)
 	}
 	LoadingMessage(1);
 	diagenPrepare();
+	if (NetworkON) {
+		cxDiagenPrepare();
+	}
 _MEM_STATISTIC_("AFTER LOADING RTO1 INIT -> ");
 }
 

@@ -18,6 +18,8 @@
 #include "../units/compas.h"
 #include "univang.h"
 
+#include "../zmod_client.h"
+
 
 /*#ifdef DIAGEN_TEST
 #	include "../diagen/inp.h"
@@ -578,6 +580,147 @@ void diagenPrepare(void)
 #endif
 }
 
+// 63 = '?' (for symbols that are invalid for Vangers)
+unsigned char CP1251_U208[63] = {
+	168, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 192, 193, 194,
+	195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209,
+	210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224,
+	225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239
+};
+unsigned char CP1251_U209[18] = {
+	240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254,
+	255, 63, 184
+};
+unsigned char isCyr1251(unsigned char ucPre, unsigned char uc) {
+	return ((ucPre == 208) ? ((uc < 129) || ((uc - 129) > 62) || (((uc - 129) < 15) && ((uc - 129) != 0))) : ((uc < 128) || ((uc - 128) > 17) || ((uc - 128) == 16))) ? 0 : 1;
+}
+void utf2cp1251(const char* utfStr, char* cpStr) {
+	size_t cpStrPos = 0;
+	size_t i;
+	size_t utfStrLen = strlen(utfStr);
+	unsigned char invalid = 0;
+	unsigned char uc, ucPre;
+	for (i = 0; i < utfStrLen; i++) {
+		uc = (unsigned char)utfStr[i];
+		if (uc < 32) {
+			invalid = 1;
+			break;
+		}
+		if ((uc != 208) && (uc != 209)) {
+			ucPre = (i > 0) ? (unsigned char)utfStr[i - 1] : 0;
+			if ((uc > 127) && (ucPre > 127) && ((ucPre != 208) && (ucPre != 209)) && !isCyr1251(ucPre, uc)) {
+				invalid = 1;
+				break;
+			}
+			if ((ucPre == 208) || (ucPre == 209)) {
+				cpStr[cpStrPos] = (ucPre == 208) ? CP1251_U208[uc - 129] : CP1251_U209[uc - 128];
+				cpStrPos++;
+			} else {
+				cpStr[cpStrPos] = utfStr[i];
+				cpStrPos++;
+			}
+		}
+	}
+	if (invalid == 1) {
+		while (cpStrPos < utfStrLen) {
+			cpStr[cpStrPos] = '?';
+			cpStrPos++;
+		}
+	}
+	cpStr[cpStrPos] = '\0';
+}
+
+void cxDiagenPrepare(void)
+{
+	int i = 0;
+	// 1 (header) + 1 (question) + 1 (command) + 1 (command number) + n (commands) + n*2 (player text + answer)
+	int dialogueAtomLength = 4 + WORLD_MAX * 3;
+	dgRoom* currentRoom = dgD->rtail;
+
+	// [Cx] todo Читать необходимые реплики из внешнего файла вместо хардкода
+	const char* texts[dialogueAtomLength] = {
+		"[MP0 Start]",
+		lang() == RUSSIAN ? "Test (ru); there should be options below." : "Test (en); there should be options below.",
+		"@?",
+		"3", // [Cx] nvariant
+//		"6", // "Special events" AML_* 0-16
+//		"0",
+//		"1000",
+//		lang() == RUSSIAN ? "Test: (ru) (Player) Change cycle" : "Test: (en) (Player) Change cycle",
+//		lang() == RUSSIAN ? "Test: (ru) (Counselor) Cycle changed!" : "Test: (en) (Counselor) Cycle changed!",
+//		lang() == RUSSIAN ? "Test: (ru) (Player) Do nothing" : "Test: (en) (Player) Do nothing",
+//		lang() == RUSSIAN ? "Test: (ru) (Counselor) Nothing happened" : "Test: (en) (Councillor) Nothing happened",
+//		lang() == RUSSIAN ? "Test: (ru) (Player) Passage to Fostral" : "Test: (en) (Player) Passage to Fostral",
+//		lang() == RUSSIAN ? "Test: (ru) (Counselor) Kick out" : "Test: (en) (Councillor) Kick out",
+	};
+	int atomLengths[2] = { 1, dialogueAtomLength - 1 };
+
+	for (i = 0; i < DG_ESCAVE_MAX; i++) {
+		std::cout<<"    [Cx] room name: "<<currentRoom->roomName<<std::endl;
+		int startCellX = currentRoom->startX;
+		int startCellY = currentRoom->startY;
+		dgCell* startCell = currentRoom->getGRID(startCellX,startCellY);
+		if (!startCell) {
+			currentRoom = currentRoom->next;
+			continue;
+		}
+		// Was: type 1, iswaiting 0, islooping 0
+		// Now: type 2, iswaiting 0, islooping 1
+		startCell->write(startCellX, startCellY, startCell->Name, 2, 0, 1, " ", " ", "clear");
+		currentRoom->setSTATUS(startCellX, startCellY, DG_CELLSTATUS::WAITING);
+		currentRoom->explodeState(startCellX, startCellY);
+
+		dgMolecule* startMolecule = currentRoom->seekM(startCell->Name);
+		startMolecule->write(2, atomLengths, texts);
+
+		// todo [Cx] Incubator test start
+//		if (i == 1) { // Incubator
+//			dgCell* pc;
+//			(pc = new dgCell(currentRoom))->write(8, 7, const_cast<char *>("Eleerection Participation Question"), 2, 0, 1, " ", " ", " ");
+//			currentRoom->setGRID(8, 7, pc);
+//			currentRoom->setSTATUS(8, 7, DG_CELLSTATUS::DORMANT);
+//		}
+		// todo [Cx] Incubator test end
+
+		currentRoom = currentRoom->next;
+
+
+
+
+		//todo 2. Чистим все клетки-непосредственные соседи стартовой
+		// text: клетка это dgMolecule
+		//  char* p = строка со всей информацией по молекуле из .text-файла
+		//  int m;
+		//  для молекулы: name = strdup(_name /* char* */); mood = 0;
+		//    _name = getSubj(char* p, int& m) // p - это строка в квадратных скобках БЕЗ терминатора
+		//    pm->mood = m
+		//    getSubj на основании названия также изменит внешнюю переменную m
+		//    возможно, нужно также tail = curA = NULL; чтобы другие атомы записать
+		//      тогда на каждом существующем атоме перед записью новых надо сделать free(пойнтер на атом)
+		//  	while(p){
+		//			if(*p == SUBJ_SYMBOL) break;
+		//			(pa = new dgAtom) -> link(pm -> tail);
+		//			p = pa -> read(dgf,p); // заменить на p = pa->write(..., p);
+		//		}
+		//   @? 10 15 15 15 15 15 15 15 15 15 15
+		//	 @? 2 6 0
+
+		/*
+		 * Если нужно будет создать новую клетку где-то:
+		 * dgCell* pc;
+		 * (pc = new dgCell(currentRoom)) -> write(параметры клетки);
+		 * setGRID(pc -> x,pc -> y,pc);
+		 * setSTATUS(startX,startY,DG_CELLSTATUS::DORMANT);
+		 * если клетка стартовая, то делаем статус и explodeState как выше
+		 */
+
+		//todo 3. Меняем стартовую клетку (логику + тексты) на то, что нам нужно
+
+		//todo [Cx] Teleport to hMok
+		// aScrDisp->send_event(EV_TELEPORT, 8);
+	}
+}
+
 int getSpectorsTaskStatus(void)
 {
 //#ifndef DIAGEN_TEST
@@ -791,8 +934,6 @@ void dgFile::load(char* fname,int _len, bool verbose)
 	index = 0;
 }
 
-
-
 char* dgFile::getElement(int DualElements,int empty_available)
 {
 	char* p = buf + index;
@@ -900,6 +1041,57 @@ char* dgAtom::read(dgFile* pf,char* s)
 	return p;
 }
 
+char* dgAtom::write(int elementNumber, const char** elements)
+{
+	int elementIndex = 1;
+	qlMax = 0;
+	int log = 1,i;
+	while((elementIndex < elementNumber) && log) {
+		switch(*elements[elementIndex]){
+			//todo [Cx] Rewrite later to accept values from elements
+			case LINK_SYMBOL:
+//				qlinks = p + 1;
+//				do {
+//					qlMax++;
+//					cutLink(p);
+//					p = pf -> getElement(DGF_DUAL,1);
+//				} while(p && *p == LINK_SYMBOL);
+				break;
+			case COMMAND_SYMBOL:
+				switch(*(elements[elementIndex] + 1)){
+				case '?':
+					nvariant = atoi(elements[elementIndex + 1]);
+					elementIndex += 2;
+					if(nvariant <= 0)
+						ErrH.Abort("Wrong nvariant",XERR_USER,-1,elements[0]);
+					variants = new char*[3*nvariant];
+					comments = variants + nvariant;
+					vcodes = (int*)(comments + nvariant);
+					for(i = 0;i < nvariant;i++) {
+						vcodes[i] = atoi(elements[elementIndex]);
+						elementIndex += 1;
+					}
+					for(i = 0;i < nvariant;i++){
+						variants[i] = const_cast<char *>(elements[elementIndex]);
+						comments[i] = const_cast<char *>(elements[elementIndex + 1]);
+						elementIndex += 2;
+					}
+					break;
+				default:
+					log = 0;
+					break;
+				}
+				break;
+			default:
+				log = 0;
+				break;
+		}
+		elementIndex += 1;
+	}
+	//todo [Cx] Not sure if this is the correct way to go
+	return const_cast<char *>(elements[0]);
+}
+
 char* dgAtom::findQLfirst(void)
 {
 	if(!qlMax) return NULL;
@@ -984,24 +1176,36 @@ void dgMolecule::accept(dgFile* _dgf)
 }
 
 char* dgMolecule::getPhrase(int noHandle)
-{ 
+{
+	std::cout<<"    [Cx] dgMolecule::getPhrase"<<std::endl;
+	if (curA) {
+		std::cout<<"    [Cx] dgMolecule::getPhrase, curA->data: "<<curA->data<<std::endl;
+	} else {
+		std::cout<<"    [Cx] dgMolecule::getPhrase, curA->data: --"<<std::endl;
+	}
+	std::cout<<"    [Cx] dgMolecule::getPhrase: initial ret assignment..."<<std::endl;
 	char* ret = curA ? curA -> data : NULL; 
 	if(!ret) {
+		std::cout<<"    [Cx] dgMolecule::getPhrase: !ret, returning NULL"<<std::endl;
 		return NULL;
 	}
-
+	std::cout<<"    [Cx] dgMolecule::getPhrase: !!ret, about to enter var insert block..."<<std::endl;
 	if(!noHandle) {
 		static char* buf = new char[1311];
 		int log = 1;
 //		if(strlen(ret) >= 310)
 //			ErrH.Abort("getPhrase() too long", XERR_USER,-1,name);
 		strcpy(buf,ret);
+		std::cout<<"    [Cx] dgMolecule::getPhrase: about to start var insert loop..."<<std::endl;
 		while(log) log = getHandledPhrase(buf);
+		std::cout<<"    [Cx] dgMolecule::getPhrase: returning buf (phrase with vars)"<<std::endl;
 		return buf;
 	}
+	std::cout<<"    [Cx] dgMolecule::getPhrase: returning ret (phrase for Threall)"<<std::endl;
 	return ret;
 }
 
+// [Cx] Может пригодиться для диалогов
 char* dgMolecule::getVarPhrase(char* s)
 {
 	static char nbuf[] = "\0\0\0\0\0\0\0\0\0\0";
@@ -1017,6 +1221,40 @@ char* dgMolecule::getVarPhrase(char* s)
 //		ErrH.Abort("Unknown VarPhrase",XERR_USER,-1,s);
 	if(strlen(ret) >= strlen(s)) ErrH.Abort("Too long VarPhrase");
 	return ret;
+}
+
+void dgMolecule::write(int atomNumber, int* atomLengths, const char** atoms)
+{
+	int i, j, indSum = 1;
+	dgAtom* pa;
+	//todo [Cx] Segmentation fault inside getSubj(...)
+	//char* newName = strdup(getSubj(const_cast<char *>(elements[0]), mood));
+	//todo [Cx] Do we need to free atoms manually?
+//	while (tail) {
+//		dgAtom* nextAtom = tail->next;
+//		free(nextAtom);
+//	}
+	release();
+	for (i = 1; i < atomNumber; i++) {
+		std::cout<<"    [Cx] i = "<<i<<", atom = "<<atoms[i]<<std::endl;
+		if (*(atoms[indSum]) == SUBJ_SYMBOL) break;
+		(pa = new dgAtom)->link(tail);
+		const char* atomElements[atomLengths[i]];
+		for (j = 0; j < atomLengths[i]; j++) {
+			atomElements[j] = atoms[indSum + j];
+		}
+		std::cout<<"    [Cx] pa->write(atomLengths[i] = "<<atomLengths[i]<<", atomElements = ..."<<std::endl;
+		// todo [Cx] Where do I need to write whatever "pa->write(...)" returns?
+		pa->data = pa->write(atomLengths[i], atomElements);
+		indSum += atomLengths[i];
+	}
+	if(!tail) {
+//		delete dgf;
+		XBuffer m;
+		m < "Empty molecule: " < name;
+		ErrH.Abort(m.GetBuf(), XERR_USER, -1, "");
+	}
+	// todo Do we need "curA = tail;"?
 }
 
 int dgMolecule::getHandledPhrase(char* s)
@@ -1094,6 +1332,34 @@ void dgCell::read(dgFile* dgf)
 	p = dgf -> getElement(DGF_NONE); if(*p != ' ') { Access.load(p,strlen(p)); }
 	p = dgf -> getElement(DGF_NONE); if(*p != ' ') { PostCMD.load(p,strlen(p)); }
 	p = dgf -> getElement(DGF_NONE); if(*p != ' ') { StartCMD.load(p,strlen(p)); }
+}
+
+void dgCell::write(int newX, int newY, char* newName, int newType, int newIsWaiting, int newIsLooping, const char* newAccess, const char* newPostCMD, const char* newStartCMD)
+{
+	x = newX;
+	y = newY;
+	if (*newName != ' ') Name = newName;
+	Type = newType;
+	isWaiting = newIsWaiting;
+	isLooping = newIsLooping;
+
+	if(*newAccess != ' ') {
+		Access.load(const_cast<char *>(newAccess), strlen(newAccess));
+	} else if (Access.len != -1) {
+		Access.free();
+	}
+
+	if(*newPostCMD != ' ') {
+		PostCMD.load(const_cast<char *>(newPostCMD), strlen(newPostCMD));
+	} else if (PostCMD.len != -1) {
+		PostCMD.free();
+	}
+
+	if(*newStartCMD != ' ') {
+		StartCMD.load(const_cast<char *>(newStartCMD), strlen(newStartCMD));
+	} else if (StartCMD.len != -1) {
+		PostCMD.free();
+	}
 }
 
 struct Q { enum {
@@ -1647,7 +1913,8 @@ struct CMD { enum {
 	OPEN_H11,
 	ZERO_BOORAWCHICK,
 	ZERO_ARKAZNOY,
-	RUBEECATION
+	RUBEECATION,
+	PASSAGE_TO_WORLD
 	}; };
 
 struct Q4 { int id; const char *name; } CmdData[] = {
@@ -1700,6 +1967,7 @@ struct Q4 { int id; const char *name; } CmdData[] = {
 	{ CMD::ZERO_BOORAWCHICK, "zeroBoorawchick" },
 	{ CMD::ZERO_ARKAZNOY, "zeroArkaznoy" },
 	{ CMD::RUBEECATION, "Rubeecation" },
+	{ CMD::PASSAGE_TO_WORLD, "passageToWorld" },
 	{ -1, NULL }
 	};
 
@@ -1872,6 +2140,9 @@ int dgCell::doCMD(int startup)
 					break;
 				case CMD::ADD_RUBBOX:
 					dg_SendEvent(AML_ADD_RUBBOX);
+					break;
+				case CMD::PASSAGE_TO_WORLD:
+					dg_SendEvent(AML_PASSAGE_TO_WORLD);
 					break;
 				case CMD::ZERO_KERRATING:
 					GamerResult.game_ker_result = 0;
@@ -2473,14 +2744,17 @@ void DiagenDispatcher::init(void)
 }
 
 char* DiagenDispatcher::findQfirst(void)
-{ 
-	if(varAtom)
+{
+	if(varAtom) {
+		std::cout<<"    [Cx] DiagenDispatcher::findQfirst (correct): varAtom trueish"<<std::endl;
 		return Convert(varAtom -> variants[cVind = 0]);
-	else {
+	}else {
+		std::cout<<"    [Cx] DiagenDispatcher::findQfirst (incorrect): varAtom falsey"<<std::endl;
 		if(!currentR) return NULL;
+		std::cout<<"    [Cx] DiagenDispatcher::findQfirst (incorrect): varAtom falsey, cqp processing..."<<std::endl;
 		cqp = currentR -> qVtail;
 		return cqp ? Convert(cqp -> subj) : NULL;
-		}
+	}
 }
 
 char* DiagenDispatcher::findQnext(void)
@@ -2547,7 +2821,12 @@ void DiagenDispatcher::endSession(void)
 
 void DiagenDispatcher::involveQ(dgAtom* atom)
 {
-	if(!atom) return;
+	std::cout<<"    [Cx] DiagenDispatcher::involveQ"<<std::endl;
+	if(!atom) {
+		std::cout<<"    [Cx] DiagenDispatcher::involveQ: !atom, return"<<std::endl;
+		return;
+	}
+	std::cout<<"    [Cx] DiagenDispatcher::involveQ: !!atom..."<<std::endl;
 	char* p = atom -> findQLfirst();
 	dgQuery* q;
 	dgRoom* r;
@@ -2574,19 +2853,40 @@ char* DiagenDispatcher::getNextPhrase(void) {
 		endSessionLog = 1;
 		return NULL;
 	}
+	std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: checking m"<<std::endl;
 	if(m) {
 		dgMood = m->mood;
+		// curA это "текущий атом при разговоре"
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: about to involveQ(m->curA)..."<<std::endl;
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: involveQ, m->curA: "<<(m->curA ? "exists" : "does not exist")<<std::endl;
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: involveQ, m->curA->data: "<<(m->curA->data)<<std::endl;
 		involveQ(m->curA);
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: involveQ, m->curA: "<<(m->curA ? "exists" : "does not exist")<<std::endl;
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: involveQ, m->curA->data: "<<(m->curA->data)<<std::endl;
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: about to phr = m -> getPhrase(currentR->bios == 4)..."<<std::endl;
 		phr = m -> getPhrase(currentR->bios == 4);
+		// dgAtom* getVariantsAtom(void){ if(curA) return curA -> variants ? curA : NULL; return NULL; }
+		// Нет curA->variants
+		// varAtom "!= NULL в случае, если текущий атом содержит в себе вопрос с вариантами ответа"
 		varAtom = m -> getVariantsAtom();
+		//std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: not null (= with q): "<<(varAtom ? "true" : "false")<<std::endl;
 //#ifndef DIAGEN_TEST
-		if(varAtom) 
+		if(varAtom) {
+			std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: correct! !!varAtom, sending event AML_GET_QUESTION"<<std::endl;
 			dg_SendEvent(AML_GET_QUESTION);
+		} else {
+			std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: WRONG! !varAtom"<<std::endl;
+			std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: WRONG! m->curA: "<<m->curA<<std::endl;
+			//std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: WRONG! varAtom->variants: "<<varAtom->variants<<std::endl;
+		}
 //#endif
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: goNext"<<std::endl;
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: --------"<<std::endl;
 		m->goNext();
 	}
 
 	if(!phr) {
+		std::cout<<"    [Cx] DiagenDispatcher::getNextPhrase: !phr, phr = empty molecule"<<std::endl;
 		phr = getQend();
 		endSessionLog = 1;
 	} else {

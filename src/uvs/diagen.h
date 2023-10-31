@@ -158,7 +158,8 @@ struct dgFile {
 
 	void load(char* fname,int _len, bool verbose=false);
 	char* getElement(int DualElements,int empty_available = 0);
-	void free(void){ if(!external && buf) delete buf; len = index = -1; }
+//	void free(void){ if(!external && buf) delete buf; len = index = -1; }
+	void free(void){ external = 0; buf = nullptr; len = index = -1; }
 	void reset(void){ index = 0; }
 	};
 
@@ -181,7 +182,8 @@ struct dgAtom {
 
 	void link(dgAtom*& tail);
 	char* read(dgFile* pf,char* s);
-	
+	char* write(int elementNumber, const char** elements);
+
 	char* findQLfirst(void);
 	char* findQLnext(void);
 	
@@ -237,6 +239,7 @@ struct dgMolecule {
 	void reset(void){ curA = tail; }
 	int getHandledPhrase(char* s);
 	char* getVarPhrase(char* s);
+	void write(int atomNumber, int* atomLengths, const char** atoms);
 	};
 
 struct dgCell {
@@ -251,6 +254,7 @@ struct dgCell {
 		dgCell(dgRoom* r){ Name = NULL; Type = isWaiting = isLooping = -1; owner = r; }
 	
 	void read(dgFile* dgf);
+	void write(int x, int y, char* Name, int Type, int isWaiting, int isLooping, const char* Access, const char* PostCMD, const char* StartCMD);
 	int isACCESS(void);
 	int doCMD(int startup = 1);
 	int analyzeACCESS(char* p);
@@ -412,3 +416,5 @@ struct DiagenDispatcher {
 /* ------------ Prototypes & Externs ----------------*/
 void diagenPrepare(void);
 void diagenEventHandle(int code);
+
+void cxDiagenPrepare(void);

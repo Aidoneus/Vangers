@@ -64,6 +64,9 @@
 #define AML_KICK_OUT_FROM_ESCAVE	15
 #define AML_ADD_RUBBOX			16
 
+// [Cx] 1000 + World ID, up to 1999
+#define AML_PASSAGE_TO_WORLD	1000
+
 // Event key codes...
 #define AML_ELEECH_CODE 	7000
 #define AML_KILL_ELEECH_CODE	7001
@@ -113,6 +116,8 @@
 #define AML_END3_SEQ2		8027
 
 // Speech events...
+#define AML_SPEECH_EVENTS	2000
+
 #define AML_SPEECH0_CH0 	2010
 #define AML_SPEECH0_EV		2011
 #define AML_SPEECH0_CH1 	2012

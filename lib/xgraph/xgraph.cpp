@@ -855,18 +855,50 @@ void XGR_Screen::close(void)
 }
 
 int UI_OR_GAME=1;
+float K33[9] = {
+	0.0625, 0.125, 0.0625,
+	0.125, 0.25, 0.125,
+	0.0625, 0.125, 0.0625
+};
 
 void XGR_Screen::blitRgba(uint32_t *dstRgba, uint8_t *screenIndexes, uint32_t *screen2DRgba, uint8_t *screen2DIndexes) {
-	int x, y;
+	int x, y, i;
+//	int indices[9];
+//	float sum[3];
 
 	for (y = xgrScreenSizeY; y > 0; --y) {
 		for (x = xgrScreenSizeX; x > 0; --x) {
 			if (*screen2DIndexes != 0) {
+				// Interface
 				*dstRgba = XGR32_PaletteCache[*screen2DIndexes];
 			} else if (((uint8_t*)screen2DRgba)[3] != 0) {
+				// Video
 				*dstRgba = *screen2DRgba;
 			} else {
+				// Landscape + models
 				*dstRgba = XGR32_PaletteCache[*screenIndexes];
+
+				// [Cx] todo Игнорировать от 1 до 4 разных пикселей в зависимости от близости к началу/концу
+//				sum[0] = 0;
+//				sum[1] = 0;
+//				sum[2] = 0;
+//				indices[0] = *(screenIndexes - xgrScreenSizeX - 1);
+//				indices[1] = *(screenIndexes - xgrScreenSizeX);
+//				indices[2] = *(screenIndexes - xgrScreenSizeX + 1);
+//				indices[3] = *(screenIndexes - 1);
+//				indices[4] = *screenIndexes;
+//				indices[5] = *(screenIndexes + 1);
+//				indices[6] = *(screenIndexes + xgrScreenSizeX - 1);
+//				indices[7] = *(screenIndexes + xgrScreenSizeX);
+//				indices[8] = *(screenIndexes + xgrScreenSizeX + 1);
+//				for (i = 0; i < 9; i++) {
+//					sum[0] += (float)(XGR32_PaletteCache[indices[i]] & 255) * K33[i];
+//					sum[1] += (float)((XGR32_PaletteCache[indices[i]] >> 8) & 255) * K33[i];
+//					sum[2] += (float)((XGR32_PaletteCache[indices[i]] >> 16) & 255) * K33[i];
+//				}
+//				*dstRgba = (uint32_t)(sum[0])
+//						   | (((uint32_t)sum[1]) << 8)
+//						   | (((uint32_t)sum[2]) << 16);
 			}
 
 			++dstRgba;

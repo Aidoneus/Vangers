@@ -31,6 +31,8 @@ extern int ActiveTerrain[];
 
 extern actIntDispatcher* aScrDisp;
 
+extern int prevWorld;
+
 /* --------------------------- PROTOTYPE SECTION ---------------------------- */
 
 void aciNextPhrase(void);
@@ -181,6 +183,11 @@ void dg_SendEvent(int code)
 		case AML_CHANGE_TO_RAFFA:
 			aciChange2Raffa();
 			break;
+	}
+	// [Cx] Используем один код для определения семейства команд перемещения на разные миры
+	if ((code >= AML_PASSAGE_TO_WORLD) && (code < AML_SPEECH_EVENTS)) {
+		prevWorld = code - 1000;
+		aciEscaveKickOut();
 	}
 }
 
