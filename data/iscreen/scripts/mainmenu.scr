@@ -145,7 +145,7 @@
 
 /* ------------------------- Options Screen Defines ------------------------- */
 
-#define OPTIONS_START_Y 	135
+#define OPTIONS_START_Y 	115
 #define OPTIONS_DELTA_Y 	75
 
 #define BACK_X			20
@@ -251,6 +251,18 @@
 #define KEYS0_DELTA_Y		40
 
 #define KEYS0_X 		445
+
+/* ---------------------- Workshop Screen Defines ---------------------- */
+
+#define MOD_LIST_START_Y		64
+#define MOD_LIST_DELTA_Y		38
+
+#define MOD_LIST_NUM_X		20
+#define MOD_LIST_ORDER_X		90
+#define MOD_LIST_NAME_X		160
+#define MOD_LIST_TOGGLE_X		690
+
+#define MOD_LIST_COMMANDS_Y	380
 
 /* -------------------------------------------------------------------------- */
 
@@ -398,7 +410,7 @@ Screen "Main Screen"
 		} 
 	}
 
-Object "Multiplayer Option"
+	Object "Multiplayer Option"
 	{
 		x	$MULTIPLAYER_X
 		y	$MULTIPLAYER_Y
@@ -1192,7 +1204,7 @@ Screen "Options screen II"
 		}
 
 		#define OBJ1	"Graphics Option"
-		#define OBJ2	"Controls Option"
+		#define OBJ2	"Workshop Option"
 		Event {
 			if_selected
 			key $VK_UP
@@ -1436,7 +1448,7 @@ Screen "Options screen II"
 		}
 
 		#define OBJ1	"Controls Option"
-		#define OBJ2	"Graphics Option"
+		#define OBJ2	"Workshop Option"
 		Event {
 			if_selected
 			key $VK_DOWN
@@ -1455,10 +1467,122 @@ Screen "Options screen II"
 		}
 	}
 
+	Object "Workshop Option"
+	{
+		align_x center
+		y	{ $OPTIONS_START_Y + $OPTIONS_DELTA_Y * 3 }
+
+		selectable_obj
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		$MAIN_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_WORKSHOP
+		}
+
+		Event {
+			key $VK_SPACE
+			key $VK_RETURN
+			key $VK_LBUTTON
+
+			time { $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME * 2 + 3 }
+
+			EvComm {
+				low_obj 	"Workshop Option"
+				time		$PRESS_OBJ_TIME
+				start_time	0
+			}
+			EvComm {
+				move2screen	"Workshop loading screen"
+				start_time	$PRESS_OBJ_TIME
+				time		$MOVE2SCREEN_TIME
+			}
+			EvComm {
+				ext_event	$iEXT_INIT_MODS_LIST	 0
+				start_time	1
+			}
+			EvComm {
+				ext_event	$iEXT_UPDATE_MODS_LIST 0
+				start_time	{ $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
+			}
+			EvComm {
+				move2screen	"Workshop screen"
+				start_time	{ $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME + 2 }
+				time		$MOVE2SCREEN_TIME
+			}
+		}
+
+		Event {
+			key $VK_RBUTTON
+
+			time { $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME + $MOVE2SCREEN_TIME * 2 + 3 }
+			EvComm {
+				smooth_obj	"Workshop Option" 4
+				start_time	0
+				time		$SMOOTH_OBJ_TIME
+			}
+			EvComm {
+				hide_obj	"Workshop Option"
+				start_time	$SMOOTH_OBJ_TIME
+				time		$HIDE_OBJ_TIME
+			}
+			EvComm {
+				move2screen	"Workshop loading screen"
+				start_time	{ $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME }
+				time		$MOVE2SCREEN_TIME
+			}
+			EvComm {
+				ext_event	$iEXT_INIT_MODS_LIST	 0
+				start_time	1
+			}
+			EvComm {
+				ext_event	$iEXT_UPDATE_MODS_LIST 0
+				start_time	{ $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
+			}
+			EvComm {
+				move2screen	"Workshop screen"
+				start_time	{ $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME + $MOVE2SCREEN_TIME + 2 }
+				time		$MOVE2SCREEN_TIME
+			}
+		}
+
+		#define OBJ1	"SELECTED_OBJ"
+		#define OBJ2	"Workshop Option"
+		Event {
+			if_not_selected
+			key $VK_LBUTTON
+			key $VK_MOVE
+
+			$EV_CHANGE_OBJ
+		}
+
+		#define OBJ1	"Workshop Option"
+		#define OBJ2	"Graphics Option"
+		Event {
+			if_selected
+			key $VK_DOWN
+			key $VK_TAB
+
+			$EV_CHANGE_OBJ
+		}
+
+		#define OBJ1	"Workshop Option"
+		#define OBJ2	"Controls Option"
+		Event {
+			if_selected
+			key $VK_UP
+
+			$EV_CHANGE_OBJ
+		}
+	}
+
 	Object "Main Menu Option"
 	{
 		align_x center
-		y	400
+		y	430
 
 		Element STRING {
 			align_x center
@@ -12704,3 +12828,687 @@ Screen "Identification screen2"
 	}
 }
 
+
+#define MOD_LIST_ITEM_EVENTS 	Event { 						\
+						key $VK_LBUTTON 				\
+						key $VK_RBUTTON 				\
+												\
+						multi_event					\
+												\
+						time { $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME + 3 }	\
+						EvComm {					\
+							low_obj 	$MOD_LIST_ITEM	\
+							time		$PRESS_OBJ_TIME 	\
+							start_time	0			\
+						}						\
+						EvComm {					\
+							rise_obj 	$MOD_LIST_ITEM	\
+							time		$PRESS_OBJ_TIME 	\
+							start_time	$PRESS_OBJ_TIME			\
+						}						\
+						EvComm {					\
+							ext_event	$iEXT_CHOOSE_MOD	$MOD_NUM	\
+							start_time	1			\
+						}						\
+					}
+
+// [Workshop/VSS] "XXX" means that UI will be able to show installed mod numbers up to 999.
+// If decrease/increase will be needed, you'll have to add/remove "X"'s here
+// and modify ACI_MOD_NUM_LEN to another value
+
+// [Workshop/VSS] "XXXXXXXXXXXXXXXXXXXXXXXX" means that UI will be able to show
+// installed mod names with length up to 24. If decrease/increase will be needed,
+// you'll have to add/remove "X"'s here and modify ACI_MOD_NAME_LEN to another value
+
+#define MOD_ROW Object $MOD_OBJ_NUM { \
+		x $MOD_LIST_NUM_X	\
+		y { $MOD_LIST_START_Y + $MOD_LIST_DELTA_Y * $MOD_NUM }	\
+		Element STRING {	\
+			id	$MOD_ID_NUM	\
+			align_x	right	\
+			terrain_num	$TERRAIN2              \
+			space	1	\
+			font	3	\
+			null_level	$DEFAULT_NULL	\
+			string	"XXX"	\
+		}	\
+	}	\
+	Object $MOD_OBJ_UP {	\
+		x $MOD_LIST_ORDER_X	\
+		y { $MOD_LIST_START_Y + $MOD_LIST_DELTA_Y * $MOD_NUM + 10 }	\
+		Element BITMAP {	\
+			terrain_num	$TERRAIN4	\
+			bmp_null_level	120	\
+			null_level	$DEFAULT_NULL	\
+			bmp_file	"resource/iscreen/bitmap/move_up.bmp"	\
+		}	\
+		Event {	\
+			key $VK_LBUTTON	\
+			time { $PRESS_OBJ_TIME * 2 + $MOVE2SCREEN_TIME + 1 }	\
+			EvComm {	\
+				scale_obj	$MOD_OBJ_UP	-200	\
+				start_time	0	\
+				time		$PRESS_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_UP	2	\
+				start_time	0	\
+				time		$PRESS_OBJ_TIME	\
+			}		\
+			EvComm {	\
+				rise_obj	$MOD_OBJ_UP	\
+				start_time	$PRESS_OBJ_TIME	\
+				time		$PRESS_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_UP	0	\
+				start_time	$PRESS_OBJ_TIME	\
+				time		$PRESS_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				move2screen	"Workshop loading screen"	\
+				start_time	{ $PRESS_OBJ_TIME * 2 }	\
+				time	$MOVE2SCREEN_TIME	\
+			}	\
+		}	\
+		Event {	\
+			key $VK_RBUTTON 	\
+			time { $SMOOTH_OBJ_TIME * 2 + $MOVE2SCREEN_TIME + 1 }	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_UP	3	\
+				start_time	0	\
+				time		$SMOOTH_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_UP	0	\
+				start_time	$SMOOTH_OBJ_TIME	\
+				time		$SMOOTH_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				move2screen	"Workshop loading screen"	\
+				start_time { $SMOOTH_OBJ_TIME * 2 }	\
+				time	$MOVE2SCREEN_TIME	\
+			}	\
+		}	\
+	}	\
+	Object $MOD_OBJ_DN {	\
+		x $MOD_LIST_ORDER_X	\
+		y { $MOD_LIST_START_Y + $MOD_LIST_DELTA_Y * $MOD_NUM + 25 }	\
+		Element BITMAP {	\
+			terrain_num	$TERRAIN4	\
+			bmp_null_level	120	\
+			null_level	$DEFAULT_NULL	\
+			bmp_file	"resource/iscreen/bitmap/move_dn.bmp"	\
+		}	\
+		Event {	\
+			key $VK_LBUTTON	\
+			time { $PRESS_OBJ_TIME * 2 + $MOVE2SCREEN_TIME + 1 }	\
+			EvComm {	\
+				scale_obj	$MOD_OBJ_DN	-200	\
+				start_time	0	\
+				time		$PRESS_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_DN	2	\
+				start_time	0	\
+				time		$PRESS_OBJ_TIME	\
+			}		\
+			EvComm {	\
+				rise_obj	$MOD_OBJ_DN	\
+				start_time	$PRESS_OBJ_TIME	\
+				time		$PRESS_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_DN	0	\
+				start_time	$PRESS_OBJ_TIME	\
+				time		$PRESS_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				move2screen	"Workshop failed screen"	\
+				start_time	{ $PRESS_OBJ_TIME * 2 }	\
+				time	$MOVE2SCREEN_TIME	\
+			}	\
+		}	\
+		Event {	\
+			key $VK_RBUTTON 	\
+			time { $SMOOTH_OBJ_TIME * 2 + $MOVE2SCREEN_TIME + 1 }	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_DN	3	\
+				start_time	0	\
+				time		$SMOOTH_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				smooth_obj	$MOD_OBJ_DN	0	\
+				start_time	$SMOOTH_OBJ_TIME	\
+				time		$SMOOTH_OBJ_TIME	\
+			}	\
+			EvComm {	\
+				move2screen	"Workshop failed screen"	\
+				start_time { $SMOOTH_OBJ_TIME * 2 }	\
+				time	$MOVE2SCREEN_TIME	\
+			}	\
+		}	\
+	}	\
+	Object $MOD_OBJ_STR {	\
+		x $MOD_LIST_NAME_X	\
+		y { $MOD_LIST_START_Y + $MOD_LIST_DELTA_Y * $MOD_NUM }	\
+		Element STRING {	\
+			id	$MOD_ID_STR	\
+			align_x	left	\
+			terrain_num	$TERRAIN2	\
+			space	1	\
+			font	3	\
+			null_level	$DEFAULT_NULL	\
+			string	"XXXXXXXXXXXXXXXXXXXXXXXX"	\
+		}	\
+	}	\
+	Object $MOD_OBJ_TOGGLE {	\
+		x $MOD_LIST_TOGGLE_X	\
+		y { $MOD_LIST_START_Y + $MOD_LIST_DELTA_Y * $MOD_NUM }	\
+		Element STRING {	\
+			id	$MOD_ID_TOGGLE	\
+			align_x	left	\
+			terrain_num	$TERRAIN4	\
+			space	1	\
+			font	3	\
+			null_level	$DEFAULT_NULL	\
+			string	$iSTR_DISABLED	\
+		}	\
+	}
+
+// todo [Haedes] Number, Name, Toggle
+//  MOD_OBJ_NUM: id of mod number object, $TERRAIN2
+//  MOD_OBJ_UP: id of "up" button object, $TERRAIN4
+//  MOD_OBJ_DN: id of "down" button object, $TERRAIN4
+//  MOD_OBJ_STR: id of mod name object, $TERRAIN2
+//  MOD_OBJ_TOGGLE: id of mod toggle object, $TERRAIN4
+//  MOD_NUM: Index of row (not mod)
+//  MOD_ID_NUM "ModNum*": id of string element with mod number
+//  MOD_ID_STR "ModStr*": id of string element with name
+//  MOD_ID_TOGGLE "ModToggle*": id of toggle element
+
+Screen "Workshop screen" {
+	screen_offs	0
+
+	default_obj "Back Option"
+
+	Object "TitleStr"
+	{
+		align_x center
+		y	10
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN4
+
+			font		0
+			null_level	$DEFAULT_NULL
+			string		$iSTR_Workshop_Options
+		}
+	}
+
+	#define MOD_OBJ_NUM		"Row0Num"
+	#define MOD_OBJ_UP		"Row0Up"
+	#define MOD_OBJ_DN		"Row0Dn"
+	#define MOD_OBJ_STR		"Row0Str"
+	#define MOD_OBJ_TOGGLE	"Row0Toggle"
+	#define MOD_NUM			0
+	#define MOD_ID_NUM		"ModNum0"
+	#define MOD_ID_STR		"ModStr0"
+	#define MOD_ID_TOGGLE	"ModToggle0"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row1Num"
+	#define MOD_OBJ_UP		"Row1Up"
+	#define MOD_OBJ_DN		"Row1Dn"
+	#define MOD_OBJ_STR		"Row1Str"
+	#define MOD_OBJ_TOGGLE	"Row1Toggle"
+	#define MOD_NUM			1
+	#define MOD_ID_NUM		"ModNum1"
+	#define MOD_ID_STR		"ModStr1"
+	#define MOD_ID_TOGGLE	"ModToggle1"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row2Num"
+	#define MOD_OBJ_UP		"Row2Up"
+	#define MOD_OBJ_DN		"Row2Dn"
+	#define MOD_OBJ_STR		"Row2Str"
+	#define MOD_OBJ_TOGGLE	"Row2Toggle"
+	#define MOD_NUM			2
+	#define MOD_ID_NUM		"ModNum2"
+	#define MOD_ID_STR		"ModStr2"
+	#define MOD_ID_TOGGLE	"ModToggle2"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row3Num"
+	#define MOD_OBJ_UP		"Row3Up"
+	#define MOD_OBJ_DN		"Row3Dn"
+	#define MOD_OBJ_STR		"Row3Str"
+	#define MOD_OBJ_TOGGLE	"Row3Toggle"
+	#define MOD_NUM			3
+	#define MOD_ID_NUM		"ModNum3"
+	#define MOD_ID_STR		"ModStr3"
+	#define MOD_ID_TOGGLE	"ModToggle3"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row4Num"
+	#define MOD_OBJ_UP		"Row4Up"
+	#define MOD_OBJ_DN		"Row4Dn"
+	#define MOD_OBJ_STR		"Row4Str"
+	#define MOD_OBJ_TOGGLE	"Row4Toggle"
+	#define MOD_NUM			4
+	#define MOD_ID_NUM		"ModNum4"
+	#define MOD_ID_STR		"ModStr4"
+	#define MOD_ID_TOGGLE	"ModToggle4"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row5Num"
+	#define MOD_OBJ_UP		"Row5Up"
+	#define MOD_OBJ_DN		"Row5Dn"
+	#define MOD_OBJ_STR		"Row5Str"
+	#define MOD_OBJ_TOGGLE	"Row5Toggle"
+	#define MOD_NUM			5
+	#define MOD_ID_NUM		"ModNum5"
+	#define MOD_ID_STR		"ModStr5"
+	#define MOD_ID_TOGGLE	"ModToggle5"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row6Num"
+	#define MOD_OBJ_UP		"Row6Up"
+	#define MOD_OBJ_DN		"Row6Dn"
+	#define MOD_OBJ_STR		"Row6Str"
+	#define MOD_OBJ_TOGGLE	"Row6Toggle"
+	#define MOD_NUM			6
+	#define MOD_ID_NUM		"ModNum6"
+	#define MOD_ID_STR		"ModStr6"
+	#define MOD_ID_TOGGLE	"ModToggle6"
+	$MOD_ROW
+
+	#define MOD_OBJ_NUM		"Row7Num"
+	#define MOD_OBJ_UP		"Row7Up"
+	#define MOD_OBJ_DN		"Row7Dn"
+	#define MOD_OBJ_STR		"Row7Str"
+	#define MOD_OBJ_TOGGLE	"Row7Toggle"
+	#define MOD_NUM			7
+	#define MOD_ID_NUM		"ModNum7"
+	#define MOD_ID_STR		"ModStr7"
+	#define MOD_ID_TOGGLE	"ModToggle7"
+	$MOD_ROW
+
+	Object "Up Option"
+	{
+		x	$MOD_LIST_UP_X
+		y	$MOD_LIST_COMMANDS_Y
+
+		Element STRING {
+			align_x left
+
+			terrain_num	$TERRAIN4
+
+			font		$PARAM_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_UP
+		}
+		Event {
+			key $VK_LBUTTON
+
+			time { $SCALE_TIME * 2 + 1 }
+			EvComm {
+				low_obj 	"Up Option"
+				time		$SCALE_TIME
+				start_time	0
+			}
+			EvComm {
+				ext_event	$iEXT_UP_MODS_LIST	0
+				start_time	$SCALE_TIME
+			}
+			EvComm {
+				rise_obj	"Up Option"
+				time		$SCALE_TIME
+				start_time	$SCALE_TIME
+			}
+		}
+		Event {
+			key $VK_RBUTTON
+
+			time { $SCALE_TIME * 2 + $SMOOTH_TIME * 2 + 1 }
+			EvComm {
+				smooth_obj	"Up Option" 2
+				start_time	0
+				time		$SMOOTH_TIME
+			}
+			EvComm {
+				scale_obj	"Up Option"     128
+				start_time	$SMOOTH_TIME
+				time		$SCALE_TIME
+			}
+			EvComm {
+				ext_event	$iEXT_UP_MODS_LIST	0
+				start_time	{ $SCALE_TIME + $SMOOTH_TIME }
+			}
+			EvComm {
+				smooth_obj	"Up Option" 0
+				start_time	{ $SCALE_TIME * 2 + $SMOOTH_TIME }
+				time		$SMOOTH_TIME
+			}
+			EvComm {
+				rise_obj	"Up Option"
+				start_time	{ $SCALE_TIME + $SMOOTH_TIME }
+				time		$SCALE_TIME
+			}
+		}
+	}
+	Object "Down Option"
+	{
+		x	$MOD_LIST_DN_X
+		y	$MOD_LIST_COMMANDS_Y
+
+		Element STRING {
+			align_x right
+
+			terrain_num	$TERRAIN4
+
+			font		$PARAM_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_DOWN
+		}
+		Event {
+			key $VK_LBUTTON
+
+			time { $SCALE_TIME * 2 + 1 }
+			EvComm {
+				low_obj 	"Down Option"
+				time		$SCALE_TIME
+				start_time	0
+			}
+			EvComm {
+				ext_event	$iEXT_DN_MODS_LIST	0
+				start_time	$SCALE_TIME
+			}
+			EvComm {
+				rise_obj	"Down Option"
+				time		$SCALE_TIME
+				start_time	$SCALE_TIME
+			}
+		}
+		Event {
+			key $VK_RBUTTON
+
+			time { $SCALE_TIME * 2 + $SMOOTH_TIME * 2 + 1 }
+			EvComm {
+				smooth_obj	"Down Option" 2
+				start_time	0
+				time		$SMOOTH_TIME
+			}
+			EvComm {
+				scale_obj	"Down Option"   128
+				start_time	$SMOOTH_TIME
+				time		$SCALE_TIME
+			}
+			EvComm {
+				smooth_obj	"Down Option" 0
+				start_time	{ $SCALE_TIME * 2 + $SMOOTH_TIME }
+				time		$SMOOTH_TIME
+			}
+			EvComm {
+				ext_event	$iEXT_DN_MODS_LIST	0
+				start_time	{ $SCALE_TIME + $SMOOTH_TIME }
+			}
+			EvComm {
+				rise_obj	"Down Option"
+				start_time	{ $SCALE_TIME + $SMOOTH_TIME }
+				time		$SCALE_TIME
+			}
+		}
+	}
+	Object "Update Option"
+	{
+		x	$MOD_LIST_UPDATE_X
+		y	$MOD_LIST_COMMANDS_Y
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN4
+
+			font		$PARAM_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_Update_List
+		}
+		Event {
+			key $VK_LBUTTON
+
+			time { $SCALE_TIME * 2 + 23 }
+			EvComm {
+				low_obj 	"Update Option"
+				time		$SCALE_TIME
+				start_time	0
+			}
+			EvComm {
+				rise_obj	"Update Option"
+				time		$SCALE_TIME
+				start_time	$SCALE_TIME
+			}
+			EvComm {
+				move2screen	"Workshop loading screen"
+				start_time	{ $SCALE_TIME * 2 }
+				time		10
+			}
+			EvComm {
+				ext_event	$iEXT_UPDATE_MODS_LIST	0
+				start_time	{ $SCALE_TIME * 2 + 11 }
+			}
+			EvComm {
+				move2screen	"Workshop screen"
+				start_time	{ $SCALE_TIME * 2 + 12 }
+				time		10
+			}
+		}
+		Event {
+			key $VK_RBUTTON
+
+			time { $SCALE_TIME * 2 + $SMOOTH_TIME * 2 + 1 + 22 }
+			EvComm {
+				smooth_obj	"Update Option" 2
+				start_time	0
+				time		$SMOOTH_TIME
+			}
+			EvComm {
+				scale_obj      "Update Option"        128
+				start_time	$SMOOTH_TIME
+				time		$SCALE_TIME
+			}
+			EvComm {
+				smooth_obj	"Update Option" 0
+				start_time	{ $SCALE_TIME * 2 + $SMOOTH_TIME }
+				time		$SMOOTH_TIME
+			}
+			EvComm {
+				rise_obj	"Update Option"
+				start_time	{ $SCALE_TIME + $SMOOTH_TIME }
+				time		$SCALE_TIME
+			}
+			EvComm {
+				move2screen	"Workshop loading screen"
+				start_time	{ $SCALE_TIME * 2 + $SMOOTH_TIME * 2 }
+				time		10
+			}
+			EvComm {
+				ext_event	$iEXT_UPDATE_MODS_LIST	0
+				start_time	{ $SCALE_TIME * 2 + $SMOOTH_TIME * 2 + 10 }
+			}
+			EvComm {
+				move2screen	"Workshop screen"
+				start_time	{ $SCALE_TIME * 2 + $SMOOTH_TIME * 2 + 11 }
+				time		10
+			}
+		}
+	}
+
+	Object "Back Option"
+	{
+		x	$MOD_LIST_BACK_X
+		y	420
+
+		Element STRING {
+			align_x center
+
+			space		5
+			terrain_num	$TERRAIN2
+
+			font		$PARAM_FNT
+			null_level	$DEFAULT_NULL
+			string		$iSTR_BACK
+		}
+		Event {
+			key $VK_LBUTTON
+			key $VK_ESCAPE
+
+			time { $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
+			EvComm {
+				low_obj 	"Back Option"
+				time		$PRESS_OBJ_TIME
+				start_time	0
+			}
+			EvComm {
+				move2screen	"Options screen II"
+				start_time	$PRESS_OBJ_TIME
+				time		$MOVE2SCREEN_TIME
+			}
+		}
+		Event {
+			key $VK_RBUTTON
+
+			time { $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
+			EvComm {
+				smooth_obj	"Back Option" 2
+				start_time	0
+				time		$SMOOTH_OBJ_TIME
+			}
+			EvComm {
+				hide_obj	"Back Option"
+				start_time	$SMOOTH_OBJ_TIME
+				time		$HIDE_OBJ_TIME
+			}
+			EvComm {
+				move2screen	"Options screen II"
+				start_time	{ $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME }
+				time		$MOVE2SCREEN_TIME
+			}
+		}
+	}
+}
+
+Screen "Workshop loading screen"
+{
+	screen_offs	800
+
+	default_obj "LoadingStr"
+
+	Object "LoadingStr"
+	{
+		align_x center
+		y	{ $SEARCH_START_Y + $SEARCH_DELTA_Y * 0 }
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		0
+			null_level	$DEFAULT_NULL
+			string		$iSTR_Loading_Mods
+		}
+	}
+	Object "WaitStr"
+	{
+		align_x center
+		y	{ $SEARCH_START_Y + $SEARCH_DELTA_Y * 1 }
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		0
+			null_level	$DEFAULT_NULL
+			string		$iSTR_Please_wait
+		}
+	}
+}
+
+Screen "Workshop failed screen"
+{
+	screen_offs	800
+
+	default_obj "Back Option"
+
+	Object "FailedStr"
+	{
+		align_x center
+		y	{ $SEARCH_START_Y + $SEARCH_DELTA_Y * 0 }
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN4
+
+			font		0
+			null_level	$DEFAULT_NULL
+			string		$iSTR_Loading_Mods_failed
+		}
+	}
+
+	Object "Back Option"
+	{
+		align_x center
+		y	{ $SEARCH_START_Y + $SEARCH_DELTA_Y * 1 + 10 }
+
+		Element STRING {
+			align_x center
+
+			terrain_num	$TERRAIN2
+
+			font		0
+			null_level	$DEFAULT_NULL
+			string		$iSTR_OK
+		}
+		Event {
+			key $VK_LBUTTON
+			key $VK_ESCAPE
+
+			time { $PRESS_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
+			EvComm {
+				low_obj 	"Back Option"
+				time		$PRESS_OBJ_TIME
+				start_time	0
+			}
+			EvComm {
+				move2screen	"Options screen II"
+				start_time	$PRESS_OBJ_TIME
+				time		$MOVE2SCREEN_TIME
+			}
+		}
+		Event {
+			key $VK_RBUTTON
+
+			time { $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME + $MOVE2SCREEN_TIME + 1 }
+			EvComm {
+				smooth_obj	"Back Option" 2
+				start_time	0
+				time		$SMOOTH_OBJ_TIME
+			}
+			EvComm {
+				hide_obj	"Back Option"
+				start_time	$SMOOTH_OBJ_TIME
+				time		$HIDE_OBJ_TIME
+			}
+			EvComm {
+				move2screen	"Options screen II"
+				start_time	{ $SMOOTH_OBJ_TIME + $HIDE_OBJ_TIME }
+				time		$MOVE2SCREEN_TIME
+			}
+		}
+	}
+}

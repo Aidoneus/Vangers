@@ -18,6 +18,9 @@
 #define iSTR_GRAPHICS		$iSTR_GRAPHICS2
 #define iSTR_SOUND		$iSTR_SOUND2
 #define iSTR_CONTROLS		$iSTR_CONTROLS2
+#define iSTR_WORKSHOP		$iSTR_WORKSHOP2
+
+#define iSTR_Workshop_Options	$iSTR_Workshop_Options2
 
 #define iSTR_Graphics_Options	$iSTR_Graphics_Options2
 #define iSTR_DETAIL		$iSTR_DETAIL2
@@ -255,6 +258,15 @@
 #define iSTR_SOCKS5_ProxyPort		$iSTR_SOCKS5_ProxyPort2
 
 #define iSTR_GameInfo			$iSTR_GameInfo2
+
+
+#define iSTR_Loading_Mods			$iSTR_Loading_Mods2
+#define iSTR_Loading_Mods_failed	$iSTR_Loading_Mods_failed2
+#define MOD_LIST_UP_X				$MOD_LIST_UP_X2
+#define MOD_LIST_DN_X				$MOD_LIST_DN_X2
+#define MOD_LIST_UPDATE_X			$MOD_LIST_UPDATE_X2
+#define MOD_LIST_BACK_X				$MOD_LIST_BACK_X2
+
 
 #define iSTR_CreditsPathA		$iSTR_CreditsPathA2
 #define iSTR_CreditsPathB		$iSTR_CreditsPathB2

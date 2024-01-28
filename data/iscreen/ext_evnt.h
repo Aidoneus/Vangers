@@ -70,3 +70,10 @@
 #define iEXT_CHECK_END_FLAG		46
 
 #define iEXT_INIT_SOCKETS		47
+
+#define iEXT_CHOOSE_MOD		48
+#define iEXT_UP_MODS_LIST		49
+#define iEXT_DN_MODS_LIST		50
+#define iEXT_TOGGLE_MOD		51
+#define iEXT_INIT_MODS_LIST		52
+#define iEXT_UPDATE_MODS_LIST		53

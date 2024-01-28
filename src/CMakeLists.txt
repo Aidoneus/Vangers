@@ -19,6 +19,7 @@ SET(vangers_SRCS
 	actint/sscript.cpp
 	backg.cpp
 	dast/poly3d.cpp
+	workshop.cpp
 	iscreen/controls.cpp
 	iscreen/hfont.cpp
 	iscreen/i_chat.cpp

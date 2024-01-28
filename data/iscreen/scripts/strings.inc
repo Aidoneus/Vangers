@@ -64,6 +64,13 @@
 #define iSTR_CONTROLS1			"CONTROLS"
 #define iSTR_CONTROLS2			"УПРАВЛЕНИЕ"
 
+#define iSTR_WORKSHOP1			"WORKSHOP"
+#define iSTR_WORKSHOP2			"МАСТЕРСКАЯ"
+
+
+#define iSTR_Workshop_Options1		"Mod management"
+#define iSTR_Workshop_Options2		"Управление модами"
+
 
 #define iSTR_Graphics_Options1		"Graphics Options"
 #define iSTR_Graphics_Options2		"Настройка графики"
@@ -648,6 +655,26 @@
 
 #define iSTR_CurIP1			"Your IP:"
 #define iSTR_CurIP2			"Ваш IP:"
+
+
+#define iSTR_Loading_Mods1 "Looking through Workshop"
+#define iSTR_Loading_Mods2 "Осматриваем Мастерскую"
+
+#define iSTR_Loading_Mods_failed1 "Workshop is unavailable"
+#define iSTR_Loading_Mods_failed2 "Мастерская недоступна"
+
+#define MOD_LIST_UP_X1 300
+#define MOD_LIST_UP_X2 120
+
+#define MOD_LIST_DN_X1 670
+#define MOD_LIST_DN_X2 690
+
+#define MOD_LIST_UPDATE_X1 410
+#define MOD_LIST_UPDATE_X2 310
+
+#define MOD_LIST_BACK_X1 470
+#define MOD_LIST_BACK_X2 400
+
 
 #define iSTR_CreditsPathA1		"resource/iscreen/text/eng/credits1.txt"
 #define iSTR_CreditsPathA2		"resource/iscreen/text/rus/credits1.txt"

@@ -6,6 +6,7 @@
 
 #include "../network.h"
 #include "../xjoystick.h"
+#include "../workshop.h"
 
 #include "ivmap.h"
 #include "iworld.h"
@@ -163,6 +164,11 @@ void iSetMultiGameParameters(void);
 void iGetMultiGameParameters(void);
 void iLockMultiGameParameters(void);
 void iUnlockMultiGameParameters(void);
+void iInitModsList();
+void iUpdateModsList();
+void iModsListUp();
+void iModsListDown();
+void iToggleMod(void);
 ServerFindChain* iGetCurServer(void);
 
 void SetSoundVolume(int);
@@ -358,7 +364,9 @@ int iCDTrackLog = 0;
 
 int iFirstServerSearch = 0;
 int iCurServer = 0;
+int iCurMod = 0;
 ServerFindChain* iFirstServerPtr;
+ModFindChain* iFirstModPtr;
 
 XBuffer* iResBuf;
 const char* iVideoPath = "resource/video/";
@@ -2443,7 +2451,26 @@ void iHandleExtEvent(int code,int data)
 		//case iFULLSCREEN:
 		//	std::cout<<"iFULLSCREEN"<<std::endl;
 		//	break;
-
+		case iEXT_CHOOSE_MOD:
+			iCurMod = data;
+			break;
+		case iEXT_UP_MODS_LIST:
+			iModsListUp();
+			break;
+		case iEXT_DN_MODS_LIST:
+			iModsListDown();
+			break;
+		case iEXT_TOGGLE_MOD:
+			iToggleMod();
+			iInitModsList();
+			break;
+		case iEXT_INIT_MODS_LIST:
+			iFirstModPtr = available_mods.first();
+			iInitModsList();
+			break;
+		case iEXT_UPDATE_MODS_LIST:
+			iUpdateModsList();
+			break;
 	}
 }
 
@@ -2517,6 +2544,139 @@ void iPrepareSaveNames(void)
 				el1 -> init_align();
 				obj1 -> flags |= OBJ_REINIT;
 			}
+		}
+	}
+}
+
+void iInitModsList()
+{
+	// TODO [Workshop/VSS] Initialize/update the list of displayed mods in the workshop screen;
+	//  also see iPrepareSaveNames() - basically the same thing but with examples
+	//  of working with the file system, if it is needed. Probably should only use VSS functions
+	//  without any Workshop-related stuff
+
+	// TODO [Haedes] Use ACI_MOD_NUM_LEN for modifying the mod number string
+
+	// TODO [Haedes] Update the toggle's state based on p->enabled
+
+	int i, sz;
+	iScreen* scr;
+	iStringElement* el;
+	iScreenObject* obj;
+	XBuffer XBuf;
+	ModFindChain* p;
+
+	scr = (iScreen*)iScrDisp -> get_object("Workshop screen");
+	if (!scr) return;
+
+	p = iFirstModPtr;
+
+	for (i = 0; i < ACI_NUM_MODS; i++) {
+		// Mod number (order)
+		XBuf.init();
+		XBuf < "ModNum" <= i;
+		el = (iStringElement*)scr -> get_object(XBuf.address());
+		if (el) {
+			obj = (iScreenObject*)el -> owner;
+			memset(el -> string, 0, ACI_MOD_NUM_LEN + 1);
+			if (p) {
+				XBuf.init();
+				XBuf <= p -> order;
+				sz = strlen(XBuf.GetBuf());
+				if (sz > ACI_MOD_NUM_LEN) {
+					memcpy(el -> string,XBuf.GetBuf(),ACI_MOD_NUM_LEN);
+				} else {
+					strcpy(el -> string,XBuf.GetBuf());
+				}
+				obj -> flags &= ~OBJ_LOCKED;
+			} else {
+				obj -> flags |= (OBJ_LOCKED | OBJ_NOT_UNLOCK);
+			}
+			el -> init_size();
+			el -> init_align();
+			obj -> flags |= OBJ_MUST_REDRAW;
+		}
+
+		// Mod name
+		XBuf.init();
+		XBuf < "ModStr" <= i;
+		el = (iStringElement*)scr -> get_object(XBuf.address());
+		if (el) {
+			obj = (iScreenObject*)el -> owner;
+			memset(el -> string,  0,ACI_MOD_NAME_LEN + 1);
+			if (p) {
+				sz = strlen(p -> name);
+				if (sz > ACI_MOD_NAME_LEN) {
+					memcpy(el -> string,p -> name,ACI_MOD_NAME_LEN);
+				} else {
+					strcpy(el -> string,p -> name);
+				}
+				p = p -> next;
+				obj -> flags &= ~OBJ_LOCKED;
+			} else {
+				obj -> flags |= (OBJ_LOCKED | OBJ_NOT_UNLOCK);
+			}
+			el -> init_size();
+			el -> init_align();
+			obj -> flags |= OBJ_MUST_REDRAW;
+		}
+	}
+}
+
+void iUpdateModsList()
+{
+	available_mods.find_mods();
+	iFirstModPtr = available_mods.first();
+	iInitModsList();
+}
+
+void iModsListUp()
+{
+	int i;
+	ModFindChain* p = iFirstModPtr;
+	for(i = 0; i < ACI_NUM_MODS; i ++){
+		if(p) p = p -> prev;
+	}
+	if(p){
+		iFirstModPtr = p;
+		iInitModsList();
+	}
+}
+
+void iModsListDown()
+{
+	int i;
+	ModFindChain* p = iFirstModPtr;
+	for(i = 0; i < ACI_NUM_MODS; i ++){
+		if(p) p = p -> next;
+	}
+	if(p){
+		iFirstModPtr = p;
+		iInitModsList();
+	}
+}
+
+void iToggleMod(void)
+{
+	int i;
+	ModFindChain* p = iFirstModPtr;
+	for (i = 0; i < iCurMod; i++){
+		p = p -> next;
+	}
+	if (!p) {
+		iEvLineID = 1;
+	} else {
+		// TODO [Workshop/VSS] Not sure when or how this needs to be changed;
+		//  but "enabled" is used for updating the UI, so it needs to be updated
+		p->enabled = !p->enabled;
+
+		// TODO [Workshop/VSS] Logic for switching mods on/off;
+		//  "true" = condition for successful mod status change
+		//  Probably should only use VSS functions without Workshop's
+		if (true) {
+			iEvLineID = 2;
+		} else {
+			iEvLineID = 1;
 		}
 	}
 }

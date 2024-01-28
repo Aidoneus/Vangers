@@ -2,6 +2,16 @@
 #define ACI_NUM_SERVERS 	5
 #define ACI_SERVER_NAME_LEN	36
 
+#define ACI_NUM_MODS 	8
+// [Workshop/VSS] "3" means that UI will be able to show installed mod names with length up to 24.
+// If decrease/increase will be needed, you'll have to modify the value here and add or remove
+// "X"'es in the $MOD_ID_STR define in data/iscreen/scripts/mainmenu.scr
+#define ACI_MOD_NAME_LEN	24
+// [Workshop/VSS] "3" means that UI will be able to show installed mod numbers up to 999.
+// If decrease/increase will be needed, you'll have to modify the value here and add or remove
+// "X"'es in the $MOD_ID_NUM define in data/iscreen/scripts/mainmenu.scr
+#define ACI_MOD_NUM_LEN	3
+
 #define ACI_LOAD_CODE		1000
 #define ACI_GLOBAL_EXIT_CODE	1001
 
