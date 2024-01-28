@@ -149,6 +149,7 @@ void iChatMouseQuant(int x,int y,int bt);
 
 void iSoundQuant(int value = 0);
 
+void iUpdateVersionText();
 void iPrepareSaveNames(void);
 void iInitServersList();
 void iUpdateServersList();
@@ -606,6 +607,7 @@ void iQuantFirst(void)
     }
 
 	iScreen* p;
+	iHandleExtEvent(iEXT_UPDATE_VERSION_TEXT);
 	if(actIntLog){
 		p = (iScreen*)iScrDisp -> get_object(aci_iScreenID);
 		if(!p) ErrH.Abort("Bad aci_iScreenID...");
@@ -2443,7 +2445,64 @@ void iHandleExtEvent(int code,int data)
 		//case iFULLSCREEN:
 		//	std::cout<<"iFULLSCREEN"<<std::endl;
 		//	break;
+		case iEXT_UPDATE_VERSION_TEXT:
+			iUpdateVersionText();
+			break;
+	}
+}
 
+void iUpdateVersionText()
+{
+	int sz;
+	char* str;
+	iScreen* scr;
+	iStringElement* el;
+	iScreenObject* obj;
+	XBuffer XBuf;
+
+	scr = (iScreen*)iScrDisp->get_object("Main Screen");
+	if (!scr) return;
+
+	XBuf.init();
+	XBuf < "Version Branch String";
+	el = (iStringElement*)scr->get_object(XBuf.address());
+	if (el) {
+		obj = (iScreenObject*)el->owner;
+		memset(el->string, 0, 21);
+		XBuf.init();
+		XBuf < GIT_BRANCH < GITHUB_BRANCH;
+		str = XBuf.GetBuf();
+		sz = strlen(str);
+		if (sz > 20) {
+			memcpy(el->string, str, 20);
+		} else {
+			strcpy(el->string, str);
+		}
+		obj->flags &= ~OBJ_LOCKED;
+		el->init_size();
+		el->init_align();
+		obj->flags |= OBJ_MUST_REDRAW;
+	}
+
+	XBuf.init();
+	XBuf < "Version Hash String";
+	el = (iStringElement*)scr->get_object(XBuf.address());
+	if (el) {
+		obj = (iScreenObject*)el->owner;
+		memset(el->string, 0, 8);
+		XBuf.init();
+		XBuf < GIT_COMMIT_HASH < GITHUB_COMMIT_HASH;
+		str = XBuf.GetBuf();
+		sz = strlen(str);
+		if (sz > 7) {
+			memcpy(el->string, str, 7);
+		} else {
+			strcpy(el->string, str);
+		}
+		obj->flags &= ~OBJ_LOCKED;
+		el->init_size();
+		el->init_align();
+		obj->flags |= OBJ_MUST_REDRAW;
 	}
 }
 

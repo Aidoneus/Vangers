@@ -398,7 +398,7 @@ Screen "Main Screen"
 		} 
 	}
 
-Object "Multiplayer Option"
+	Object "Multiplayer Option"
 	{
 		x	$MULTIPLAYER_X
 		y	$MULTIPLAYER_Y
@@ -919,6 +919,7 @@ Object "Multiplayer Option"
 			$EV_CHANGE_OBJ
 		}
 	}
+
 	Object "Exit Option"
 	{
 		x	$EXIT_X
@@ -1035,7 +1036,39 @@ Object "Multiplayer Option"
 			$EV_CHANGE_OBJ
 		}
 	}
-}
+
+	Object "Version Branch Object"
+	{
+		align_x left
+		align_x_offs 15
+		y 550
+
+		Element STRING
+		{
+			id			"Version Branch String"
+			terrain_num 5
+			font		4
+			null_level	$DEFAULT_NULL
+			string		"XXXXXXXXXXXXXXXXXXXX"
+		}
+	}
+
+	Object "Version Hash Object"
+	{
+		align_x right
+		align_x_offs 5
+		y 550
+
+		Element STRING
+		{
+			id			"Version Hash String"
+			terrain_num 5
+			font		4
+			null_level	$DEFAULT_NULL
+			string		"XXXXXXX"
+		}
+	}
+};
 
 
 Screen "Options screen II"
