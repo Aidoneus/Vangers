@@ -149,7 +149,7 @@ struct TargetParticleType
 	int Color;
 	Vector vR,vT,vD;
 	int s;
-	short pDist, LifeTime;
+	int pDist, LifeTime;
 	void aQuant(void);
 	void aQuant2(void);
 

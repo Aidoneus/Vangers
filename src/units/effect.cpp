@@ -1455,6 +1455,10 @@ void TargetParticleObject::AddVertex(const Vector& _vR,int _Color,int _Speed1,in
 void TargetParticleType::aQuant2(void)
 {
 	int tx,ty;
+	
+	if (pDist <= 0 && !type) {
+		return;
+	}
 
 	tx = SPGetDistX(vT.x,vR.x);
 	ty = vT.y - vR.y;
@@ -1467,7 +1471,7 @@ void TargetParticleType::aQuant2(void)
 //	vR.y &= PTrack_mask_y;
 	pDist--;
 
-	if (!pDist && type){
+	if (pDist <= 0 && type){
 		pDist = LifeTime;
 
 		vT = vD;
@@ -1502,7 +1506,7 @@ void TargetParticleObject::AddVertex2(const Vector& _vR,const Vector& _vT, int _
 
 		p->Color = _Color;
 		p->type = _type;
-		p->LifeTime = LifeTime;
+		p->LifeTime = LifeTime * GAME_TIME_COEFF;
 
 		if (_type){
 			p->vT.x = vCheck.x << 8;
@@ -1534,7 +1538,7 @@ void TargetParticleObject::AddVertex2(const Vector& _vR,const Vector& _vT, int _
 			p->vT.y = vCheck.y << 8;
 			p->vT.z = vCheck.z << 8;
 		}
-		p->pDist = LifeTime;
+		p->pDist = LifeTime * GAME_TIME_COEFF;
 		if ( _type ) {
 			p->pDist >>= 1;
 			p->LifeTime >>= 1;
