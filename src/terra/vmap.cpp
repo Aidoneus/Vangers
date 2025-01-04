@@ -1742,80 +1742,82 @@ void LoadVPR(int ind)
 	//ZMOD 1.18 DYNAMIC FLOOD LEVEL
 	//ZMOD 1.21 fix
 	zMod_flood_level_delta = 0;
-	if (NetworkON) {
-		// network cycled life of univang.
-		// 1172609523 eq 2007-02-27 23:52 - starting point.
-		double t = ((double)zGameBirthTime-1172609523.) / (60.*60.*24.);
+	// TODO(Haedes): Possibly introduce a common multiplayer session parameter for switching on/off the weather;
+	//  don't also forget to introduce corresponding changes into server code & rust-based server code too
+	// if (NetworkON) {
+	// 	// network cycled life of univang.
+	// 	// 1172609523 eq 2007-02-27 23:52 - starting point.
+	// 	double t = ((double)zGameBirthTime-1172609523.) / (60.*60.*24.);
 
-		double period = 0.;
-		double high_period = sin(M_PI/4);
-		double low_period = -high_period;
+	// 	double period = 0.;
+	// 	double high_period = sin(M_PI/4);
+	// 	double low_period = -high_period;
 
-		int dynamic_level = 0;
-		double phase = 0.;
-		double high_level = 0.3;
-		double low_level = 0.3;
-		double new_level = FloodLvl[0];
+	// 	int dynamic_level = 0;
+	// 	double phase = 0.;
+	// 	double high_level = 0.3;
+	// 	double low_level = 0.3;
+	// 	double new_level = FloodLvl[0];
 
-		switch(CurrentWorld){
-			case WORLD_FOSTRAL:
-				period = 4.;
-				dynamic_level = 1;
-				high_level = 0.8;
-				low_level = 0.6;
-				break;
-			case WORLD_GLORX:
-				period = 3.;
-				dynamic_level = 1;
-				high_level = 0.6;
-				low_level = 0.6;
-				break;
-			case WORLD_NECROSS:
-				period = 5.;
-				dynamic_level = 1;
-				high_level = 0.8;
-				low_level = 0.6;
-				break;
-			case WORLD_XPLO:
-				period = 6.;
-				break;
-			case WORLD_BOOZEENA:
-				period = 8.;
-				break;
-			case WORLD_WEEXOW:
-				period = 7.;
-				dynamic_level = 1;
-				break;
-			case WORLD_THREALL:
-				period = 10.;
-				dynamic_level = 1;
-				high_level = 0.6;
-				low_level = 0.6;
-				break;
-			case WORLD_ARKONOY:
-				period = 6.;
-				phase = M_PI;
-				break;
-			default:
-				period = 10.;
-		};
+	// 	switch(CurrentWorld){
+	// 		case WORLD_FOSTRAL:
+	// 			period = 4.;
+	// 			dynamic_level = 1;
+	// 			high_level = 0.8;
+	// 			low_level = 0.6;
+	// 			break;
+	// 		case WORLD_GLORX:
+	// 			period = 3.;
+	// 			dynamic_level = 1;
+	// 			high_level = 0.6;
+	// 			low_level = 0.6;
+	// 			break;
+	// 		case WORLD_NECROSS:
+	// 			period = 5.;
+	// 			dynamic_level = 1;
+	// 			high_level = 0.8;
+	// 			low_level = 0.6;
+	// 			break;
+	// 		case WORLD_XPLO:
+	// 			period = 6.;
+	// 			break;
+	// 		case WORLD_BOOZEENA:
+	// 			period = 8.;
+	// 			break;
+	// 		case WORLD_WEEXOW:
+	// 			period = 7.;
+	// 			dynamic_level = 1;
+	// 			break;
+	// 		case WORLD_THREALL:
+	// 			period = 10.;
+	// 			dynamic_level = 1;
+	// 			high_level = 0.6;
+	// 			low_level = 0.6;
+	// 			break;
+	// 		case WORLD_ARKONOY:
+	// 			period = 6.;
+	// 			phase = M_PI;
+	// 			break;
+	// 		default:
+	// 			period = 10.;
+	// 	};
 
-		zMod_cycle = sin(t*2.*M_PI / period + phase);
+	// 	zMod_cycle = sin(t*2.*M_PI / period + phase);
 		
-		if (dynamic_level) {
-			if (zMod_cycle > high_period) {
-				zMod_flood_level_delta = SIGN(zMod_cycle)*(1+cos(t*2.*M_PI)) / 2;
-				new_level = FloodLvl[0] * (1 + zMod_flood_level_delta*high_level);
-				if (new_level>255) new_level=255.;
-				FloodLvl[0] = (int)round(new_level);
-			} else if (zMod_cycle < low_period) {
-				zMod_flood_level_delta = SIGN(zMod_cycle)*(1+cos(t*2.*M_PI)) / 2;
-				new_level = FloodLvl[0] * (1 + zMod_flood_level_delta*low_level);
-				if (new_level<0) new_level=0.;
-				FloodLvl[0] = (int)round(new_level);
-			}
-		}
-	}
+	// 	if (dynamic_level) {
+	// 		if (zMod_cycle > high_period) {
+	// 			zMod_flood_level_delta = SIGN(zMod_cycle)*(1+cos(t*2.*M_PI)) / 2;
+	// 			new_level = FloodLvl[0] * (1 + zMod_flood_level_delta*high_level);
+	// 			if (new_level>255) new_level=255.;
+	// 			FloodLvl[0] = (int)round(new_level);
+	// 		} else if (zMod_cycle < low_period) {
+	// 			zMod_flood_level_delta = SIGN(zMod_cycle)*(1+cos(t*2.*M_PI)) / 2;
+	// 			new_level = FloodLvl[0] * (1 + zMod_flood_level_delta*low_level);
+	// 			if (new_level<0) new_level=0.;
+	// 			FloodLvl[0] = (int)round(new_level);
+	// 		}
+	// 	}
+	// }
 
 	ff.close();
 }
