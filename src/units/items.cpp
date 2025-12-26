@@ -1803,6 +1803,9 @@ StuffObject* addDevice(int x,int y,int z,int device_type,int param1,int param2,V
 	};
 
 	if(p){
+		if(device_type == UVS_ITEM_TYPE::CRUSTEST_CANNON_AMMO){  
+			param2 = 5; // Override ammo count  
+		}  
 		p->ActIntBuffer.data0 = param1;
 		p->ActIntBuffer.data1 = param2;
 
@@ -2049,7 +2052,7 @@ void SkyFarmerObject::Init(void)
 	Status = SOBJ_DISCONNECT;
 };
 
-const int MAX_DROP_SEED = 1;
+const int MAX_DROP_SEED = 10;
 const int MAX_DROP_POINT = MAX_DROP_SEED*10;
 
 void SkyFarmerObject::CreateSkyFarmer(int x_pos,int y_pos,int x_speed,int y_speed,int corn_type,int corn,int time)
