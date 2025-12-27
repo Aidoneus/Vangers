@@ -397,7 +397,7 @@ void LocalMapProcess::Quant(void)
 				DestroySmooth(p->R_curr.x,p->R_curr.y,35,20,0,-63,83,4,4);
 				break;
 			case MAP_POINT_CRATER10:
-				DestroySmooth(p->R_curr.x,p->R_curr.y,35,20,0,-512,83,4,2);
+				DestroySmooth(p->R_curr.x,p->R_curr.y,35,20,0,-512,83,4,4);
 				break;
 			case MAP_POINT_CRATER11:
 //				for(i = 0;i < TERRAIN_MAX;i++) SmoothTerrainMask[i] = 1;

@@ -30,7 +30,7 @@ const int MAP_POINT_DUST09 = 8;*/
 const int MAP_DUST_PROCESS = 0;
 const int MAP_SMOKE_PROCESS = 1;
 
-const int MAX_DESTROY_RADIUS = 64;
+const int MAX_DESTROY_RADIUS = 640;
 
 const int MAP_LAVA_SPOT = 0;
 const int MAP_LIGHT_POINT = 1;

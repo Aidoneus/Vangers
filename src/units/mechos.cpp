@@ -2959,12 +2959,42 @@ int InsectUnit::test_objects_collision()
 	int log = 0;	
 	BaseObject* p;
 
+	int d,l,i;
+
+	p = (BaseObject*)(BulletD.Tail);
+	while(p){
+		if(p->Visibility == VISIBLE){
+//			if(p->ID != ID_BULLET)
+//				ErrH.Abort("Big BUG with memory");
+			if(((BulletObject*)(p))->ShowID == BULLET_SHOW_TYPE_ID::CRATER){
+				i = radius + p->radius;
+				l = getDistY(p->R_curr.y,R_curr.y);
+				if(l < i){
+					d = getDistX(p->R_curr.x,R_curr.x);
+					if(d < i && R_curr.z <= p->R_curr.z + i && (d*d + l*l) < i*i){
+						Touch(p);
+						p->Touch(this);
+					};
+				};
+			}else log += test_object_to_baseobject(p);
+		};
+		p = (BaseObject*)(p->NextTypeList);
+	};
+
 	p = (BaseObject*)(ActD.Tail);
 	while(p && p != this){
 		if(p->Visibility == VISIBLE)
 			log += test_object_to_baseobject(p);
 		p = (BaseObject*)(p->NextTypeList);
 	};
+
+	p = (BaseObject*)(JumpD.Tail);
+	while(p){
+		if(p->Visibility == VISIBLE)
+			log += test_object_to_baseobject(p);
+		p = (BaseObject*)(p->NextTypeList);
+	};
+
 	return 0;
 };
 
@@ -10659,8 +10689,12 @@ void GunSlot::Quant(void)
 							g->CreateBullet(this,pData);
 						};
 					}else{
-						g = JumpD.CreateBall();
-						g->CreateBullet(this,pData);					
+						for(i = 0;i < pData->TapeSize;i++){
+							g = JumpD.CreateBall();
+							g->CreateBullet(this,pData);
+						};
+						//g = JumpD.CreateBall();
+						//g->CreateBullet(this,pData);					
 					};					
 					break;
 				case GUN_WAIT:
