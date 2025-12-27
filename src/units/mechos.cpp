@@ -10689,8 +10689,12 @@ void GunSlot::Quant(void)
 							g->CreateBullet(this,pData);
 						};
 					}else{
-						g = JumpD.CreateBall();
-						g->CreateBullet(this,pData);					
+						for(i = 0;i < pData->TapeSize;i++){
+							g = JumpD.CreateBall();
+							g->CreateBullet(this,pData);
+						};
+						//g = JumpD.CreateBall();
+						//g->CreateBullet(this,pData);					
 					};					
 					break;
 				case GUN_WAIT:
